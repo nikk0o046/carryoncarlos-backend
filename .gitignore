@@ -221,3 +221,9 @@ package-lock.json
 
 # Optional yarn.lock file created by yarn
 yarn.lock
+
+#ignore secret keys
+backend/secret_keys.py
+
+#ignore special venv name
+venv-flights/

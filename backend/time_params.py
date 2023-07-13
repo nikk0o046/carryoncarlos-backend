@@ -13,6 +13,16 @@ def create_time_params(user_request):
 
     #create the prompt templates
     system_template = """/
+    ANSWER INSTRUCTIONS:
+    The output should be a markdown code snippet formatted in the following schema, including the leading and trailing "\`\`\`json" and "\`\`\`":
+
+    ```json
+    {{
+        "key1": value1  // Define relevant values  
+        "key2": value2 
+    }}
+    ``` 
+
     API DOCUMENTATION:
     date_from *
     departure date (dd/mm/yyyy). Use parameters date_from and date_to to define the range for the outbound flight departure.
@@ -72,6 +82,7 @@ def create_time_params(user_request):
     User request: I want a weekend getaway in Paris in September. I get off work on Friday around 3pm.
     Thought: Flight dates to/from should be set to September. Because it is a weekend getaway, the user probably wants a departure on Friday and want to stay for two nights. Also, because they get off work at 3pm, they probably can’t make it to a flight departing before 5pm. Since the user will be spending just the weekend, they don’t want a flight that departures very late on Friday or very early on Sunday. Also, as they probably have work on Monday, having a departure very late on Sunday would likely be annoying.
     Flight time query:
+    ```json
     {{
         'date_from': '01/09/2023',
         'date_to': '30/09/2023',
@@ -86,20 +97,24 @@ def create_time_params(user_request):
         'ret_dtime_from': '12:00',
         'ret_dtime_to': '18:00',
     }}
+    ```
     User request: I’m on vacation from 14th of March to 18th of April. I want to go abroad for about a week.
     Thought: The “date_from” variable should be set from 14th of March to 10th of April, so that the whole trip can be done within the timeframe. The user wants the trip to last about a week, so nights in destination should be from 6 to 8 days. As the user is on vacation, it probably doesn’t matter on which days of the week they are flying or at what time.
     Flight time query:
+    ```json
     {{
         'date_from': '14/03/2023',
         'date_to': '10/04/2023',
         'nights_in_dst_from': 6,
         'nights_in_dst_to': 8,
     }}
+    ```
     User request: I want to go for a long weekend trip in October. I can get either Friday or Monday off from work.
     Thought: A long weekend trip usually consists of three days. Given the user can take either Friday or Monday off, the possible travel days would be Thursday, Friday, Saturday, Sunday or Monday. Since the departure date is in October, the "date_from" and "date_to" parameters should cover the whole month. The "nights_in_dst_from" and "nights_in_dst_to" parameters should both be set to 3 to match the desired length of stay. The user didn't provide specific information about their work schedule or preferred flight times, we don't have clear constraints for the departure and arrival times. However, we can make reasonable assumptions that would generally suit most working professionals.
     Assuming that the user works a typical 9-5 job, they might prefer to leave in the evening on their departure day to avoid taking additional time off work. We could set the "dtime_from" to be after their work, say 18:00 (6PM), and leave "dtime_to" open to accommodate late flights.
     For the return, the user needs to be back for work on Tuesday, so a late return on Monday may be inconvenient. We might set the "ret_dtime_to" as 20:00 (8PM) to ensure they're not getting back too late.
     Flight time query:
+    ```json
     {{
         'date_from': '01/10/2023',
         'date_to': '31/10/2023',
@@ -109,7 +124,8 @@ def create_time_params(user_request):
         'dtime_from': '18:00',
         'ret_fly_days': [0, 1],
         'ret_dtime_to': '20:00',
-    }}"""
+    }}
+    ```"""
     system_message_prompt = SystemMessagePromptTemplate.from_template(system_template)
     human_template = """User request: {user_request}
     Thought: """
@@ -126,10 +142,14 @@ def create_time_params(user_request):
     )
     print(f'time_response_content: {openai_response.content}/n')
 
-    # Extract the dictionary substring and convert it to an actual dictionary
-    import ast
-    time_params = ast.literal_eval(openai_response.content[openai_response.content.find('{'):])
+    # Extract the json string using regular expressions
+    import re
+    import json
+    json_str = re.search(r'\{.*\}', openai_response.content, re.DOTALL).group()
+
+    # Convert the json string to a Python dictionary
+    time_params = json.loads(json_str)
+
     return time_params
 
-
-#print(create_time_params("I want to go to London in September 2023 during the weekend."))
+print(create_time_params("I want to go to London in September 2023 during the weekend."))

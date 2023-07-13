@@ -4,7 +4,7 @@ from destination_params import create_destination_params
 from time_params import create_time_params
 from other_params import create_other_params
 
-user_request = """I want to go to Asia to see some elephants. I want to stay for two weeks in March 2024."""
+user_request = """I want to go to Prague for about a week in Fall 2023."""
 try:
     print("\nCreating destination parameters...")
     destination_query = create_destination_params(user_request)

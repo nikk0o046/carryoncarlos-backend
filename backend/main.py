@@ -1,16 +1,40 @@
 from make_API_request import make_API_request
 from kiwi_output_parser import extract_info
-from parameter_functions.destination_params import create_destination_params
-from parameter_functions.time_params import create_time_params
-from parameter_functions.other_params import create_other_params
+from destination_params import create_destination_params
+from time_params import create_time_params
+from other_params import create_other_params
 
-user_request = """I want to travel somewhere warm in Europe in October 2023 for a weekend after I get from work at 4pm.
-"""
-destination_query = create_destination_params()
-time_query = create_time_params()
-other_constraints = create_other_params()
+user_request = """I want to go to Asia to see some elephants. I want to stay for two weeks in March 2024."""
+try:
+    print("\nCreating destination parameters...")
+    destination_query = create_destination_params(user_request)
+    print("Destination parameters created: ", destination_query)
 
-response_data = make_API_request(destination_query, time_query, other_constraints)
-flights_info = extract_info(response_data)
-for info in flights_info:
-    print(info)
+    print("\nCreating time parameters...")
+    time_query = create_time_params(user_request)
+    print("Time parameters created: ", time_query)
+
+    print("\nCreating other parameters...")
+    other_constraints = create_other_params()
+    print("Other parameters created: ", other_constraints)
+
+    print("\nMaking API request...")
+    response_data = make_API_request(destination_query, time_query, other_constraints)
+    print("API request completed.")
+    if 'error' in response_data:
+        print('Error in response_data: ', response_data['error'])
+    else:
+        print("Keys in response data: ", response_data.keys())
+
+    print("\nExtracting information from response data...")
+    flights_info = extract_info(response_data)
+    print("Information extraction completed.")
+
+    print("\nPrinting flights information...")
+    for info in flights_info:
+        print(info)
+
+except KeyError as e:
+    print(f"\nAn error occurred: {e}. The key doesn't exist in the dictionary.")
+except Exception as e:
+    print(f"\nAn unexpected error occurred: {e}")

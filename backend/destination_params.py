@@ -58,4 +58,3 @@ def create_destination_params(user_request):
     }
     return destination_params
 
-#print(create_destination_params("I want to go to London in September 2023 during the weekend."))

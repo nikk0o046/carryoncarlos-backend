@@ -152,4 +152,3 @@ def create_time_params(user_request):
 
     return time_params
 
-print(create_time_params("I want to go to London in September 2023 during the weekend."))

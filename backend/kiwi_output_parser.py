@@ -13,17 +13,27 @@ def extract_info(api_response):
     try:  # Try to extract the information from the response
         for index, flight in enumerate(api_response['data']):
             if flight['cityTo'] not in seen_cities:
-                flight_info = (
-                    f"Flight {index + 1}:\n"
-                    f"From: {flight['cityFrom']}\n"
-                    f"To: {flight['cityTo']}\n"
-                    f"Flight Duration: {flight['duration']['total'] // 3600} hours {flight['duration']['total'] % 3600 // 60} minutes\n"
-                    f"Price: {flight['price']} {api_response['currency']}\n"
-                    f"Booking Link: {flight['deep_link']}\n"
-                    "-----------------------------------\n"
-                )
+                average_duration = flight['duration']['total'] / 2  # Since we have both the outbound and return flights
+                stop_overs = len(flight['route']) - 2  # Subtracting 2 because there's one flight out and one flight back
+
+                flight_info = {
+                    "flight_number": index + 1,
+                    "from": flight['cityFrom'],
+                    "to": flight['cityTo'],
+                    "average_duration": {
+                        "hours": average_duration // 3600,
+                        "minutes": (average_duration // 60) % 60
+                    },
+                    "stop_overs": stop_overs,
+                    "price": {
+                        "value": flight['price'],
+                        "currency": api_response['currency']
+                    },
+                    "booking_link": flight['deep_link']
+                }
                 output.append(flight_info)
                 seen_cities.add(flight['cityTo'])
+                
     except KeyError as e:  # This will catch any missing keys in the response
         logger.exception("Failed to extract info from API response: %s", e)
         return []

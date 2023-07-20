@@ -1,3 +1,8 @@
+import os
+import logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger()
+
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
@@ -12,40 +17,30 @@ CORS(app)
 
 @app.route('/search_flights', methods=['POST'])
 def search_flights():
-    user_request = request.json['user_request']
     try:
-        print("\nCreating destination parameters...")
+        user_request = request.json['user_request']
         destination_query = create_destination_params(user_request)
-        print("Destination parameters created: ", destination_query)
-
-        print("\nCreating time parameters...")
         time_query = create_time_params(user_request)
-        print("Time parameters created: ", time_query)
-
-        print("\nCreating other parameters...")
         other_constraints = create_other_params()
-        print("Other parameters created: ", other_constraints)
 
-        print("\nMaking API request...")
         response_data = make_API_request(destination_query, time_query, other_constraints)
-        print("API request completed.")
-        if 'error' in response_data:
-            print('Error in response_data: ', response_data['error'])
-        else:
-            print("Keys in response data: ", response_data.keys())
+        if response_data is None:  # If API request failed
+            return jsonify({"error": "API request failed. Please try again later."}), 500
 
-        print("\nExtracting information from response data...")
         flights_info = extract_info(response_data)
-        print("Information extraction completed.")
-
-        print("\nPrinting flights information...")
-        for info in flights_info:
-            print(info)
+        if not flights_info:  # If no flights were found
+            return jsonify({"error": "No flights found matching your request."}), 404
+        return jsonify(flights_info), 200  # If everything went fine
 
     except KeyError as e:
-        print(f"\nAn error occurred: {e}. The key doesn't exist in the dictionary.")
+        logger.exception("An error occurred: %s. The key doesn't exist in the dictionary.", e)
+        return jsonify({"error": f"An error occurred: {e}. The key doesn't exist in the dictionary."}), 400
     except Exception as e:
-        print(f"\nAn unexpected error occurred: {e}")
+        logger.exception("An unexpected error occurred: %s", e)
+        return jsonify({"error": f"An unexpected error occurred: {e}"}), 500
+    
 
+# Run the app
 if __name__ == '__main__':
-    app.run(port=5000)
+    port = int(os.environ.get('PORT', 8080))
+    app.run(host='0.0.0.0', port=port)

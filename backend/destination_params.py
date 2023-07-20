@@ -1,12 +1,18 @@
-def create_destination_params(user_request):
+import os
+import logging
+logger = logging.getLogger(__name__)
 
-    from langchain.chat_models import ChatOpenAI
-    from langchain.prompts.chat import (
-        ChatPromptTemplate,
-        SystemMessagePromptTemplate,
-        HumanMessagePromptTemplate,
-    )
-    from secret_keys import OPENAI_API_KEY
+from langchain.chat_models import ChatOpenAI
+from langchain.prompts.chat import (
+    ChatPromptTemplate,
+    SystemMessagePromptTemplate,
+    HumanMessagePromptTemplate,
+)
+# retrieve the OPENAI_API_KEY from environment variable
+OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
+
+def create_destination_params(user_request):
+    logger.info("\nCreating destination parameters...")
 
     #initialize the openai model
     chat = ChatOpenAI(temperature=0, openai_api_key = OPENAI_API_KEY)
@@ -56,6 +62,8 @@ def create_destination_params(user_request):
     destination_params = {
         'fly_to' : destination_string,
     }
+
+    logger.info("Destination parameters created: %s", destination_params)
     return destination_params
 
-#print(create_destination_params("I want to go to London in September 2023 during the weekend."))
+#logger.info(create_destination_params("I want to go to London in September 2023 during the weekend."))

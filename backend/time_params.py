@@ -1,12 +1,18 @@
-def create_time_params(user_request):
+import os
+import logging
+logger = logging.getLogger(__name__)
 
-    from langchain.chat_models import ChatOpenAI
-    from langchain.prompts.chat import (
-        ChatPromptTemplate,
-        SystemMessagePromptTemplate,
-        HumanMessagePromptTemplate,
-    )
-    from secret_keys import OPENAI_API_KEY
+from langchain.chat_models import ChatOpenAI
+from langchain.prompts.chat import (
+    ChatPromptTemplate,
+    SystemMessagePromptTemplate,
+    HumanMessagePromptTemplate,
+)
+# retrieve the OPENAI_API_KEY from environment variable
+OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
+
+def create_time_params(user_request):
+    logger.info("\nCreating time parameters...")
 
     #initialize the openai model
     chat = ChatOpenAI(temperature=0, openai_api_key = OPENAI_API_KEY)
@@ -140,7 +146,7 @@ def create_time_params(user_request):
             user_request=user_request
         ).to_messages()
     )
-    print(f'time_response_content: {openai_response.content}/n')
+    logger.info(f'time_response_content: {openai_response.content}/n')
 
     # Extract the json string using regular expressions
     import re
@@ -149,7 +155,8 @@ def create_time_params(user_request):
 
     # Convert the json string to a Python dictionary
     time_params = json.loads(json_str)
+    logger.info("Time parameters created: ", time_params)
 
     return time_params
 
-print(create_time_params("I want to go to London in September 2023 during the weekend."))
+#logger.info(create_time_params("I want to go to London in September 2023 during the weekend."))

@@ -1,7 +1,12 @@
+import os
 import requests
-from secret_keys import KIWI_API_KEY
+import logging
+logger = logging.getLogger(__name__)
+
+KIWI_API_KEY = os.environ.get('KIWI_API_KEY')
 
 def make_API_request(params1, params2, params3):
+    logger.info("Making API request...")
 
     url = "https://api.tequila.kiwi.com/v2/search"
 
@@ -14,10 +19,25 @@ def make_API_request(params1, params2, params3):
         'apikey': KIWI_API_KEY,
     }
 
-    # Make the API call
-    response = requests.request("GET", url, headers=headers, params=payload)
+    try:  # Try to make the API request
+        response = requests.request("GET", url, headers=headers, params=payload)
+        response.raise_for_status()  # Raises a HTTPError if the status is 4xx, 5xx
+    except requests.exceptions.RequestException as e:
+        logger.exception("Request failed: %s", e)
+        return None
 
-    # This will give the JSON response
-    data = response.json()
+    try:  # Try to parse the response as JSON
+        data = response.json()
+    except ValueError as e:
+        logger.exception("Failed to parse response as JSON: %s", e)
+        return None
+
+    logger.info("API request completed.")
+    
+    if 'error' in data:
+        logger.error('Error in response data: %s', data['error'])
+        return None
+    else:
+        logger.info("Keys in response data: %s", data.keys())
 
     return data

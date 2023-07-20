@@ -15,7 +15,7 @@ load_dotenv()  # take environment variables from .env.
 OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
 
 def create_destination_params(user_request):
-    logger.info("\nCreating destination parameters...")
+    logger.info("Creating destination parameters...")
 
     #initialize the openai model
     chat = ChatOpenAI(temperature=0, openai_api_key = OPENAI_API_KEY)

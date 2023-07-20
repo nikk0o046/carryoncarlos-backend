@@ -15,7 +15,7 @@ load_dotenv()  # take environment variables from .env.
 OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
 
 def create_time_params(user_request):
-    logger.info("\nCreating time parameters...")
+    logger.info("Creating time parameters...")
 
     #initialize the openai model
     chat = ChatOpenAI(temperature=0, openai_api_key = OPENAI_API_KEY)
@@ -149,7 +149,7 @@ def create_time_params(user_request):
             user_request=user_request
         ).to_messages()
     )
-    logger.info(f'time_response_content: {openai_response.content}/n')
+    logger.info(str(openai_response.content))
 
     # Extract the json string using regular expressions
     import re

@@ -158,5 +158,3 @@ def create_time_params(user_request):
     logger.info("Time parameters created: ", time_params)
 
     return time_params
-
-#logger.info(create_time_params("I want to go to London in September 2023 during the weekend."))

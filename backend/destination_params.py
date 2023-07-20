@@ -66,4 +66,3 @@ def create_destination_params(user_request):
     logger.info("Destination parameters created: %s", destination_params)
     return destination_params
 
-#logger.info(create_destination_params("I want to go to London in September 2023 during the weekend."))

@@ -19,6 +19,7 @@ CORS(app)
 def search_flights():
     try:
         user_request = request.json['user_request']
+        logger.info("user_request: %s", user_request)
         destination_query = create_destination_params(user_request)
         time_query = create_time_params(user_request)
         other_constraints = create_other_params()

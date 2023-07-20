@@ -8,6 +8,9 @@ from langchain.prompts.chat import (
     SystemMessagePromptTemplate,
     HumanMessagePromptTemplate,
 )
+
+from dotenv import load_dotenv
+load_dotenv()  # take environment variables from .env.
 # retrieve the OPENAI_API_KEY from environment variable
 OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
 

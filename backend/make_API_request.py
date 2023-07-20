@@ -3,6 +3,8 @@ import requests
 import logging
 logger = logging.getLogger(__name__)
 
+from dotenv import load_dotenv
+load_dotenv()  # take environment variables from .env.
 KIWI_API_KEY = os.environ.get('KIWI_API_KEY')
 
 def make_API_request(params1, params2, params3):

@@ -158,6 +158,6 @@ def create_time_params(user_request):
 
     # Convert the json string to a Python dictionary
     time_params = json.loads(json_str)
-    logger.info("Time parameters created: ", time_params)
+    logger.info("Time parameters created: %s", time_params)
 
     return time_params

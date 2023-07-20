@@ -10,5 +10,5 @@ def create_other_params():
         'max_stopovers' : '1',
         'stopover_to' : '4:00',
     }
-    logger.info("Other parameters created: ", other_params)
+    logger.info("Other parameters created: %s", other_params)
     return other_params

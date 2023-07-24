@@ -39,6 +39,7 @@ def create_time_params(user_request):
     For the dates of the return flights, use the 'nights_in_dst_from' and 'nights_in_dst_to' parameters.
     Example : 01/04/2021
     01/04/2021
+
     date_to *
     departure date (dd/mm/yyyy). Use parameters date_from and date_to to define the range for the outbound flight departure.
     Example : 03/04/2021
@@ -70,22 +71,24 @@ def create_time_params(user_request):
     type of set ret_fly_days; It  is used to specify whether the flight is an arrival or a departure.
     Available values : departure, arrival
 
+    For time related parameters below, only use time in whole hours, not minutes; 11:00 means 11AM, 23:00 means 11PM).
+
     dtime_from
-    result filter, min. departure time (use only time in whole hours, not minutes; 11:00 means 11AM, 23:00 means 11PM).
+    result filter, min. departure time.
     dtime_to
-    result filter, max departure time (use only time in whole hours, not minutes; 11:00 means 11AM, 23:00 means 11PM).
+    result filter, max departure time.
     atime_from
-    result filter, min arrival time (use only time in whole hours, not minutes; 11:00 means 11AM, 23:00 means 11PM).:
+    result filter, min arrival time.
     atime_to
-    result filter, max arrival time (use only time in whole hours, not minutes; 11:00 means 11AM, 23:00 means 11PM).
+    result filter, max arrival time.
     ret_dtime_from
-    result filter, min dep. time of the returning flight (use only time in whole hours, not minutes; 11:00 means 11AM, 23:00 means 11PM).
+    result filter, min dep. time of the returning flight.
     ret_dtime_to
-    result filter, max dep. time of the returning flight (use only time in whole hours, not minutes; 11:00 means 11AM, 23:00 means 11PM).
+    result filter, max dep. time of the returning flight.
     ret_atime_from
-    result filter, min arrival time of the returning flight (use only time in whole hours, not minutes; 11:00 means 11AM, 23:00 means 11PM).
+    result filter, min arrival time of the returning flight.
     ret_atime_to
-    result filter, min arrival time of the returning flight (use only time in whole hours, not minutes; 11:00 means 11AM, 23:00 means 11PM).
+    result filter, min arrival time of the returning flight.
 
     USER INTERACTIONS:
     User request: I want a weekend getaway in Paris in September. I get off work on Friday around 3pm.

@@ -19,7 +19,7 @@ def create_destination_params(user_request):
     logger.info("Creating destination parameters...")
 
     #initialize the openai model
-    chat = ChatOpenAI(temperature=0.5, openai_api_key = OPENAI_API_KEY)
+    chat = ChatOpenAI(temperature=0.5, openai_api_key = OPENAI_API_KEY, openai_organization='org-aaoYoL6D18BG1Z1btni0f4i6', model="gpt-4")
 
     #create the prompt templates
     system_template = """INSTRUCTIONS:
@@ -66,6 +66,8 @@ def create_destination_params(user_request):
             user_request=user_request
         ).to_messages()
     )
+
+    logger.info("Destination parameters response: %s", openai_response.content)
 
     # Regular expression pattern to match the IATA codes
     pattern = r'\[([A-Za-z,\s]+)\]'

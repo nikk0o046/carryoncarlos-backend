@@ -13,7 +13,7 @@ from langchain.prompts.chat import (
 from dotenv import load_dotenv
 load_dotenv()  # take environment variables from .env.
 # retrieve the OPENAI_API_KEY from environment variable
-OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 
 def create_time_params(user_request):
     logger.info("Creating time parameters...")
@@ -21,7 +21,7 @@ def create_time_params(user_request):
     current_date = f"{current_date_unformatted:%d/%m/%Y}"
 
     #initialize the openai model
-    chat = ChatOpenAI(temperature=0.5, openai_api_key = OPENAI_API_KEY)
+    chat = ChatOpenAI(temperature=0, openai_api_key = OPENAI_API_KEY, openai_organization="org-aaoYoL6D18BG1Z1btni0f4i6", model="gpt-4")
 
     #create the prompt templates
     system_template = """API DOCUMENTATION:
@@ -44,18 +44,18 @@ def create_time_params(user_request):
     Answer: User wants to leave on a Friday next month and stay for two nights. Outbound flight should be after work (assumed 5PM), return flight should not be too late for work next day.
     ```json
     {{
-        'date_from': '01/08/2023',
-        'date_to': '31/08/2023',
-        'fly_days': 5,
-        'fly_days_type': 'departure',
-        'dtime_from': '17:00',
-        'dtime_to': '20:00',
-        'nights_in_dst_from': 2,
-        'nights_in_dst_to': 2,
-        'ret_fly_days': 0,
-        'ret_fly_days_type': 'departure',
-        'ret_dtime_from': '12:00',
-        'ret_dtime_to': '18:00',
+        "date_from": "01/08/2023",
+        "date_to": "31/08/2023",
+        "fly_days": 5,
+        "fly_days_type": "departure",
+        "dtime_from": "17:00",
+        "dtime_to": "20:00",
+        "nights_in_dst_from": 2,
+        "nights_in_dst_to": 2,
+        "ret_fly_days": 0,
+        "ret_fly_days_type": "departure",
+        "ret_dtime_from": "12:00",
+        "ret_dtime_to": "18:00",
     }}
     ```
 
@@ -64,10 +64,10 @@ def create_time_params(user_request):
     Answer: The trip can be done within the vacation dates next March, lasting about a week.
     ```json
     {{
-    'date_from': '01/03/2024',
-    'date_to': '31/03/2024',
-    'nights_in_dst_from': 6,
-    'nights_in_dst_to': 8,
+    "date_from": "01/03/2024",
+    "date_to": "31/03/2024",
+    "nights_in_dst_from": 6,
+    "nights_in_dst_to": 8,
     }}
     ```
 
@@ -78,42 +78,42 @@ def create_time_params(user_request):
 
 
     {{
-        'date_from': '01/10/2023',
-        'date_to': '31/10/2023',
-        'nights_in_dst_from': 3,
-        'nights_in_dst_to': 3,
-        'fly_days': [4, 5],
-        'dtime_from': '18:00',
-        'ret_fly_days': [0, 1],
-        'ret_dtime_to': '20:00',
+        "date_from": "01/10/2023",
+        "date_to": "31/10/2023",
+        "nights_in_dst_from": 3,
+        "nights_in_dst_to": 3,
+        "fly_days": [4, 5],
+        "dtime_from": "18:00",
+        "ret_fly_days": [0, 1],
+        "ret_dtime_to": "20:00",
     }}
     ```
 
     Current date: 10/04/2023
     User: "One-way trip to Paris in the summer."
-    Answer: The user only needs an outbound flight to Paris, which should be anytime in the summer months (June, July, August).
+    Answer: The user only needs an outbound flight to Paris, which should be anytime in the summer months (June, July, August). Because it is a one-way trip, nights_in_dst-parameters must be excluded. 
     ```json
     {{
-        'date_from': '01/06/2023',
-        'date_to': '31/08/2023',
+        "date_from": "01/06/2023",
+        "date_to": "31/08/2023",
     }}
     ```
 
     Current date: 10/07/2023
     User: "Want to go abroad."
-    Answer: The user is very vague about when they want to go or for how long. Assume about one-week stay and looking for flights in the next three months.
+    Answer: The user is very vague about when they want to go or for how long. To find two-way fligths we must include nights_in_dst-parameters, so we need to make assumptions. Let"s assume roughly one-week stay and look for flights in the next three months.
     ```json
     {{
-        'date_from': '11/07/2023',
-        'date_to': '10/10/2023',
-        'nights_in_dst_from': 5,
-        'nights_in_dst_to': 9,
+        "date_from": "11/07/2023",
+        "date_to": "10/10/2023",
+        "nights_in_dst_from": 5,
+        "nights_in_dst_to": 9,
     }}
     ```
 
     ANSWER INSTRUCTIONS:
     The output should include both:
-    1) Thought: Thinking out loud about the user's needs and the task.
+    1) Thought: Thinking out loud about the user"s needs and the task.
     2) Markdown code snippet formatted in the following schema, including the leading and trailing "\`\`\`json" and "\`\`\`":
 
     ```json
@@ -144,7 +144,7 @@ def create_time_params(user_request):
     # Extract the json string using regular expressions
     import re
     import json
-    json_str = re.search(r'\{.*\}', openai_response.content, re.DOTALL).group()
+    json_str = re.search(r"\{.*\}", openai_response.content, re.DOTALL).group()
 
     # Convert the json string to a Python dictionary
     time_params = json.loads(json_str)

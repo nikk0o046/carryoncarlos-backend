@@ -1,0 +1,50 @@
+import os
+
+from langchain.chat_models import ChatOpenAI
+from langchain.prompts.chat import (
+    ChatPromptTemplate,
+    SystemMessagePromptTemplate,
+    HumanMessagePromptTemplate,
+    AIMessagePromptTemplate,
+)
+from dotenv import load_dotenv
+load_dotenv()  # take environment variables from .env.
+# retrieve the OPENAI_API_KEY from environment variable
+OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
+
+
+user_request = "I want to go to France in the early winter 2023"
+#initialize the openai model
+chat = ChatOpenAI(temperature=0.5, openai_api_key = OPENAI_API_KEY)
+
+system_template = "You are a helpful assistant."
+system_message_prompt = SystemMessagePromptTemplate.from_template(system_template)
+
+human_template1 = "User: I want to go to Italy!"
+human_message_prompt1 = HumanMessagePromptTemplate.from_template(human_template1)
+
+ai_template1 = "You could go to one of the following cities: [Milan, Napoli, Rome, Verona]"
+ai_message_prompt1 = AIMessagePromptTemplate.from_template(ai_template1)
+
+human_template2 = """User: {user_request}"""
+human_message_prompt2 = HumanMessagePromptTemplate.from_template(human_template2)
+
+chat_prompt = ChatPromptTemplate.from_messages(
+    [system_message_prompt, 
+     human_message_prompt1, 
+     ai_message_prompt1, 
+     human_message_prompt2]
+)
+
+print(chat_prompt.format_prompt(
+        user_request=user_request,
+    ).to_messages())
+
+#request the response from the model
+openai_response = chat(
+    chat_prompt.format_prompt(
+        user_request=user_request,
+    ).to_messages()
+)
+
+print(openai_response.content)

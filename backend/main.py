@@ -6,11 +6,11 @@ logger = logging.getLogger()
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
-from make_API_request import make_API_request
-from kiwi_output_parser import extract_info
 from destination_params import create_destination_params
 from time_params import create_time_params
 from other_params import create_other_params
+from make_API_request import make_API_request
+from kiwi_output_parser import extract_info
 
 app = Flask(__name__)
 CORS(app)

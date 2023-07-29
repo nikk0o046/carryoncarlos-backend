@@ -137,6 +137,10 @@ openai_response = chat(
     ).to_messages()
 )
 
+print(chat.get_num_tokens_from_messages(chat_prompt.format_prompt(
+        user_request=user_request,
+        current_date=current_date
+    ).to_messages()))
 print(openai_response.content)
 
 

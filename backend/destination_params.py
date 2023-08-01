@@ -20,7 +20,7 @@ def create_destination_params(user_request):
     logger.info("Creating destination parameters...")
 
     #initialize the openai model
-    chat = ChatOpenAI(temperature=0.5, openai_api_key = OPENAI_API_KEY, openai_organization='org-aaoYoL6D18BG1Z1btni0f4i6', model="gpt-4")
+    chat = ChatOpenAI(temperature=0.5, openai_api_key = OPENAI_API_KEY, openai_organization='org-aaoYoL6D18BG1Z1btni0f4i6', model="gpt-3.5-turbo")
 
     #create the prompt templates
     system_template = """INSTRUCTIONS:

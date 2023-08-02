@@ -1,4 +1,5 @@
 import os
+import time
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import openai
@@ -44,23 +45,32 @@ CORS(app)
 
 @app.route('/send_message', methods=['POST'])
 def send_message():
-    # Get the request data
-    request_data = request.get_json()
+    try:
+        # Get the request data
+        request_data = request.get_json()
 
-    # Extract the conversation history
-    conversation_history = request_data.get('conversationHistory', [])
+        # Extract the conversation history
+        conversation_history = request_data.get('conversationHistory', [])
 
-    # Pass the conversation history to your conversation handling function
-    result = handle_conversation(conversation_history)
+        # Pass the conversation history to your conversation handling function
+        result = handle_conversation(conversation_history)
 
-    # At the end, return a response
-    return jsonify({"status": "success", "message": result})
+        # At the end, return a success response
+        return jsonify({"status": "success", "message": result}), 200
+
+    except Exception as e:
+        # Log the error
+        logging.error("An error occurred: %s", str(e))
+        
+        # Return an error response
+        return jsonify({"status": "error", "message": "An error occurred."}), 500
 
 
 def handle_conversation(conversation_history):
     message_list = [{"role": "system", "content": system_template}]
     message_list.extend(conversation_history)
 
+    start_time = time.time()  # Get the current time to see OpenAI response time
     completion = openai.ChatCompletion.create(
         temperature = 0.5, 
         model = "gpt-3.5-turbo-0613", 
@@ -68,13 +78,19 @@ def handle_conversation(conversation_history):
         messages = message_list,
         functions = [json_schema]
     )
+    end_time = time.time()  # Get the current time again after the request is made
+    elapsed_time = end_time - start_time  # Calculate the difference
+    logging.info("Time taken for OpenAI API request: %s seconds", elapsed_time)
 
-    message_content = completion.choices[0].message
-    message_list.append(message_content)
+    new_message = completion.choices[0].message
 
-    logging.info("Message: %s", message_content)
-    logging.info("Function call in message: %s", 'function_call' in message_content)
+    logging.info("Message: %s", new_message)
+    logging.info("Function call in message: %s", 'function_call' in new_message)
 
-    return message_list
+    return new_message
 
 
+# Run the app
+if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 8081))
+    app.run(host='0.0.0.0', port=port)

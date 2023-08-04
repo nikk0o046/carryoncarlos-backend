@@ -41,10 +41,18 @@ def make_API_request(params1, params2, params3):
     elapsed_time = end_time - start_time
     logger.info(f"Function execution time: {elapsed_time} seconds")
     
+    # Check if flights were found and log the amounts
+    try:
+        if len(data["data"]) > 0:
+            logger.info("Number of flights: %s, Total search results: %s", len(data["data"]), data["_results"])
+        else:
+            logger.info("No flights found. Total search results: %s", data["_results"])
+    except KeyError:
+        logger.error("Key 'data' not found in the response.")
+
+    
     if 'error' in data:
         logger.error('Error in response data: %s', data['error'])
         return None
-    else:
-        logger.info("Keys in response data: %s", data.keys())
 
     return data

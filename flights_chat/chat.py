@@ -38,7 +38,7 @@ You need to get the following information about the user:
 - Time window when they can departure and approximately how many nights they want to stay.
 Try to ask one question at a time.
 
-When you have the necessary information, call search_flights -function with one string parameter. The string is your concise summary about the relevant user information."""
+When (and only when) you have the necessary information, call search_flights -function with one string parameter. The string is your concise summary about the relevant user information."""
 
 app = Flask(__name__)
 CORS(app)
@@ -46,11 +46,17 @@ CORS(app)
 @app.route('/send_message', methods=['POST'])
 def send_message():
     try:
+        # Log the raw incoming request data
+        logging.info("Raw request data: %s", request.data)
+
         # Get the request data
         request_data = request.get_json()
 
         # Extract the conversation history
         conversation_history = request_data.get('conversationHistory', [])
+
+        # Log the conversation history
+        logging.info("Conversation history: %s", conversation_history)
 
         # Pass the conversation history to your conversation handling function
         result = handle_conversation(conversation_history)

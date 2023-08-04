@@ -1,5 +1,6 @@
 import os
 import requests
+import time
 import logging
 logger = logging.getLogger(__name__)
 
@@ -8,6 +9,7 @@ load_dotenv()  # take environment variables from .env.
 KIWI_API_KEY = os.environ.get('KIWI_API_KEY')
 
 def make_API_request(params1, params2, params3):
+    start_time = time.time() #start timer to log it later
     logger.info("Making API request...")
 
     url = "https://api.tequila.kiwi.com/v2/search"
@@ -35,6 +37,9 @@ def make_API_request(params1, params2, params3):
         return None
 
     logger.info("API request completed.")
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    logger.info(f"Function execution time: {elapsed_time} seconds")
     
     if 'error' in data:
         logger.error('Error in response data: %s', data['error'])

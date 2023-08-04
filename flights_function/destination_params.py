@@ -1,5 +1,6 @@
 import os
 import re
+import time
 import logging
 logger = logging.getLogger(__name__)
 
@@ -17,6 +18,7 @@ load_dotenv()  # take environment variables from .env.
 OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
 
 def create_destination_params(user_request):
+    start_time = time.time() #start timer to log it later
     logger.info("Creating destination parameters...")
 
     #initialize the openai model
@@ -121,5 +123,9 @@ def create_destination_params(user_request):
         destination_params = {}
 
     logger.info("Destination parameters created: %s", destination_params)
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    logger.info(f"Function execution time: {elapsed_time} seconds")
+
     return destination_params
 

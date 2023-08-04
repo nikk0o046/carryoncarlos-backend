@@ -1,7 +1,9 @@
 import logging
 logger = logging.getLogger(__name__)
+import time
 
 def extract_info(api_response):
+    start_time = time.time() #start timer to log it later
     logger.info("Extracting information from response data...")
 
     if api_response is None or 'data' not in api_response:  # Check that the response is not None and contains 'data'
@@ -38,7 +40,11 @@ def extract_info(api_response):
         logger.exception("Failed to extract info from API response: %s", e)
         return []
 
-    logger.info("Information extraction completed.")
+    logger.info("Information extraction completed. %s flights left after processing.", len(output))
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    logger.info(f"Function execution time: {elapsed_time} seconds")
+    
     return output
 
 

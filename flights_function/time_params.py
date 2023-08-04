@@ -1,5 +1,6 @@
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
+import time
 import logging
 logger = logging.getLogger(__name__)
 
@@ -17,6 +18,7 @@ load_dotenv()  # take environment variables from .env.
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 
 def create_time_params(user_request):
+    start_time = time.time() #start timer to log it later
     logger.info("Creating time parameters...")
     current_date_unformatted = datetime.now()
     current_date = f"{current_date_unformatted:%d/%m/%Y}"
@@ -178,6 +180,39 @@ def create_time_params(user_request):
     # Convert the json string to a Python dictionary
     logger.info("json_str: %s", json_str)
     time_params = json.loads(json_str)
+    time_params = adjust_dates(time_params) # Check if dates are in the past. If they are, add a year.
     logger.info("Time parameters created: %s", time_params)
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    logger.info(f"Function execution time: {elapsed_time} seconds")
+
+    return time_params
+
+
+# A helper function in case the dates are in the past
+def adjust_dates(time_params):
+    # Extract the dates from the parameters dictionary
+    date_from_str = time_params['date_from']
+    date_to_str = time_params['date_to']
+
+    # Parse the dates into datetime objects
+    date_format = "%d/%m/%Y"
+    date_from = datetime.strptime(date_from_str, date_format)
+    date_to = datetime.strptime(date_to_str, date_format)
+
+    # Get the current date
+    current_date = datetime.now()
+
+    # If both dates are in the past, add one year to both
+    if date_from < current_date and date_to < current_date:
+        date_from += timedelta(days=365)
+        date_to += timedelta(days=365)
+
+        # Update the dictionary with the new dates
+        time_params['date_from'] = date_from.strftime(date_format)
+        time_params['date_to'] = date_to.strftime(date_format)
+
+         # Log a warning
+        logging.warning('Both dates were in the past. Adjusted them to: %s - %s', time_params['date_from'], time_params['date_to'])
 
     return time_params

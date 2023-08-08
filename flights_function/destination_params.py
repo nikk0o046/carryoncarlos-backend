@@ -17,7 +17,7 @@ load_dotenv()  # take environment variables from .env.
 # retrieve the OPENAI_API_KEY from environment variable
 OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
 
-def create_destination_params(user_request):
+def create_destination_params(user_request, selectedCityID):
     start_time = time.time() #start timer to log it later
     logger.info("Creating destination parameters...")
 
@@ -74,7 +74,7 @@ def create_destination_params(user_request):
     Possible destinations (IATA codes): [MEL,BNE,ADL,PER,CBR,OOL,AKL,CHC,WLG,ZQN,NAN,DPS,SIN,KUL,BKK,HKT,HKG,TPE,NRT,HND,ICN,PEK,PVG,SFO,LAX,YVR,HNL,JFK,LHR,DXB,DOH]"""
     botExample_prompt5 = AIMessagePromptTemplate.from_template(botExample5)
 
-    human_template = """Origin: Helsinki
+    human_template = """Origin: {selectedCityID}
     User: {user_request}"""
     human_message_prompt = HumanMessagePromptTemplate.from_template(human_template)
 
@@ -97,6 +97,7 @@ def create_destination_params(user_request):
     #request the response from the model
     openai_response = chat(
         chat_prompt.format_prompt(
+            selectedCityID=selectedCityID,
             user_request=user_request
         ).to_messages()
     )

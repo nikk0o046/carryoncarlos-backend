@@ -18,11 +18,22 @@ CORS(app)
 @app.route('/search_flights', methods=['POST'])
 def search_flights():
     try:
-        user_request = request.json['user_request']
+        requestBody = request.json
+
+        user_request = requestBody.get('user_request', 'Not Provided')
+        selectedCityID = requestBody.get('selectedCityID', 'Not Provided')
+        cabinClass = requestBody.get('cabinClass', 'Not Provided')
+        travelers = requestBody.get('travelers', 'Not Provided')
+
         logger.info("user_request: %s", user_request)
-        destination_query = create_destination_params(user_request)
+        logger.info("selectedCityID: %s", selectedCityID)
+        logger.info("cabinClass: %s", cabinClass)
+        logger.info("travelers: %s", travelers)
+
+
+        destination_query = create_destination_params(user_request, selectedCityID)
         time_query = create_time_params(user_request)
-        other_constraints = create_other_params()
+        other_constraints = create_other_params(selectedCityID, cabinClass, travelers)
 
         response_data = make_API_request(destination_query, time_query, other_constraints)
         if response_data is None:  # If API request failed

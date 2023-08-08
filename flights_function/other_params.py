@@ -1,12 +1,29 @@
 import logging
 logger = logging.getLogger(__name__)
 
-def create_other_params():
+def create_other_params(selectedCityID, cabinClass, travelers):
     logger.info("Creating other parameters...")
 
+     # Map the cabinClass to the expected API value
+    cabin_mapping = {
+        "Economy": "M",
+        "Economy Premium": "W",
+        "Business": "C",
+        "First Class": "F"
+    }
+    selected_cabin = cabin_mapping.get(cabinClass, "M")  # Default to Economy if not found
+
+    adults = travelers.get("adults", 1)
+    children = travelers.get("children", 0)
+    infants = travelers.get("infants", 0)
+
     other_params = {
+        "adults": str(adults),
+        "children": str(children),
+        "infants": str(infants),
+        "selected_cabins": selected_cabin,
+        "fly_from": selectedCityID,
         "limit" : "1000",
-        "fly_from" : "HEL",
         "max_stopovers" : "1",
         "stopover_to" : "4:00",
         "conn_on_diff_airport" : "0",

@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()  # take environment variables from .env.
 KIWI_API_KEY = os.environ.get('KIWI_API_KEY')
 
-def make_API_request(params1, params2, params3):
+def make_API_request(params1, params2, params3, params4):
     start_time = time.time() #start timer to log it later
     logger.info("Making API request...")
 
@@ -16,7 +16,7 @@ def make_API_request(params1, params2, params3):
 
     # Combine queries from parts 2, 3, and 4
     # Combine all dictionaries into a single payload dictionary
-    payload = {**params1, **params2, **params3}
+    payload = {**params1, **params2, **params3, **params4}
         
     # API headers
     headers = {

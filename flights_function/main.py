@@ -8,6 +8,7 @@ from flask_cors import CORS
 
 from destination_params import create_destination_params
 from time_params import create_time_params
+from duration_params import create_duration_params
 from other_params import create_other_params
 from make_API_request import make_API_request
 from kiwi_output_parser import extract_info
@@ -31,11 +32,12 @@ def search_flights():
         logger.info("travelers: %s", travelers)
 
 
-        destination_query = create_destination_params(user_request, selectedCityID)
-        time_query = create_time_params(user_request)
-        other_constraints = create_other_params(selectedCityID, cabinClass, travelers)
+        destination_params = create_destination_params(user_request, selectedCityID) # Set destination(s)
+        time_params = create_time_params(user_request) # Set when
+        duration_params = create_duration_params(user_request, selectedCityID) # Set stopovers and journey duration
+        other_constraints = create_other_params(selectedCityID, cabinClass, travelers) # Harcoded and user selected variables
 
-        response_data = make_API_request(destination_query, time_query, other_constraints)
+        response_data = make_API_request(destination_params, time_params, duration_params, other_constraints)
         if response_data is None:  # If API request failed
             return jsonify({"error": "API request failed. Please try again later."}), 500
 

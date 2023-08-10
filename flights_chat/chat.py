@@ -76,6 +76,20 @@ def handle_conversation(conversation_history):
     message_list = [{"role": "system", "content": system_template}]
     message_list.extend(conversation_history)
 
+    # Check if the third message is the user's and if it contains the 'user_inputs' key
+    if 'user_inputs' in message_list[2]:
+        user_data = message_list[2]['user_inputs']
+        originCity = user_data['originCity']
+        travelers = user_data['travelers']
+
+        formatted_content = f"User origin city: {originCity}. Travelling: {travelers['adults']} adults, {travelers['children']} children, {travelers['infants']} infants. {message_list[2]['content']}"
+
+        # Modify the user's message content
+        message_list[2]['content'] = formatted_content
+
+        # Remove the 'data' key as it's no longer needed
+        del message_list[2]['user_inputs']
+
     start_time = time.time()  # Get the current time to see OpenAI response time
     completion = openai.ChatCompletion.create(
         temperature = 0.5, 

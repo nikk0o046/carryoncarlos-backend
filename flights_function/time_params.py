@@ -24,7 +24,7 @@ def create_time_params(user_request):
     current_date = f"{current_date_unformatted:%d/%m/%Y}"
 
     #initialize the openai model
-    chat = ChatOpenAI(temperature=0, openai_api_key = OPENAI_API_KEY, openai_organization="org-aaoYoL6D18BG1Z1btni0f4i6", model="gpt-4")
+    chat = ChatOpenAI( model="gpt-4", temperature=0, openai_api_key = OPENAI_API_KEY, openai_organization="org-aaoYoL6D18BG1Z1btni0f4i6")
 
     #create the prompt templates
     system_template = """API DOCUMENTATION:
@@ -216,3 +216,7 @@ def adjust_dates(time_params):
         logging.warning('Both dates were in the past. Adjusted them to: %s - %s', time_params['date_from'], time_params['date_to'])
 
     return time_params
+
+if __name__ == "__main__":
+    test_request = "Origin: Helsinki, FI; Destination: Vilna; Departure: October, any Friday; Duration: 2 nights"
+    print(create_time_params(test_request))

@@ -5,7 +5,12 @@ from flask_cors import CORS
 import openai
 
 import logging
+#from google.cloud import logging as cloudlogging
+#client = cloudlogging.Client()
+#client.setup_logging(log_level=logging.DEBUG) 
+#logger = logging.getLogger()
 logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 from dotenv import load_dotenv
 load_dotenv()  # take environment variables from .env.
@@ -46,8 +51,10 @@ CORS(app)
 @app.route('/send_message', methods=['POST'])
 def send_message():
     try:
+        user_id = request.headers.get('Customer-ID', 'Not Provided')
+
         # Log the raw incoming request data
-        logging.info("Raw request data: %s", request.data)
+        logger.debug("[User: %s] Raw request data: %s", user_id, request.data)
 
         # Get the request data
         request_data = request.get_json()
@@ -56,23 +63,23 @@ def send_message():
         conversation_history = request_data.get('conversationHistory', [])
 
         # Log the conversation history
-        logging.info("Conversation history: %s", conversation_history)
+        logger.info("[User: %s] Conversation history: %s", user_id, conversation_history)
 
         # Pass the conversation history to your conversation handling function
-        result = handle_conversation(conversation_history)
+        result = handle_conversation(conversation_history, user_id)
 
         # At the end, return a success response
         return jsonify({"status": "success", "message": result}), 200
 
     except Exception as e:
         # Log the error
-        logging.error("An error occurred: %s", str(e))
+        logger.error("[User: %s] An error occurred: %s", user_id, str(e))
         
         # Return an error response
         return jsonify({"status": "error", "message": "An error occurred."}), 500
 
 
-def handle_conversation(conversation_history):
+def handle_conversation(conversation_history, user_id):
     message_list = [{"role": "system", "content": system_template}]
     message_list.extend(conversation_history)
 
@@ -100,17 +107,17 @@ def handle_conversation(conversation_history):
     )
     end_time = time.time()  # Get the current time again after the request is made
     elapsed_time = end_time - start_time  # Calculate the difference
-    logging.info("Time taken for OpenAI API request: %s seconds", elapsed_time)
+    logger.debug("[User: %s] Time taken for OpenAI API request: %s seconds", user_id, elapsed_time)
 
     new_message = completion.choices[0].message
 
-    logging.info("Message: %s", new_message)
-    logging.info("Function call in message: %s", 'function_call' in new_message)
+    logger.info("[User: %s] Message: %s", user_id, new_message)
+    logger.debug("[User: %s] Function call in message: %s", user_id, 'function_call' in new_message)
 
     return new_message
 
 
 # Run the app
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 8080))
+    port = int(os.environ.get('PORT', 8081))
     app.run(host='0.0.0.0', port=port)

@@ -1,6 +1,6 @@
 import os
 import logging
-from google.cloud import logging as cloudlogging
+#from google.cloud import logging as cloudlogging
 #client = cloudlogging.Client()
 #client.setup_logging(log_level=logging.DEBUG) 
 #logger = logging.getLogger()

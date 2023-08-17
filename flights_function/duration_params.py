@@ -113,7 +113,6 @@ def create_duration_params(user_request, selectedCityID, user_id):
         ).to_messages()
     )
 
-    print(openai_response.content)
     logger.debug("[UserID: %s] Duration parameters response: %s", user_id, openai_response.content)
 
     # Extract the json string using regular expressions

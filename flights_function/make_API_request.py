@@ -45,9 +45,9 @@ def make_API_request(params1, params2, params3, params4, user_id):
     # Check if flights were found and log the amounts
     try:
         if len(data["data"]) > 0:
-            logger.debug("[UserID: %s] Number of flights: %s, Total search results: %s", user_id, len(data["data"]), data["_results"])
+            logger.info("[UserID: %s] Number of flights: %s, Total search results: %s", user_id, len(data["data"]), data["_results"])
         else:
-            logger.debug("[UserID: %s] No flights found. Total search results: %s", user_id, data["_results"])
+            logger.info("[UserID: %s] No flights found. Total search results: %s", user_id, data["_results"])
     except KeyError:
         logger.error("[UserID: %s] Key 'data' not found in the response.", user_id)
 

@@ -36,12 +36,26 @@ def extract_info(api_response, user_id):
                 }
                 output.append(flight_info)
                 seen_cities.add(flight['cityTo'])
+
+        for flight in output:
+            logger.info(
+                "[UserID: %s] Flight details - From: %s, To: %s, Duration: %sh %sm, Stopovers: %s, Price: %s %s",
+                user_id,
+                flight['from'],
+                flight['to'],
+                flight['average_duration']['hours'],
+                flight['average_duration']['minutes'],
+                flight['stop_overs'],
+                flight['price']['value'],
+                flight['price']['currency'],
+                extra={'booking_link': flight['booking_link']}
+            )
                 
     except KeyError as e:  # This will catch any missing keys in the response
         logger.exception("[UserID: %s] Failed to extract info from API response: %s", user_id, e)
         return []
-
-    logger.debug("[UserID: %s] Information extraction completed. %s flights left after processing.", user_id, len(output))
+    
+    #logger.info("[UserID: %s] Information extraction completed. %s flights left after processing.", user_id, len(output))
     end_time = time.time()
     elapsed_time = end_time - start_time
     logger.debug("[UserID: %s] Function execution time: %s seconds", user_id, elapsed_time)

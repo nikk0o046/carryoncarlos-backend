@@ -217,6 +217,6 @@ def adjust_dates(time_params, user_id):
 
     return time_params
 
-if __name__ == "__main__":
-    test_request = "Origin: Helsinki, FI; Destination: Vilna; Departure: October, any Friday; Duration: 2 nights"
-    print(create_time_params(test_request))
+#if __name__ == "__main__":
+    #test_request = "Origin: Helsinki, FI; Destination: Vilna; Departure: October, any Friday; Duration: 2 nights"
+    #print(create_time_params(test_request, user_id))

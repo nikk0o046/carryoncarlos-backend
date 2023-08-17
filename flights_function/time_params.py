@@ -17,9 +17,9 @@ load_dotenv()  # take environment variables from .env.
 # retrieve the OPENAI_API_KEY from environment variable
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 
-def create_time_params(user_request):
+def create_time_params(user_request, user_id):
     start_time = time.time() #start timer to log it later
-    logger.info("Creating time parameters...")
+    logger.debug("[UserID: %s] Creating time parameters...", user_id)
     current_date_unformatted = datetime.now()
     current_date = f"{current_date_unformatted:%d/%m/%Y}"
 
@@ -170,7 +170,7 @@ def create_time_params(user_request):
             current_date=current_date
         ).to_messages()
     )
-    logger.info(str(openai_response.content))
+    logger.debug("[UserID: %s] OpenAI response content: %s", user_id, str(openai_response.content))
 
     # Extract the json string using regular expressions
     import re
@@ -178,19 +178,19 @@ def create_time_params(user_request):
     json_str = re.search(r"\{.*\}", openai_response.content, re.DOTALL).group()
 
     # Convert the json string to a Python dictionary
-    logger.info("json_str: %s", json_str)
+    logger.debug("[UserID: %s] json_str: %s", user_id, json_str)
     time_params = json.loads(json_str)
-    time_params = adjust_dates(time_params) # Check if dates are in the past. If they are, add a year.
-    logger.info("Time parameters created: %s", time_params)
+    time_params = adjust_dates(time_params, user_id) # Check if dates are in the past. If they are, add a year.
+    logger.debug("[UserID: %s] Time parameters created: %s", user_id, time_params)
     end_time = time.time()
     elapsed_time = end_time - start_time
-    logger.info(f"Function execution time: {elapsed_time} seconds")
+    logger.debug("[UserID: %s] Function execution time: %s seconds", user_id, elapsed_time)
 
     return time_params
 
 
 # A helper function in case the dates are in the past
-def adjust_dates(time_params):
+def adjust_dates(time_params, user_id):
     # Extract the dates from the parameters dictionary
     date_from_str = time_params['date_from']
     date_to_str = time_params['date_to']
@@ -213,7 +213,7 @@ def adjust_dates(time_params):
         time_params['date_to'] = date_to.strftime(date_format)
 
          # Log a warning
-        logging.warning('Both dates were in the past. Adjusted them to: %s - %s', time_params['date_from'], time_params['date_to'])
+        logger.warning("[UserID: %s] Both dates were in the past. Adjusted them to: %s - %s", user_id, time_params['date_from'], time_params['date_to'])
 
     return time_params
 

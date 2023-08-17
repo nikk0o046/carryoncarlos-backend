@@ -2,12 +2,13 @@ import logging
 logger = logging.getLogger(__name__)
 import time
 
-def extract_info(api_response):
+def extract_info(api_response, user_id):
     start_time = time.time() #start timer to log it later
-    logger.info("Extracting information from response data...")
+    logger.debug("[UserID: %s] Extracting information from response data...", user_id)
+
 
     if api_response is None or 'data' not in api_response:  # Check that the response is not None and contains 'data'
-        logger.warning("Invalid API response")
+        logger.warning("[UserID: %s] Invalid API response", user_id)
         return []
 
     output = []
@@ -37,13 +38,13 @@ def extract_info(api_response):
                 seen_cities.add(flight['cityTo'])
                 
     except KeyError as e:  # This will catch any missing keys in the response
-        logger.exception("Failed to extract info from API response: %s", e)
+        logger.exception("[UserID: %s] Failed to extract info from API response: %s", user_id, e)
         return []
 
-    logger.info("Information extraction completed. %s flights left after processing.", len(output))
+    logger.debug("[UserID: %s] Information extraction completed. %s flights left after processing.", user_id, len(output))
     end_time = time.time()
     elapsed_time = end_time - start_time
-    logger.info(f"Function execution time: {elapsed_time} seconds")
+    logger.debug("[UserID: %s] Function execution time: %s seconds", user_id, elapsed_time)
     
     return output
 

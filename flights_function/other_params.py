@@ -1,8 +1,8 @@
 import logging
 logger = logging.getLogger(__name__)
 
-def create_other_params(selectedCityID, cabinClass, travelers):
-    logger.info("Creating other parameters...")
+def create_other_params(selectedCityID, cabinClass, travelers, user_id):
+    logger.debug("[UserID: %s] Creating other parameters...", user_id)
 
      # Map the cabinClass to the expected API value
     cabin_mapping = {
@@ -29,5 +29,5 @@ def create_other_params(selectedCityID, cabinClass, travelers):
         "ret_from_diff_city" : "false",
         "ret_from_to_city" : "false",
     }
-    logger.info("Other parameters created: %s", other_params)
+    logger.debug("[UserID: %s] Other parameters created: %s", user_id, other_params)
     return other_params

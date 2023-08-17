@@ -17,12 +17,12 @@ load_dotenv()  # take environment variables from .env.
 # retrieve the OPENAI_API_KEY from environment variable
 OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
 
-def create_destination_params(user_request, selectedCityID):
+def create_destination_params(user_request, selectedCityID, user_id):
     start_time = time.time() #start timer to log it later
-    logger.info("Creating destination parameters...")
+    logger.debug("[UserID: %s] Creating destination parameters...", user_id)
 
     #initialize the openai model
-    chat = ChatOpenAI(temperature=0.5, openai_api_key = OPENAI_API_KEY, openai_organization='org-aaoYoL6D18BG1Z1btni0f4i6', model="gpt-3.5-turbo")
+    chat = ChatOpenAI(temperature=0, openai_api_key = OPENAI_API_KEY, openai_organization='org-aaoYoL6D18BG1Z1btni0f4i6', model="gpt-3.5-turbo")
 
     #create the prompt templates
     system_template = """INSTRUCTIONS:
@@ -102,7 +102,7 @@ def create_destination_params(user_request, selectedCityID):
         ).to_messages()
     )
 
-    logger.info("Destination parameters response: %s", openai_response.content)
+    logger.debug("[UserID: %s] Destination parameters response: %s", user_id, openai_response.content)
 
     # Regular expression pattern to match the IATA codes
     pattern = r'\[([A-Za-z,\s]+)\]'
@@ -123,10 +123,10 @@ def create_destination_params(user_request, selectedCityID):
     else:
         destination_params = {}
 
-    logger.info("Destination parameters created: %s", destination_params)
+    logger.debug("[UserID: %s] Destination parameters created: %s", user_id, destination_params)
     end_time = time.time()
     elapsed_time = end_time - start_time
-    logger.info(f"Function execution time: {elapsed_time} seconds")
+    logger.debug("[UserID: %s] Function execution time: %s seconds", user_id, elapsed_time)
 
     return destination_params
 

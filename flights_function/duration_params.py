@@ -17,12 +17,12 @@ load_dotenv()  # take environment variables from .env.
 # retrieve the OPENAI_API_KEY from environment variable
 OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
 
-def create_duration_params(user_request, selectedCityID):
+def create_duration_params(user_request, selectedCityID, user_id):
     start_time = time.time()
-    logger.info("Creating duration parameters...")
+    logger.debug("[UserID: %s] Creating duration parameters...", user_id)
 
     # Initialize the openai model
-    chat = ChatOpenAI(temperature=0.5, openai_api_key=OPENAI_API_KEY, openai_organization='org-aaoYoL6D18BG1Z1btni0f4i6', model="gpt-3.5-turbo")
+    chat = ChatOpenAI(temperature=0, openai_api_key=OPENAI_API_KEY, openai_organization='org-aaoYoL6D18BG1Z1btni0f4i6', model="gpt-3.5-turbo")
 
     # Create the prompt templates
     system_template = """INSTRUCTIONS:
@@ -114,21 +114,21 @@ def create_duration_params(user_request, selectedCityID):
     )
 
     print(openai_response.content)
-    logger.info("Duration parameters response: %s", openai_response.content)
+    logger.debug("[UserID: %s] Duration parameters response: %s", user_id, openai_response.content)
 
     # Extract the json string using regular expressions
     json_str = re.search(r"\{.*\}", openai_response.content, re.DOTALL).group()
     
     # Convert the json string to a Python dictionary
-    logger.info("json_str: %s", json_str)
+    logger.debug("[UserID: %s] json_str: %s", user_id, json_str)
     duration_params = json.loads(json_str)
-    logger.info("Duration created: %s", duration_params)
+    logger.debug("[UserID: %s] Duration created: %s", user_id, duration_params)
     end_time = time.time()
     elapsed_time = end_time - start_time
-    logger.info(f"Function execution time: {elapsed_time} seconds")
+    logger.debug("[UserID: %s] Function execution time: %s seconds", user_id, elapsed_time)
 
     return duration_params
 
-if __name__ == "__main__":
-    test_request = "Origin: Helsinki, FI; Destination: Vilna; Departure: October, any Friday; Duration: 2 nights"
-    print(create_duration_params(test_request, "Helsinki_fi"))
+#if __name__ == "__main__":
+    #test_request = "Origin: Helsinki, FI; Destination: Vilna; Departure: October, any Friday; Duration: 2 nights"
+    #print(create_duration_params(test_request, "Helsinki_fi"))

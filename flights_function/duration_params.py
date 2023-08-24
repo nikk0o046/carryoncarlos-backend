@@ -26,18 +26,30 @@ def create_duration_params(user_request, selectedCityID, user_id):
 
     # Create the prompt templates
     system_template = """INSTRUCTIONS:
-    You're an intelligent AI agent, and your job is to create smart search parameters about the flight duration, stopovers, and stopover duration.
+    You're an intelligent AI agent, and your job is to create search parameters about the flight duration, stopovers, and stopover duration.
 
     INSTRUCTIONS:
-    Create search parameters for flights based on user input. If the user does not specify those specifically, use your reasoning abilities to define relevant values.
+    When creating flight search parameters based on user info, consider the following:
 
-    max_sector_stopovers: max number of stopovers per itinerary's sector (integer).
-    stopover_to: max length of stopover, 4:00 means 4 hours. Usually keep this under 5:00.
-    max_fly_duration: max itinerary duration in hours (integer), from start of the departure to the arrival, including stopovers. Usually keep this under 20.
-    
+    Specified Flight Preferences: Prioritize user-specific requests, like "direct flights."
+    Trip Distance:
+    Short Haul: Favor direct routes as layovers can extend short trips unnecessarily.
+    Long Haul: Allow more layovers, but balance their number and duration.
+    Trip Duration:
+    Short Trips: Prioritize speed to maximize time at the destination.
+    Long Trips: Consider comfort and minimize unnecessary layovers.
+    Availability of Flights:
+    Major Hubs: Expect numerous direct flight options.
+    Less Popular Routes: Optimize for shortest total travel time and feasible connections.
+    Use these parameters:
+
+    max_sector_stopovers: Maximum number of stopovers per sector.
+    stopover_to: Maximum length of a stopover (e.g., 4:00 means 4 hours). Aim to keep under 5:00.
+    max_fly_duration: Maximum itinerary duration, including stopovers. Aim to keep short.
     ANSWER INSTRUCTIONS:
-    The output should include both:
-    1) Thought: Thinking out loud about the user's needs and the task.
+    Provide:
+
+    1) Thought: Detail your reasoning briefly.
     2) Markdown code snippet formatted in the following schema, including the leading and trailing "\`\`\`json" and "\`\`\`":
 
     ```json
@@ -50,10 +62,10 @@ def create_duration_params(user_request, selectedCityID, user_id):
 
     #example 1
     userExample1 = """Origin: Madrid
-    User: User wants to go to Barcelona for a weekend trip some time in the next month"""
+    Info: Origin: Madrid, ES | Destination: Barcelona, ES | Departure: Next month | Duration: Weekend"""
     userExample_prompt1 = HumanMessagePromptTemplate.from_template(userExample1)
 
-    botExample1 = """Thought: The user want to travel from Madrid to Barcelona. The cities have many direct connections and the user is looking for a weekend trip so we should set max_sector_stopovers to 0. As there are no stopovers, we omit max_stopover parameter. Also we omit max_fly_duration, as all direct flights tend to be pretty similar in the amount of time they take.
+    botExample1 = """Thought: Considering the short-haul nature of Madrid to Barcelona and the short duration of the trip (weekend), direct flights would be ideal. Major hubs like Madrid and Barcelona have numerous direct flight options.
     ```json
     {{
         "max_sector_stopovers": 0
@@ -64,10 +76,10 @@ def create_duration_params(user_request, selectedCityID, user_id):
 
     #example 2
     userExample2 = """Origin: Helsinki
-    User: User wants to go to South America for two weeks in January."""
+    Info: Origin: Helsinki, FI | Destination: South America | Departure: January | Duration: 2 weeks | Flights: Any"""
     userExample_prompt2 = HumanMessagePromptTemplate.from_template(userExample2)
 
-    botExample2 = """Thought: The user is traveling very far away, for a long time and is flexible with the destination. We set max_sector_stopovers to 2 to allow for much flexibility. We set stopover_to to 5 hours to allow for connections with a quite lenghty gap. We set max_fly duration to 20 hours to filter out routes that take way too long.
+    botExample2 = """Thought: The long-haul nature of Helsinki to South America, combined with the user's flexibility for any flights, suggests that we should allow some layovers. However, we'll aim to optimize for comfort by limiting lengthy stopovers and excessive travel time.
     ```json
     {{
         "max_fly_duration": 20,
@@ -79,10 +91,10 @@ def create_duration_params(user_request, selectedCityID, user_id):
 
     #example 3
     userExample3 = """Origin: New York
-    User: User wants directs flights to Sydney in March for a week."""
+    Info: "Origin: New York, US | Destination: Sydney, AU | Departure: March | Duration: 1 week | Flights: direct"""
     userExample_prompt3 = HumanMessagePromptTemplate.from_template(userExample3)
 
-    botExample3 = """Thought: The user specifically says that they want direct flights, so we set max_sector_stopovers to 0. As there are no stopovers, we omit max_stopover parameter. Also we omit max_fly_duration, as all direct flights tend to be pretty similar in the amount of time they take.
+    botExample3 = """Thought: The user wants direct flights, so we set max_sector_stopovers to 0. We omit stopover_to and max_fly_duration for direct flights.
      ```json
     {{
         "max_sector_stopovers": 0
@@ -91,7 +103,7 @@ def create_duration_params(user_request, selectedCityID, user_id):
     botExample_prompt3 = AIMessagePromptTemplate.from_template(botExample3)
 
     human_template = """Origin: {selectedCityID}
-    User: {user_request}"""
+    Info: {user_request}"""
     human_message_prompt = HumanMessagePromptTemplate.from_template(human_template)
 
     chat_prompt = ChatPromptTemplate.from_messages(
@@ -114,6 +126,7 @@ def create_duration_params(user_request, selectedCityID, user_id):
     )
 
     logger.debug("[UserID: %s] Duration parameters response: %s", user_id, openai_response.content)
+    #print(openai_response.content) # FOR LOCAL TESTING 
 
     # Extract the json string using regular expressions
     json_str = re.search(r"\{.*\}", openai_response.content, re.DOTALL).group()

@@ -55,10 +55,11 @@ def create_time_params(user_request, user_id):
 
     #example 1
     userExample1 = """Current date: 10/07/2023
-    User: Weekend getaway in Paris next month. Off work on Friday around 3pm."""
+    Info: Origin: London, GB | Destination: Paris, FR | Departure: Next month's Friday after 5pm | Duration: Weekend | Flights: Any"""
+
     userExample_prompt1 = HumanMessagePromptTemplate.from_template(userExample1)
 
-    botExample1 = """Answer: User wants to leave on a Friday next month and stay for two nights. Outbound flight should be after work (assumed 5PM), return flight should not be too late for work next day.
+    botExample1 = """Answer: User wants to leave on a Friday next month (August) and stay for two nights. Outbound flight should be after 5pm, return flight should not be too late for work next day.
     ```json
     {{
         "date_from": "01/08/2023",
@@ -79,10 +80,10 @@ def create_time_params(user_request, user_id):
 
     #example 2
     userExample2 = """Current date: 01/01/2024
-    User: On vacation next March. Want to go abroad for about a week."""
+    Info: Origin: San Francisco, US | Destination: Anywhere abroad | Departure: March | Duration: About a week | Flights: Any"""
     userExample_prompt2 = HumanMessagePromptTemplate.from_template(userExample2)
 
-    botExample2 = """Answer: The trip can be done within the vacation dates next March, lasting about a week.
+    botExample2 = """Answer: setting departure dates for next March, lasting about a week which translated to 6-8 nights.
     ```json
     {{
     "date_from": "01/03/2024",
@@ -95,10 +96,10 @@ def create_time_params(user_request, user_id):
 
     #example 3
     userExample3 = """Current date: 10/08/2023
-    User: Long weekend trip next October. Can get either Friday or Monday off from work."""
+    Info: Origin: Los Angeles, US | Destination: Miami, US | Departure: October's Long Weekend | Duration: 3 days | Flights: After 6pm"""
     userExample_prompt3 = HumanMessagePromptTemplate.from_template(userExample3)
 
-    botExample3 = """Answer: Long weekend usually means three days. Possible departure days are Thursday and Friday. Possible return flight days are Sunday or Monday. Outbound flight should be after work (assumed 6PM), return flight not too late for work next day.
+    botExample3 = """Answer: Long weekend usually means three days. Possible departure days are Thursday and Friday. Possible return flight days are Sunday or Monday. Outbound flight should be after 6pm, return flight not too late for work next day.
     ```json
     {{
         "date_from": "01/10/2023",
@@ -115,7 +116,7 @@ def create_time_params(user_request, user_id):
 
     #example 4
     userExample4 = """Current date: 10/04/2023
-    User: One-way trip to Paris in the summer."""
+    Info: Origin: Chicago, US | Destination: Paris, FR | Departure: Summer | Flights: One-way"""
     userExample_prompt4 = HumanMessagePromptTemplate.from_template(userExample4)
 
     botExample4 = """Answer: The user only needs an outbound flight to Paris, which should be anytime in the summer months (June, July, August). Because it is a one-way trip, nights_in_dst-parameters must be excluded. 
@@ -129,10 +130,10 @@ def create_time_params(user_request, user_id):
 
     #example 5
     userExample5 = """Current date: 10/07/2023
-    User: Want to go abroad."""
+    Info: Origin: Boston, US | Destination: Abroad | Duration: not specified | Flights: Two-way"""
     userExample_prompt5 = HumanMessagePromptTemplate.from_template(userExample5)
 
-    botExample5 = """Answer: The user is very vague about when they want to go or for how long. To find two-way fligths we must include nights_in_dst-parameters, so we need to make assumptions. Let"s assume roughly one-week stay and look for flights in the next three months.
+    botExample5 = """Answer: The user is very vague about when they want to go or for how long. To find two-way fligths we must include nights_in_dst-parameters, so we need to make assumptions. Let's assume roughly one-week stay and look for flights in the next three months.
     ```json
     {{
         "date_from": "11/07/2023",
@@ -145,7 +146,7 @@ def create_time_params(user_request, user_id):
 
 
     human_template = """Current date: {current_date}
-    User: {user_request}"""
+    Info: {user_request}"""
     human_message_prompt = HumanMessagePromptTemplate.from_template(human_template)
 
     chat_prompt = ChatPromptTemplate.from_messages(
@@ -171,6 +172,7 @@ def create_time_params(user_request, user_id):
         ).to_messages()
     )
     logger.debug("[UserID: %s] OpenAI response content: %s", user_id, str(openai_response.content))
+    #print(openai_response.content) # FOR LOCAL TESTING 
 
     # Extract the json string using regular expressions
     import re

@@ -109,4 +109,4 @@ def run_tests(func_name=None):
         print("-" * 40)
 
 
-run_tests("create_duration_params") # input the function name you want to test. Leave blank to test the whole app (it has to be running).
+run_tests("create_time_params") # input the function name you want to test. Leave blank to test the whole app (it has to be running).

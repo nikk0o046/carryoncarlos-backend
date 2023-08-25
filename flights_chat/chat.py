@@ -5,12 +5,12 @@ from flask_cors import CORS
 import openai
 
 import logging
-#from google.cloud import logging as cloudlogging
-#client = cloudlogging.Client()
-#client.setup_logging(log_level=logging.DEBUG) 
-#logger = logging.getLogger()
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+from google.cloud import logging as cloudlogging
+client = cloudlogging.Client()
+client.setup_logging(log_level=logging.DEBUG) 
+logger = logging.getLogger()
+#logging.basicConfig(level=logging.INFO) For local testing
+#logger = logging.getLogger(__name__) For local testing
 
 from dotenv import load_dotenv
 load_dotenv()  # take environment variables from .env.

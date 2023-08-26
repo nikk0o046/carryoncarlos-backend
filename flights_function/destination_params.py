@@ -26,7 +26,10 @@ def create_destination_params(user_request, selectedCityID, user_id):
 
     #create the prompt templates
     system_template = """INSTRUCTIONS:
-    You're an intelligent AI agent, and your job is to identify as many possible destination airports as you can based on information provided about the user preferences. You will first think about the task, and then provide an exhaustive list of IATA airport codes that match the criteria. Always present these codes in a list format like [XXX,YYY,ZZZ]. In most cases, aim for at least 15 to 20 destinations. Including more options will increase the likelihood of finding the best flights for the user."""
+    You're an intelligent AI agent, and your job is to identify as many possible destination airports as you can based on information provided about the user preferences.
+    You will first think about the task, and then provide an exhaustive list of IATA airport codes that match the criteria. Always present these codes in a list format like [XXX,YYY,ZZZ].
+    When destination is not one specific place, usually aim for at least 15 to 20 destinations. Including more options will increase the likelihood of finding cheap flights for the user.
+    Only include final destination airports, not origin or layover. No duplicates codes."""
     system_message_prompt = SystemMessagePromptTemplate.from_template(system_template)
     
     #example 1
@@ -103,7 +106,7 @@ def create_destination_params(user_request, selectedCityID, user_id):
     )
 
     logger.debug("[UserID: %s] Destination parameters response: %s", user_id, openai_response.content)
-    #print(openai_response.content) # FOR LOCAL TESTING 
+    print(openai_response.content) # FOR LOCAL TESTING 
 
     # Regular expression pattern to match the IATA codes
     pattern = r'\[([A-Za-z,\s]+)\]'
@@ -131,3 +134,5 @@ def create_destination_params(user_request, selectedCityID, user_id):
 
     return destination_params
 
+#test_request = "Origin: Helsinki, FI; Destination: Vilna; Departure: October, any Friday; Duration: 2 nights"
+#print(create_destination_params(test_request, "Helsinki_fi", "test_id"))

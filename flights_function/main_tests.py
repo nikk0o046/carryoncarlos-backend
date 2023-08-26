@@ -56,6 +56,6 @@ def run_tests(func_name=None, indices=None):
         print("-" * 40)
 
 
-run_tests("create_destination_params", indices=[33]) # Using list notation for desired test cases
+run_tests("create_destination_params", indices=[33, 35, 40, 41, 42, 43, 45, 48, 49, 51]) # Using list notation for desired test cases
 #run_tests("create_destination_params", indices=slice(33, None)) # Using slice notation for the first three test cases
 

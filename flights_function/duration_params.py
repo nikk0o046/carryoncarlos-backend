@@ -141,6 +141,6 @@ def create_duration_params(user_request, selectedCityID, user_id):
 
     return duration_params
 
-#if __name__ == "__main__":
-    #test_request = "Origin: Helsinki, FI; Destination: Vilna; Departure: October, any Friday; Duration: 2 nights"
-    #print(create_duration_params(test_request, "Helsinki_fi"))
+
+#test_request = "Origin: Helsinki, FI; Destination: Vilna; Departure: October, any Friday; Duration: 2 nights"
+#print(create_duration_params(test_request, "Helsinki_fi", "test_id"))

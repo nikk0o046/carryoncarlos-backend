@@ -718,6 +718,30 @@
             "infants": 0
         },
         "destination_answer": "Thought: The user has specified a specific destination, Seville, Spain. Therefore, I will only list the airport of Seville.\nDestinations (IATA codes): [SVQ]"
-    } 
+    },
+    {
+        "test_case_number": 61,
+        "user_request": "Origin: Valencia, ES | Destination: Vancouver, CA | Departure: First or second full week of November | Duration: 1 week | Flights: max 1 layover",
+        "selectedCityID": "valencia_es",
+        "cabinClass": "economy",
+        "travelers": {
+            "adults": 1,
+            "children": 0,
+            "infants": 0
+        },
+        "destination_answer": "Thought: The user has specified a specific destination, Vanvoucer, Canada. Therefore, I will only list the airports of Vancouver.\nDestinations (IATA codes): [YVR,YDT]"
+    },
+    {
+        "test_case_number": 62,
+        "user_request": "Origin: Helsinki, FI | Travelers: 2 adults, 2 children | Destination: Somewhere warm and sunny in October | Departure: Saturday before week 42 | Duration: Approximately 1 week | Flight Preference: Direct flights preferred, but layovers are acceptable as long as total travel time is under 10 hours",
+        "selectedCityID": "helsinki_fi",
+        "cabinClass": "economy",
+        "travelers": {
+            "adults": 1,
+            "children": 0,
+            "infants": 0
+        },
+        "destination_answer": "???"
+    }    
 ]
   

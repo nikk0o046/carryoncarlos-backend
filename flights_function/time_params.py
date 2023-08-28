@@ -37,10 +37,10 @@ def create_time_params(user_request, user_id):
     2) Markdown code snippet formatted in the following schema, including the leading and trailing "\`\`\`json" and "\`\`\`":
 
     ```json
-    {{
+    {
         "key1": value1  // Define relevant values. Only use keys mentioned in the API documentation. 
         "key2": value2
-    }}
+    }
     ```"""
 
     #example 1
@@ -49,7 +49,7 @@ def create_time_params(user_request, user_id):
 
     botExample1 = """Answer: User wants to leave on a Friday next month (August) and stay for two nights. Outbound flight should be after 5pm, return flight should not be too late for work next day.
     ```json
-    {{
+    {
         "date_from": "01/08/2023",
         "date_to": "31/08/2023",
         "fly_days": 5,
@@ -62,7 +62,7 @@ def create_time_params(user_request, user_id):
         "ret_fly_days_type": "departure",
         "ret_dtime_from": "12:00",
         "ret_dtime_to": "18:00"
-    }}
+    }
     ```"""
 
     #example 2
@@ -71,12 +71,12 @@ def create_time_params(user_request, user_id):
 
     botExample2 = """Answer: setting departure dates for next March, lasting about a week which translated to 6-8 nights.
     ```json
-    {{
+    {
     "date_from": "01/03/2024",
     "date_to": "31/03/2024",
     "nights_in_dst_from": 6,
     "nights_in_dst_to": 8
-    }}
+    }
     ```"""
 
     #example 3
@@ -85,7 +85,7 @@ def create_time_params(user_request, user_id):
 
     botExample3 = """Answer: Long weekend usually means three days. Possible departure days are Thursday and Friday. Possible return flight days are Sunday or Monday. Outbound flight should be after 6pm, return flight not too late for work next day.
     ```json
-    {{
+    {
         "date_from": "01/10/2023",
         "date_to": "31/10/2023",
         "nights_in_dst_from": 3,
@@ -94,7 +94,7 @@ def create_time_params(user_request, user_id):
         "dtime_from": "18:00",
         "ret_fly_days": [0, 1],
         "ret_dtime_to": "20:00"
-    }}
+    }
     ```"""
 
     #example 4
@@ -103,10 +103,10 @@ def create_time_params(user_request, user_id):
 
     botExample4 = """Answer: The user only needs an outbound flight to Paris, which should be anytime in the summer months (June, July, August). Because it is a one-way trip, nights_in_dst-parameters must be excluded. 
     ```json
-    {{
+    {
         "date_from": "01/06/2023",
         "date_to": "31/08/2023"
-    }}
+    }
     ```"""
 
     #example 5
@@ -115,12 +115,12 @@ def create_time_params(user_request, user_id):
 
     botExample5 = """Answer: The user is very vague about when they want to go or for how long. To find two-way fligths we must include nights_in_dst-parameters, so we need to make assumptions. Let's assume roughly one-week stay and look for flights in the next three months.
     ```json
-    {{
+    {
         "date_from": "11/07/2023",
         "date_to": "10/10/2023",
         "nights_in_dst_from": 5,
         "nights_in_dst_to": 9
-    }}
+    }
     ```"""
 
     human_template = f"Current date: {current_date}\nInfo: {user_request}"

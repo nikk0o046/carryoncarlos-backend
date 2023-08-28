@@ -45,10 +45,10 @@ def create_duration_params(user_request, selectedCityID, user_id):
     2) Markdown code snippet formatted in the following schema, including the leading and trailing "\`\`\`json" and "\`\`\`":
 
     ```json
-    {{
+    {
         "key1": value1  // Define relevant values. Only use keys mentioned in the API documentation. 
         "key2": value2
-    }}
+    }
     ```"""
 
     #example 1
@@ -57,9 +57,9 @@ def create_duration_params(user_request, selectedCityID, user_id):
 
     botExample1 = """Thought: Considering the short-haul nature of Madrid to Barcelona and the short duration of the trip (weekend), direct flights would be ideal. Major hubs like Madrid and Barcelona have numerous direct flight options.
     ```json
-    {{
+    {
         "max_sector_stopovers": 0
-    }}
+    }
     ```"""
 
     #example 2
@@ -68,11 +68,11 @@ def create_duration_params(user_request, selectedCityID, user_id):
 
     botExample2 = """Thought: The long-haul nature of Helsinki to South America, combined with the user's flexibility for any flights, suggests that we should allow some layovers. However, we'll aim to optimize for comfort by limiting lengthy stopovers and excessive travel time.
     ```json
-    {{
+    {
         "max_fly_duration": 20,
         "max_sector_stopovers": 2,
         "stopover_to": "5:00"
-    }}
+    }
     ```"""
 
     #example 3
@@ -81,9 +81,9 @@ def create_duration_params(user_request, selectedCityID, user_id):
 
     botExample3 = """Thought: The user wants direct flights, so we set max_sector_stopovers to 0. We omit stopover_to and max_fly_duration for direct flights.
      ```json
-    {{
+    {
         "max_sector_stopovers": 0
-    }}
+    }
     ```"""
 
     human_template = f"Origin: {selectedCityID}\nInfo: {user_request}"
@@ -102,7 +102,7 @@ def create_duration_params(user_request, selectedCityID, user_id):
 
     # Request the response from the model
     response = openai.ChatCompletion.create(
-      model="gpt-3.5-turbo",
+      model="gpt-3.5-turbo-0613",
       temperature=0,
       messages=message_list,
     )
@@ -111,7 +111,7 @@ def create_duration_params(user_request, selectedCityID, user_id):
     logger.debug("[UserID: %s] Duration parameters response: %s", user_id, response_content)
     
     print("response_content: " + str(response_content)) # FOR LOCAL TESTING
-    print("Prompt Tokens Used: " + str(response["usage"]['prompt_tokens']) + " | Completion Tokens Used: " + str(response["usage"]['completion_tokens']) + " | Total Tokens Used: " + str(response["usage"]['total_tokens']))
+    #print("Prompt Tokens Used: " + str(response["usage"]['prompt_tokens']) + " | Completion Tokens Used: " + str(response["usage"]['completion_tokens']) + " | Total Tokens Used: " + str(response["usage"]['total_tokens']))
 
     # Extract the json string using regular expressions
     json_str = re.search(r"\{.*\}", response_content, re.DOTALL).group()

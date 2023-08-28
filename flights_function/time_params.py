@@ -199,5 +199,5 @@ def adjust_dates(time_params, user_id):
 
     return time_params
 
-test_request = "Origin: Helsinki, FI; Destination: Vilna; Departure: October, any Friday; Duration: 2 nights"
-print(create_time_params(test_request, "test_user"))
+#test_request = "Origin: Helsinki, FI; Destination: Vilna; Departure: October, any Friday; Duration: 2 nights"
+#print(create_time_params(test_request, "test_user"))

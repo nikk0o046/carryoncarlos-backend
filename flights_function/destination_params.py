@@ -124,5 +124,5 @@ For ambiguous destinations, aim for at least 15 to 20 airport codes. Offering mo
     return destination_params
 
 #test_request = "Origin: Helsinki, FI; Destination: Vilna; Departure: October, any Friday; Duration: 2 nights"
-test_request = "Origin: Helsinki | Destination: Polynesia | Departure: End of September | Duration: 7 days | Flights: Any"
-print(create_destination_params(test_request, "Helsinki_fi", "test_id"))
+#test_request = "Origin: Helsinki | Destination: Polynesia | Departure: End of September | Duration: 7 days | Flights: Any"
+#print(create_destination_params(test_request, "Helsinki_fi", "test_id"))

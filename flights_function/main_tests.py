@@ -3,7 +3,10 @@ import json
 from destination_params import create_destination_params
 from time_params import create_time_params
 from duration_params import create_duration_params
-from data.test_cases import test_cases
+
+# Load the test cases from the JSON file
+with open('data/test_cases.json', 'r') as file:
+    test_cases = json.load(file)
 
 # URL of your backend service
 BASE_URL = "http://localhost:8080/search_flights"
@@ -56,6 +59,6 @@ def run_tests(func_name=None, indices=None):
         print("-" * 40)
 
 
-run_tests("create_destination_params", indices=[33, 35, 40, 41, 42, 43, 45, 48, 49, 51]) # Using list notation for desired test cases
-#run_tests("create_destination_params", indices=slice(33, None)) # Using slice notation for the first three test cases
+#run_tests("create_destination_params", indices=[33, 35, 40, 41, 42, 43, 45, 48, 49, 51]) # Using list notation for desired test cases
+run_tests("create_destination_params", indices=slice(60, None)) # Using slice notation for the first three test cases
 

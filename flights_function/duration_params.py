@@ -3,26 +3,18 @@ import re
 import time
 import logging
 import json
+import openai
 logger = logging.getLogger(__name__)
 
-from langchain.chat_models import ChatOpenAI
-from langchain.prompts.chat import (
-    ChatPromptTemplate,
-    SystemMessagePromptTemplate,
-    HumanMessagePromptTemplate,
-    AIMessagePromptTemplate
-)
 from dotenv import load_dotenv
 load_dotenv()  # take environment variables from .env.
-# retrieve the OPENAI_API_KEY from environment variable
-OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
+# Set the API key and organization ID from environment variables
+openai.api_key = os.environ.get('OPENAI_API_KEY')
+openai.organization = os.environ.get('OPENAI_ORG_ID')
 
 def create_duration_params(user_request, selectedCityID, user_id):
     start_time = time.time()
     logger.debug("[UserID: %s] Creating duration parameters...", user_id)
-
-    # Initialize the openai model
-    chat = ChatOpenAI(temperature=0, openai_api_key=OPENAI_API_KEY, openai_organization='org-aaoYoL6D18BG1Z1btni0f4i6', model="gpt-3.5-turbo")
 
     # Create the prompt templates
     system_template = """INSTRUCTIONS:
@@ -58,12 +50,10 @@ def create_duration_params(user_request, selectedCityID, user_id):
         "key2": value2
     }}
     ```"""
-    system_message_prompt = SystemMessagePromptTemplate.from_template(system_template)
 
     #example 1
     userExample1 = """Origin: Madrid
     Info: Origin: Madrid, ES | Destination: Barcelona, ES | Departure: Next month | Duration: Weekend"""
-    userExample_prompt1 = HumanMessagePromptTemplate.from_template(userExample1)
 
     botExample1 = """Thought: Considering the short-haul nature of Madrid to Barcelona and the short duration of the trip (weekend), direct flights would be ideal. Major hubs like Madrid and Barcelona have numerous direct flight options.
     ```json
@@ -71,28 +61,23 @@ def create_duration_params(user_request, selectedCityID, user_id):
         "max_sector_stopovers": 0
     }}
     ```"""
-    
-    botExample_prompt1 = AIMessagePromptTemplate.from_template(botExample1)
 
     #example 2
     userExample2 = """Origin: Helsinki
     Info: Origin: Helsinki, FI | Destination: South America | Departure: January | Duration: 2 weeks | Flights: Any"""
-    userExample_prompt2 = HumanMessagePromptTemplate.from_template(userExample2)
 
     botExample2 = """Thought: The long-haul nature of Helsinki to South America, combined with the user's flexibility for any flights, suggests that we should allow some layovers. However, we'll aim to optimize for comfort by limiting lengthy stopovers and excessive travel time.
     ```json
     {{
         "max_fly_duration": 20,
-        "max_sector_stopovers": 2
+        "max_sector_stopovers": 2,
         "stopover_to": "5:00"
     }}
     ```"""
-    botExample_prompt2 = AIMessagePromptTemplate.from_template(botExample2)
 
     #example 3
     userExample3 = """Origin: New York
     Info: "Origin: New York, US | Destination: Sydney, AU | Departure: March | Duration: 1 week | Flights: direct"""
-    userExample_prompt3 = HumanMessagePromptTemplate.from_template(userExample3)
 
     botExample3 = """Thought: The user wants direct flights, so we set max_sector_stopovers to 0. We omit stopover_to and max_fly_duration for direct flights.
      ```json
@@ -100,36 +85,36 @@ def create_duration_params(user_request, selectedCityID, user_id):
         "max_sector_stopovers": 0
     }}
     ```"""
-    botExample_prompt3 = AIMessagePromptTemplate.from_template(botExample3)
 
-    human_template = """Origin: {selectedCityID}
-    Info: {user_request}"""
-    human_message_prompt = HumanMessagePromptTemplate.from_template(human_template)
+    human_template = f"Origin: {selectedCityID}\nInfo: {user_request}"
 
-    chat_prompt = ChatPromptTemplate.from_messages(
-        [system_message_prompt,
-        userExample_prompt1,
-        botExample_prompt1,
-        userExample_prompt2,
-        botExample_prompt2,
-        userExample_prompt3,
-        botExample_prompt3,
-        human_message_prompt]
-    )
+  # Construct the conversation message list
+    message_list = [
+        {"role": "system", "content": system_template},
+        {"role": "user", "content": userExample1},
+        {"role": "assistant", "content": botExample1},
+        {"role": "user", "content": userExample2},
+        {"role": "assistant", "content": botExample2},
+        {"role": "user", "content": userExample3},
+        {"role": "assistant", "content": botExample3},
+        {"role": "user", "content": human_template}
+    ]
 
     # Request the response from the model
-    openai_response = chat(
-        chat_prompt.format_prompt(
-        selectedCityID=selectedCityID,
-        user_request=user_request
-        ).to_messages()
+    response = openai.ChatCompletion.create(
+      model="gpt-3.5-turbo",
+      temperature=0,
+      messages=message_list,
     )
+    response_content = response.choices[0].message['content']
 
-    logger.debug("[UserID: %s] Duration parameters response: %s", user_id, openai_response.content)
-    #print(openai_response.content) # FOR LOCAL TESTING 
+    logger.debug("[UserID: %s] Duration parameters response: %s", user_id, response_content)
+    
+    print("response_content: " + str(response_content)) # FOR LOCAL TESTING
+    print("Prompt Tokens Used: " + str(response["usage"]['prompt_tokens']) + " | Completion Tokens Used: " + str(response["usage"]['completion_tokens']) + " | Total Tokens Used: " + str(response["usage"]['total_tokens']))
 
     # Extract the json string using regular expressions
-    json_str = re.search(r"\{.*\}", openai_response.content, re.DOTALL).group()
+    json_str = re.search(r"\{.*\}", response_content, re.DOTALL).group()
     
     # Convert the json string to a Python dictionary
     logger.debug("[UserID: %s] json_str: %s", user_id, json_str)
@@ -142,5 +127,5 @@ def create_duration_params(user_request, selectedCityID, user_id):
     return duration_params
 
 
-#test_request = "Origin: Helsinki, FI; Destination: Vilna; Departure: October, any Friday; Duration: 2 nights"
-#print(create_duration_params(test_request, "Helsinki_fi", "test_id"))
+test_request = "Origin: Helsinki, FI; Destination: Vilna; Departure: October, any Friday; Duration: 2 nights"
+print(create_duration_params(test_request, "Helsinki_fi", "test_id"))

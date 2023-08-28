@@ -3,28 +3,19 @@ from datetime import datetime, timedelta
 import time
 import logging
 logger = logging.getLogger(__name__)
-
-from langchain.chat_models import ChatOpenAI
-from langchain.prompts.chat import (
-    ChatPromptTemplate,
-    SystemMessagePromptTemplate,
-    HumanMessagePromptTemplate,
-    AIMessagePromptTemplate,
-)
+import openai
 
 from dotenv import load_dotenv
 load_dotenv()  # take environment variables from .env.
-# retrieve the OPENAI_API_KEY from environment variable
-OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
+# Set the API key and organization ID from environment variables
+openai.api_key = os.environ.get('OPENAI_API_KEY')
+openai.organization = os.environ.get('OPENAI_ORG_ID')
 
 def create_time_params(user_request, user_id):
     start_time = time.time() #start timer to log it later
     logger.debug("[UserID: %s] Creating time parameters...", user_id)
     current_date_unformatted = datetime.now()
     current_date = f"{current_date_unformatted:%d/%m/%Y}"
-
-    #initialize the openai model
-    chat = ChatOpenAI( model="gpt-4", temperature=0, openai_api_key = OPENAI_API_KEY, openai_organization="org-aaoYoL6D18BG1Z1btni0f4i6")
 
     #create the prompt templates
     system_template = """API DOCUMENTATION:
@@ -51,13 +42,10 @@ def create_time_params(user_request, user_id):
         "key2": value2
     }}
     ```"""
-    system_message_prompt = SystemMessagePromptTemplate.from_template(system_template)
 
     #example 1
     userExample1 = """Current date: 10/07/2023
     Info: Origin: London, GB | Destination: Paris, FR | Departure: Next month's Friday after 5pm | Duration: Weekend | Flights: Any"""
-
-    userExample_prompt1 = HumanMessagePromptTemplate.from_template(userExample1)
 
     botExample1 = """Answer: User wants to leave on a Friday next month (August) and stay for two nights. Outbound flight should be after 5pm, return flight should not be too late for work next day.
     ```json
@@ -76,12 +64,10 @@ def create_time_params(user_request, user_id):
         "ret_dtime_to": "18:00"
     }}
     ```"""
-    botExample_prompt1 = AIMessagePromptTemplate.from_template(botExample1)
 
     #example 2
     userExample2 = """Current date: 01/01/2024
     Info: Origin: San Francisco, US | Destination: Anywhere abroad | Departure: March | Duration: About a week | Flights: Any"""
-    userExample_prompt2 = HumanMessagePromptTemplate.from_template(userExample2)
 
     botExample2 = """Answer: setting departure dates for next March, lasting about a week which translated to 6-8 nights.
     ```json
@@ -92,12 +78,10 @@ def create_time_params(user_request, user_id):
     "nights_in_dst_to": 8
     }}
     ```"""
-    botExample_prompt2 = AIMessagePromptTemplate.from_template(botExample2)
 
     #example 3
     userExample3 = """Current date: 10/08/2023
     Info: Origin: Los Angeles, US | Destination: Miami, US | Departure: October's Long Weekend | Duration: 3 days | Flights: After 6pm"""
-    userExample_prompt3 = HumanMessagePromptTemplate.from_template(userExample3)
 
     botExample3 = """Answer: Long weekend usually means three days. Possible departure days are Thursday and Friday. Possible return flight days are Sunday or Monday. Outbound flight should be after 6pm, return flight not too late for work next day.
     ```json
@@ -112,12 +96,10 @@ def create_time_params(user_request, user_id):
         "ret_dtime_to": "20:00"
     }}
     ```"""
-    botExample_prompt3 = AIMessagePromptTemplate.from_template(botExample3)
 
     #example 4
     userExample4 = """Current date: 10/04/2023
     Info: Origin: Chicago, US | Destination: Paris, FR | Departure: Summer | Flights: One-way"""
-    userExample_prompt4 = HumanMessagePromptTemplate.from_template(userExample4)
 
     botExample4 = """Answer: The user only needs an outbound flight to Paris, which should be anytime in the summer months (June, July, August). Because it is a one-way trip, nights_in_dst-parameters must be excluded. 
     ```json
@@ -126,12 +108,10 @@ def create_time_params(user_request, user_id):
         "date_to": "31/08/2023"
     }}
     ```"""
-    botExample_prompt4 = AIMessagePromptTemplate.from_template(botExample4)
 
     #example 5
     userExample5 = """Current date: 10/07/2023
     Info: Origin: Boston, US | Destination: Abroad | Duration: not specified | Flights: Two-way"""
-    userExample_prompt5 = HumanMessagePromptTemplate.from_template(userExample5)
 
     botExample5 = """Answer: The user is very vague about when they want to go or for how long. To find two-way fligths we must include nights_in_dst-parameters, so we need to make assumptions. Let's assume roughly one-week stay and look for flights in the next three months.
     ```json
@@ -142,42 +122,42 @@ def create_time_params(user_request, user_id):
         "nights_in_dst_to": 9
     }}
     ```"""
-    botExample_prompt5 = AIMessagePromptTemplate.from_template(botExample5)
 
+    human_template = f"Current date: {current_date}\nInfo: {user_request}"
 
-    human_template = """Current date: {current_date}
-    Info: {user_request}"""
-    human_message_prompt = HumanMessagePromptTemplate.from_template(human_template)
+    # Construct the conversation message list
+    message_list = [
+        {"role": "system", "content": system_template},
+        {"role": "user", "content": userExample1},
+        {"role": "assistant", "content": botExample1},
+        {"role": "user", "content": userExample2},
+        {"role": "assistant", "content": botExample2},
+        {"role": "user", "content": userExample3},
+        {"role": "assistant", "content": botExample3},
+        {"role": "user", "content": userExample4},
+        {"role": "assistant", "content": botExample4},
+        {"role": "user", "content": userExample5},
+        {"role": "assistant", "content": botExample5},
+        {"role": "user", "content": human_template}
+    ]
 
-    chat_prompt = ChatPromptTemplate.from_messages(
-        [system_message_prompt,
-         userExample_prompt1,
-         botExample_prompt1,
-         userExample_prompt2,
-         botExample_prompt2,
-         userExample_prompt3,
-         botExample_prompt3,
-         userExample_prompt4,
-         botExample_prompt5,
-         userExample_prompt5,
-         botExample_prompt5,
-         human_message_prompt,]
+    # Request the response from the model
+    response = openai.ChatCompletion.create(
+      model="gpt-3.5-turbo-0613",
+      temperature=0,
+      messages=message_list,
     )
+    response_content = response.choices[0].message['content']
 
-    #request the response from the model
-    openai_response = chat(
-        chat_prompt.format_prompt(
-            user_request=user_request,
-            current_date=current_date
-        ).to_messages()
-    )
-    logger.debug("[UserID: %s] OpenAI response content: %s", user_id, str(openai_response.content))
-    #print(openai_response.content) # FOR LOCAL TESTING 
+    logger.debug("[UserID: %s] OpenAI response content: %s", user_id, str(response_content))
+    
+    print("response_content: " + str(response_content)) # FOR LOCAL TESTING
+    print("Prompt Tokens Used: " + str(response["usage"]['prompt_tokens']) + " | Completion Tokens Used: " + str(response["usage"]['completion_tokens']) + " | Total Tokens Used: " + str(response["usage"]['total_tokens']))
 
     # Extract the json string using regular expressions
     import re
     import json
-    json_str = re.search(r"\{.*\}", openai_response.content, re.DOTALL).group()
+    json_str = re.search(r"\{.*\}", response_content, re.DOTALL).group()
 
     # Convert the json string to a Python dictionary
     logger.debug("[UserID: %s] json_str: %s", user_id, json_str)
@@ -219,6 +199,5 @@ def adjust_dates(time_params, user_id):
 
     return time_params
 
-#if __name__ == "__main__":
-    #test_request = "Origin: Helsinki, FI; Destination: Vilna; Departure: October, any Friday; Duration: 2 nights"
-    #print(create_time_params(test_request, user_id))
+test_request = "Origin: Helsinki, FI; Destination: Vilna; Departure: October, any Friday; Duration: 2 nights"
+print(create_time_params(test_request, "test_user"))

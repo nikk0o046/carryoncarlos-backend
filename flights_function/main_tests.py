@@ -3,7 +3,7 @@ import json
 from destination_params import create_destination_params
 from time_params import create_time_params
 from duration_params import create_duration_params
-from test_cases import test_cases
+from data.test_cases import test_cases
 
 # URL of your backend service
 BASE_URL = "http://localhost:8080/search_flights"

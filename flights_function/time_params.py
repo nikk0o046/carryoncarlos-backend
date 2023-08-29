@@ -19,109 +19,97 @@ def create_time_params(user_request, user_id):
 
     #create the prompt templates
     system_template = """API DOCUMENTATION:
-    date_from, date_to: Range for outbound flight departure (dd/mm/yyyy). 
+date_from, date_to: Range for outbound flight departure (dd/mm/yyyy). 
 
-    nights_in_dst_from, nights_in_dst_to: Minimum and maximum stay length at the destination (in nights). Only exclude these if the user is looking for a one-way trip. Otherwise you must make an assumption.
+nights_in_dst_from, nights_in_dst_to: Minimum and maximum stay length at the destination (in nights). Only exclude these if the user is looking for a one-way trip. Otherwise you must make an assumption.
 
-    fly_days, ret_fly_days: List of preferred days for outbound and return flights (0=Sunday, 1=Monday, ... 6=Saturday). 
+fly_days, ret_fly_days: List of preferred days for outbound and return flights (0=Sunday, 1=Monday, ... 6=Saturday). 
 
-    fly_days_type, ret_fly_days_type: Specifies if fly_days/ret_fly_days is for an arrival or a departure flight. 
+fly_days_type, ret_fly_days_type: Specifies if fly_days/ret_fly_days is for an arrival or a departure flight.
 
-    dtime_from, dtime_to, ret_dtime_from, ret_dtime_to: Define the earliest and latest departure time for outbound and return flights. 
+If the user looks for specific dates, set date_from and date_to to a specific date, and match nights_in_dst_from and nights_in_dst_to so that the return day will be correct.
 
-    atime_from, atime_to, ret_atime_from, ret_atime_to: Define the earliest and latest arrival time for outbound and return flights.
+ANSWER INSTRUCTIONS:
+Your task is to create parameters specified above based on user information. The parameters will be forwarded to another assistant, who uses them to search flights. Do not come up with any other parameters.
+The output should include both:
+1) Thought: Thinking out loud about the user's needs and the task.
+2) Markdown code snippet formatted in the following schema, including the leading and trailing "\`\`\`json" and "\`\`\`":
 
-    ANSWER INSTRUCTIONS:
-    The output should include both:
-    1) Thought: Thinking out loud about the user's needs and the task.
-    2) Markdown code snippet formatted in the following schema, including the leading and trailing "\`\`\`json" and "\`\`\`":
-
-    ```json
-    {
-        "key1": value1  // Define relevant values. Only use keys mentioned in the API documentation. 
-        "key2": value2
-    }
-    ```"""
+```json
+{
+    "key1": value1  // Define relevant values. Only use keys mentioned in the API documentation. 
+    "key2": value2
+}
+```"""
 
     #example 1
-    userExample1 = """Current date: 10/07/2023
-    Info: Origin: London, GB | Destination: Paris, FR | Departure: Next month's Friday after 5pm | Duration: Weekend | Flights: Any"""
+    userExample1 = "Current date: 10/07/2023\nInfo: Origin: London, GB | Destination: Paris, FR | Departure: Next month's Friday| Duration: Weekend | Flights: Any"
 
-    botExample1 = """Answer: User wants to leave on a Friday next month (August) and stay for two nights. Outbound flight should be after 5pm, return flight should not be too late for work next day.
-    ```json
-    {
-        "date_from": "01/08/2023",
-        "date_to": "31/08/2023",
-        "fly_days": 5,
-        "fly_days_type": "departure",
-        "dtime_from": "17:00",
-        "dtime_to": "20:00",
-        "nights_in_dst_from": 2,
-        "nights_in_dst_to": 2,
-        "ret_fly_days": 0,
-        "ret_fly_days_type": "departure",
-        "ret_dtime_from": "12:00",
-        "ret_dtime_to": "18:00"
-    }
-    ```"""
+    botExample1 = """Thought: User wants to leave on a Friday next month (August) and stay for two nights.
+```json
+{
+    "date_from": "01/08/2023",
+    "date_to": "31/08/2023",
+    "fly_days": 5,
+    "fly_days_type": "departure",
+    "nights_in_dst_from": 2,
+    "nights_in_dst_to": 2,
+    "ret_fly_days": 0,
+    "ret_fly_days_type": "departure"
+}
+```"""
 
     #example 2
-    userExample2 = """Current date: 01/01/2024
-    Info: Origin: San Francisco, US | Destination: Anywhere abroad | Departure: March | Duration: About a week | Flights: Any"""
+    userExample2 = """Current date: 01/01/2024\nInfo: Origin: San Francisco, US | Destination: Anywhere abroad | Departure: March | Duration: About a week | Flights: Any"""
 
-    botExample2 = """Answer: setting departure dates for next March, lasting about a week which translated to 6-8 nights.
-    ```json
-    {
-    "date_from": "01/03/2024",
-    "date_to": "31/03/2024",
-    "nights_in_dst_from": 6,
-    "nights_in_dst_to": 8
-    }
-    ```"""
+    botExample2 = """Thought: setting departure dates for next March, lasting about a week which translated to 6-8 nights.
+```json
+{
+"date_from": "01/03/2024",
+"date_to": "31/03/2024",
+"nights_in_dst_from": 6,
+"nights_in_dst_to": 8
+}
+```"""
 
     #example 3
-    userExample3 = """Current date: 10/08/2023
-    Info: Origin: Los Angeles, US | Destination: Miami, US | Departure: October's Long Weekend | Duration: 3 days | Flights: After 6pm"""
+    userExample3 = "Current date: 10/08/2023\nInfo: Origin: Los Angeles, US | Destination: Miami, US | Departure: October's Long Weekend | Duration: 3 days | Flights: direct"
 
-    botExample3 = """Answer: Long weekend usually means three days. Possible departure days are Thursday and Friday. Possible return flight days are Sunday or Monday. Outbound flight should be after 6pm, return flight not too late for work next day.
-    ```json
-    {
-        "date_from": "01/10/2023",
-        "date_to": "31/10/2023",
-        "nights_in_dst_from": 3,
-        "nights_in_dst_to": 3,
-        "fly_days": [4, 5],
-        "dtime_from": "18:00",
-        "ret_fly_days": [0, 1],
-        "ret_dtime_to": "20:00"
-    }
-    ```"""
+    botExample3 = """Thought: Long weekend usually means three days. Possible departure days are Thursday and Friday. Possible return flight days are Sunday or Monday.
+```json
+{
+    "date_from": "01/10/2023",
+    "date_to": "31/10/2023",
+    "nights_in_dst_from": 3,
+    "nights_in_dst_to": 3,
+    "fly_days": [4, 5],
+    "ret_fly_days": [0, 1]
+}
+```"""
 
     #example 4
-    userExample4 = """Current date: 10/04/2023
-    Info: Origin: Chicago, US | Destination: Paris, FR | Departure: Summer | Flights: One-way"""
+    userExample4 = "Current date: 10/04/2023\nInfo: Origin: Chicago, US | Destination: Paris, FR | Departure: Summer | Flights: One-way"
 
-    botExample4 = """Answer: The user only needs an outbound flight to Paris, which should be anytime in the summer months (June, July, August). Because it is a one-way trip, nights_in_dst-parameters must be excluded. 
-    ```json
-    {
-        "date_from": "01/06/2023",
-        "date_to": "31/08/2023"
-    }
-    ```"""
+    botExample4 = """Thought: The user only needs an outbound flight to Paris, which should be anytime in the summer months (June, July, August). Because it is a one-way trip, nights_in_dst-parameters must be excluded. 
+```json
+{
+    "date_from": "01/06/2023",
+    "date_to": "31/08/2023"
+}
+```"""
 
     #example 5
-    userExample5 = """Current date: 10/07/2023
-    Info: Origin: Boston, US | Destination: Abroad | Duration: not specified | Flights: Two-way"""
+    userExample5 = "Current date: 10/07/2023\nInfo: Origin: Boston, US | Destination: Abroad | Activity: not specified | Flights: 4th of October to 8th of October"
 
-    botExample5 = """Answer: The user is very vague about when they want to go or for how long. To find two-way fligths we must include nights_in_dst-parameters, so we need to make assumptions. Let's assume roughly one-week stay and look for flights in the next three months.
-    ```json
-    {
-        "date_from": "11/07/2023",
-        "date_to": "10/10/2023",
-        "nights_in_dst_from": 5,
-        "nights_in_dst_to": 9
-    }
-    ```"""
+    botExample5 = """Thought: The user wants the outbound flight on 4th of October, so we set the departure window (date_from and date_to) to a single day. The return is on 8th of October, so the stay is exactly 4 nights. Therefore we set both nights_in_dst_from and nights_in_dst_to to 4.
+```json
+{
+    "date_from": "04/10/2023",
+    "date_to": "04/10/2023",
+    "nights_in_dst_from": 4,
+    "nights_in_dst_to": 4
+}
+```"""
 
     human_template = f"Current date: {current_date}\nInfo: {user_request}"
 
@@ -143,7 +131,8 @@ def create_time_params(user_request, user_id):
 
     # Request the response from the model
     response = openai.ChatCompletion.create(
-      model="gpt-3.5-turbo-0613",
+      #model="gpt-3.5-turbo-0613",
+      model="gpt-4",
       temperature=0,
       messages=message_list,
     )
@@ -152,7 +141,7 @@ def create_time_params(user_request, user_id):
     logger.debug("[UserID: %s] OpenAI response content: %s", user_id, str(response_content))
     
     print("response_content: " + str(response_content)) # FOR LOCAL TESTING
-    print("Prompt Tokens Used: " + str(response["usage"]['prompt_tokens']) + " | Completion Tokens Used: " + str(response["usage"]['completion_tokens']) + " | Total Tokens Used: " + str(response["usage"]['total_tokens']))
+    #print("Prompt Tokens Used: " + str(response["usage"]['prompt_tokens']) + " | Completion Tokens Used: " + str(response["usage"]['completion_tokens']) + " | Total Tokens Used: " + str(response["usage"]['total_tokens']))
 
     # Extract the json string using regular expressions
     import re

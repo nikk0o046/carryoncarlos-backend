@@ -110,7 +110,7 @@ def create_duration_params(user_request, selectedCityID, user_id):
 
     logger.debug("[UserID: %s] Duration parameters response: %s", user_id, response_content)
     
-    print("response_content: " + str(response_content)) # FOR LOCAL TESTING
+    #print("response_content: " + str(response_content)) # FOR LOCAL TESTING
     #print("Prompt Tokens Used: " + str(response["usage"]['prompt_tokens']) + " | Completion Tokens Used: " + str(response["usage"]['completion_tokens']) + " | Total Tokens Used: " + str(response["usage"]['total_tokens']))
 
     # Extract the json string using regular expressions

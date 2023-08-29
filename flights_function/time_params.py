@@ -140,7 +140,7 @@ The output should include both:
 
     logger.debug("[UserID: %s] OpenAI response content: %s", user_id, str(response_content))
     
-    print("response_content: " + str(response_content)) # FOR LOCAL TESTING
+    #print("response_content: " + str(response_content)) # FOR LOCAL TESTING
     #print("Prompt Tokens Used: " + str(response["usage"]['prompt_tokens']) + " | Completion Tokens Used: " + str(response["usage"]['completion_tokens']) + " | Total Tokens Used: " + str(response["usage"]['total_tokens']))
 
     # Extract the json string using regular expressions

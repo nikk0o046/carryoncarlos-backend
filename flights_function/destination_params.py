@@ -94,8 +94,8 @@ For ambiguous destinations, aim for at least 15 to 20 airport codes. Offering mo
 
     logger.debug("[UserID: %s] Destination parameters response: %s", user_id, response_content)
     
-    print("response_content: " + str(response_content)) # FOR LOCAL TESTING
-    print("Prompt Tokens Used: " + str(response["usage"]['prompt_tokens']) + " | Completion Tokens Used: " + str(response["usage"]['completion_tokens']) + " | Total Tokens Used: " + str(response["usage"]['total_tokens']))
+    #print("response_content: " + str(response_content)) # FOR LOCAL TESTING
+    #print("Prompt Tokens Used: " + str(response["usage"]['prompt_tokens']) + " | Completion Tokens Used: " + str(response["usage"]['completion_tokens']) + " | Total Tokens Used: " + str(response["usage"]['total_tokens']))
 
     # Regular expression pattern to match the IATA codes
     pattern = r'\[([A-Za-z,\s]+)\]'

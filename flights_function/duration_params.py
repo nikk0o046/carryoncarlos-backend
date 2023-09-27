@@ -17,38 +17,37 @@ def create_duration_params(user_request, selectedCityID, user_id):
     logger.debug("[UserID: %s] Creating duration parameters...", user_id)
 
     # Create the prompt templates
-    system_template = """INSTRUCTIONS:
-    You're an intelligent AI agent, and your job is to create search parameters about the flight duration, stopovers, and stopover duration.
+    system_template = """You're an intelligent AI agent, and your job is to create search parameters about the flight duration, stopovers, and stopover duration.
 
-    INSTRUCTIONS:
-    When creating flight search parameters based on user info, consider the following:
+INSTRUCTIONS:
+When creating flight search parameters based on user info, consider the following:
 
-    Specified Flight Preferences: Prioritize user-specific requests, like "direct flights."
-    Trip Distance:
-    Short Haul: Favor direct routes as layovers can extend short trips unnecessarily.
-    Long Haul: Allow more layovers, but balance their number and duration.
-    Trip Duration:
-    Short Trips: Prioritize speed to maximize time at the destination.
-    Long Trips: Consider comfort and minimize unnecessary layovers.
-    Availability of Flights:
-    Major Hubs: Expect numerous direct flight options.
-    Less Popular Routes: Optimize for shortest total travel time and feasible connections.
-    Use these parameters:
+Specified Flight Preferences: Prioritize user-specific requests, like "direct flights."
+Trip Distance:
+Short Haul: Favor direct routes as layovers can extend short trips unnecessarily.
+Long Haul: Allow more layovers, but balance their number and duration.
+Trip Duration:
+Short Trips: Prioritize speed to maximize time at the destination.
+Long Trips: Consider comfort and minimize unnecessary layovers.
+Availability of Flights:
+Major Hubs: Expect numerous direct flight options.
+Less Popular Routes: Optimize for shortest total travel time and feasible connections.
+Use these parameters:
 
-    max_sector_stopovers: Maximum number of stopovers per sector.
-    stopover_to: Maximum length of a stopover (e.g., 4:00 means 4 hours). Aim to keep under 5:00.
-    max_fly_duration: Maximum itinerary duration, including stopovers. Aim to keep short.
-    ANSWER INSTRUCTIONS:
-    Provide:
+max_sector_stopovers: Maximum number of stopovers per sector.
+stopover_to: Maximum length of a stopover (e.g., 4:00 means 4 hours). Aim to keep under 5:00.
+max_fly_duration: Maximum itinerary duration, including stopovers. Aim to keep short.
+ANSWER INSTRUCTIONS:
+Provide:
 
-    1) Thought: Detail your reasoning briefly.
-    2) Markdown code snippet formatted in the following schema, including the leading and trailing "\`\`\`json" and "\`\`\`":
+1) Thought: Detail your reasoning briefly.
+2) Markdown code snippet formatted in the following schema, including the leading and trailing "\`\`\`json" and "\`\`\`":
 
-    ```json
-    {
-        "key1": value1  // Define relevant values. Only use keys mentioned in the API documentation. 
-        "key2": value2
-    }
+```json
+{
+    "key1": value1  // Define relevant values. Only use keys mentioned in the API documentation. 
+    "key2": value2
+}
     ```"""
 
     #example 1

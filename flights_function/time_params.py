@@ -6,10 +6,10 @@ logger = logging.getLogger(__name__)
 import openai
 
 from dotenv import load_dotenv
-load_dotenv()  # take environment variables from .env.
-# Set the API key and organization ID from environment variables
+load_dotenv()
+
 openai.api_key = os.environ.get('OPENAI_API_KEY')
-openai.organization = os.environ.get('OPENAI_ORG_ID')
+
 
 def create_time_params(user_request, user_id):
     start_time = time.time() #start timer to log it later

@@ -10,7 +10,6 @@ from dotenv import load_dotenv
 load_dotenv()  # take environment variables from .env.
 # Set the API key and organization ID from environment variables
 openai.api_key = os.environ.get('OPENAI_API_KEY')
-openai.organization = os.environ.get('OPENAI_ORG_ID')
 
 def create_duration_params(user_request, selectedCityID, user_id):
     start_time = time.time()

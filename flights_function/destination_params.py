@@ -9,7 +9,6 @@ from dotenv import load_dotenv
 load_dotenv()  # take environment variables from .env.
 # retrieve the OPENAI_API_KEY from environment variable
 openai.api_key = os.environ.get('OPENAI_API_KEY')
-openai.organization = os.environ.get('OPENAI_ORG_ID')
 
 def create_destination_params(user_request, selectedCityID, user_id):
     start_time = time.time() #start timer to log it later
@@ -86,7 +85,7 @@ For ambiguous destinations, aim for at least 15 to 20 airport codes. Offering mo
     # Request the response from the model
     response = openai.ChatCompletion.create(
       #model="gpt-3.5-turbo-0613",
-      model="ft:gpt-3.5-turbo-0613:personal::7sEp8ziH",
+      model="ft:gpt-3.5-turbo-0613:personal::8H7hy8ud",
       temperature=0,
       messages=message_list,
     )

@@ -11,10 +11,10 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 
 from input_parser import input_parser
-from destination_params import create_destination_params
-from time_params import create_time_params
-from duration_params import create_duration_params
-from other_params import create_other_params
+from params.destination import create_destination_params
+from params.time import create_time_params
+from params.duration import create_duration_params
+from params.other import create_other_params
 from make_API_request import make_API_request
 from kiwi_output_parser import extract_info
 

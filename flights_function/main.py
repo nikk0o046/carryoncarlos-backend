@@ -15,8 +15,8 @@ from params.destination import create_destination_params
 from params.time import create_time_params
 from params.duration import create_duration_params
 from params.other import create_other_params
-from make_API_request import make_API_request
-from kiwi_output_parser import extract_info
+from api.make_API_request import make_API_request
+from api.kiwi_output_parser import extract_info
 
 app = Flask(__name__)
 CORS(app)

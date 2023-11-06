@@ -1,8 +1,8 @@
 import requests
 import json
-from destination_params import create_destination_params
-from time_params import create_time_params
-from duration_params import create_duration_params
+from ..params.destination import create_destination_params
+from ..params.time import create_time_params
+from ..params.duration import create_duration_params
 
 # Load the test cases from the JSON file
 with open('data/test_cases.json', 'r') as file:

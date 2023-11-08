@@ -9,7 +9,24 @@ load_dotenv()
 
 openai.api_key = os.environ.get('OPENAI_API_KEY')
 
-def input_parser(user_request, selectedCityID, user_id):
+#def input_parser(user_request, selectedCityID, user_id):
+def input_parser(user_request : str, selectedCityID : str, user_id : str) -> str:
+    """
+    This function takes the user request and the selected city ID and user ID and returns the query in a more structured and concise format.
+
+    Args:
+        user_request (str): The user request.
+        selectedCityID (str): The selected city ID.
+        user_id (str): The user ID.
+    
+    Example:
+        >>> input_parser("I want to go to barcelona for the weekend on 12th of january. Outbound flight departure after 4pm. Direct flights.", "madrid_es", "TestUser")
+        Origin: Madrid, ES | Destination: Barcelona, ES | Departure: 12.1. after 4pm | Duration: Weekend | Flights: Direct
+    
+    Returns:
+        str: The parsed input.
+    """
+
     start_time = time.time()
     logger.debug("[UserID: %s] Parsing user_request", user_id)
 
@@ -58,8 +75,3 @@ User request: Two-week trip to somewhere in South America. Departure in January.
     logger.debug("[UserID: %s] Function execution time: %s seconds", user_id, elapsed_time)
 
     return response_content
-
-
-#test_request = """I want to go to Latvia or Lithuania for a weekend trip in November or December. Direct flights. Departure on a Friday."""
-
-#print(input_parser(test_request, "helsinki_fi", "test_id"))

@@ -10,7 +10,20 @@ load_dotenv()  # take environment variables from .env.
 # retrieve the OPENAI_API_KEY from environment variable
 openai.api_key = os.environ.get('OPENAI_API_KEY')
 
-def create_destination_params(user_request, selectedCityID, user_id):
+
+def create_destination_params(user_request : str, user_id : str) -> dict:
+    """
+    This function takes the user request and the selectedcityID and returns the destination parameters.
+
+    Args:
+        user_request (str): The user request.
+        selectedCityID (str): The selected city ID.
+        user_id (str): The user ID.
+    
+    Returns:
+        dict: The destination parameters.
+    """
+    
     start_time = time.time() #start timer to log it later
     logger.debug("[UserID: %s] Creating destination parameters...", user_id)
 

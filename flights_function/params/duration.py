@@ -4,14 +4,26 @@ import time
 import logging
 import json
 import openai
+from dotenv import load_dotenv
+load_dotenv()
+
 logger = logging.getLogger(__name__)
 
-from dotenv import load_dotenv
-load_dotenv()  # take environment variables from .env.
-# Set the API key and organization ID from environment variables
 openai.api_key = os.environ.get('OPENAI_API_KEY')
 
-def create_duration_params(user_request, selectedCityID, user_id):
+
+def create_duration_params(user_request : str, selectedCityID : str, user_id : str) -> dict:
+    """
+    This function takes the user request, the selected city ID and the user ID and returns the duration parameters.
+
+    Args:
+        user_request (str): The user request.
+        selectedCityID (str): The selected city ID.
+        user_id (str): The user ID.
+
+    Returns:
+        dict: The duration parameters.
+    """
     start_time = time.time()
     logger.debug("[UserID: %s] Creating duration parameters...", user_id)
 
@@ -107,9 +119,6 @@ Provide:
     response_content = response.choices[0].message['content']
 
     logger.debug("[UserID: %s] Duration parameters response: %s", user_id, response_content)
-    
-    #print("response_content: " + str(response_content)) # FOR LOCAL TESTING
-    #print("Prompt Tokens Used: " + str(response["usage"]['prompt_tokens']) + " | Completion Tokens Used: " + str(response["usage"]['completion_tokens']) + " | Total Tokens Used: " + str(response["usage"]['total_tokens']))
 
     # Extract the json string using regular expressions
     json_str = re.search(r"\{.*\}", response_content, re.DOTALL).group()
@@ -123,7 +132,3 @@ Provide:
     logger.debug("[UserID: %s] Function execution time: %s seconds", user_id, elapsed_time)
 
     return duration_params
-
-
-#test_request = "Origin: Helsinki, FI; Destination: Vilna; Departure: October, any Friday; Duration: 2 nights"
-#print(create_duration_params(test_request, "Helsinki_fi", "test_id"))

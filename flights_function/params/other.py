@@ -1,7 +1,20 @@
 import logging
 logger = logging.getLogger(__name__)
 
-def create_other_params(selectedCityID, cabinClass, travelers, user_id):
+def create_other_params(selectedCityID : str, cabinClass : str, travelers : dict, user_id : str) -> dict:
+    """
+    This function takes the selected city ID, the cabin class, the travelers and the user ID and returns them and some default parameters as a dictionary.
+
+    Args:
+        selectedCityID (str): The selected city ID.
+        cabinClass (str): The cabin class.
+        travelers (dict): The travelers.
+        user_id (str): The user ID.
+
+    Returns:
+        dict: The other parameters.
+    """
+
     logger.debug("[UserID: %s] Creating other parameters...", user_id)
 
      # Map the cabinClass to the expected API value

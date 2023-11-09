@@ -4,14 +4,24 @@ import time
 import logging
 logger = logging.getLogger(__name__)
 import openai
-
 from dotenv import load_dotenv
 load_dotenv()
 
 openai.api_key = os.environ.get('OPENAI_API_KEY')
 
 
-def create_time_params(user_request, user_id):
+def create_time_params(user_request : str, user_id : str) -> dict:
+    """
+    This function takes the user request and the user ID and returns the time parameters.
+
+    Args:
+        user_request (str): The user request.
+        user_id (str): The user ID.
+    
+    Returns:
+        dict: The time parameters.
+    """
+
     start_time = time.time() #start timer to log it later
     logger.debug("[UserID: %s] Creating time parameters...", user_id)
     current_date_unformatted = datetime.now()
@@ -131,7 +141,6 @@ The output should include both:
 
     # Request the response from the model
     response = openai.ChatCompletion.create(
-      #model="gpt-3.5-turbo-0613",
       model="gpt-4",
       temperature=0,
       messages=message_list,
@@ -139,9 +148,6 @@ The output should include both:
     response_content = response.choices[0].message['content']
 
     logger.debug("[UserID: %s] OpenAI response content: %s", user_id, str(response_content))
-    
-    #print("response_content: " + str(response_content)) # FOR LOCAL TESTING
-    #print("Prompt Tokens Used: " + str(response["usage"]['prompt_tokens']) + " | Completion Tokens Used: " + str(response["usage"]['completion_tokens']) + " | Total Tokens Used: " + str(response["usage"]['total_tokens']))
 
     # Extract the json string using regular expressions
     import re
@@ -160,8 +166,18 @@ The output should include both:
     return time_params
 
 
-# A helper function in case the dates are in the past
-def adjust_dates(time_params, user_id):
+def adjust_dates(time_params : dict, user_id : str) -> dict:
+    """
+    This function takes the time parameters and the user ID and adjusts the dates if they are in the past.
+
+    Args:
+        time_params (dict): The time parameters.
+        user_id (str): The user ID.
+    
+    Returns:
+        dict: The time parameters.
+    """
+
     # Extract the dates from the parameters dictionary
     date_from_str = time_params['date_from']
     date_to_str = time_params['date_to']
@@ -187,6 +203,3 @@ def adjust_dates(time_params, user_id):
         logger.warning("[UserID: %s] Both dates were in the past. Adjusted them to: %s - %s", user_id, time_params['date_from'], time_params['date_to'])
 
     return time_params
-
-#test_request = "Origin: Helsinki, FI; Destination: Vilna; Departure: October, any Friday; Duration: 2 nights"
-#print(create_time_params(test_request, "test_user"))

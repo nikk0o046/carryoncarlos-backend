@@ -1,8 +1,8 @@
 import requests
 import json
-from ..params.destination import create_destination_params
-from ..params.time import create_time_params
-from ..params.duration import create_duration_params
+from params.destination import create_destination_params
+from params.time import create_time_params
+from params.duration import create_duration_params
 
 # Load the test cases from the JSON file
 with open('data/test_cases.json', 'r') as file:
@@ -11,10 +11,21 @@ with open('data/test_cases.json', 'r') as file:
 # URL of your backend service
 BASE_URL = "http://localhost:8080/search_flights"
 
-def test_function(func_name, test_case):
-    user_id = "TestUser"  # Assuming this is how you've structured your user ID. Modify accordingly.
+
+def test_function(func_name: str, test_case: dict) -> None:
+    """
+    Test a single function with a single test case.
+
+    Args:
+        func_name (str): The name of the function to test.
+        test_case (dict): The test case to run.
+
+    Returns:
+        None
+    """
+    user_id = "TestUser"
     if func_name == "create_destination_params":
-        result = create_destination_params(test_case["user_request"], test_case["selectedCityID"], user_id)
+        result = create_destination_params(test_case["user_request"], user_id)
     elif func_name == "create_time_params":
         result = create_time_params(test_case["user_request"], user_id)
     elif func_name == "create_duration_params":
@@ -25,7 +36,18 @@ def test_function(func_name, test_case):
     print(result)
 
 
-def filter_test_cases(test_cases, indices):
+def filter_test_cases(test_cases : list[dict], indices : list[int] | slice) -> list[dict]:
+    """
+    Filter the test cases by their indices.
+
+    Args:
+        test_cases (list[dict]): The list of test cases to filter.
+        indices (list[int] or slice): Specifies the test cases to run by their indices.
+    
+    Returns:
+        list[dict]: The filtered list of test cases.
+    """
+
     # If a slice is provided
     if isinstance(indices, slice):
         return test_cases[indices]
@@ -33,8 +55,25 @@ def filter_test_cases(test_cases, indices):
     return [test_cases[i-1] for i in indices]  # Subtracting 1 because list indices start from 0
 
 
-def run_tests(func_name=None, indices=None):
-    # Get the filtered test cases
+def run_tests(func_name: str | None = None, indices: list[int] | slice = None) -> None:
+    """
+    Execute a suite of test cases for specified functions or the entire flights_function and print the results.
+    If testing the entire flights_function, the app should be running on localhost:8080.
+
+    Args:
+        func_name (str or None): Specifies the function to test. If not provided, tests the entire flights_function.
+        indices (list[int] or slice): Specifies the test cases to run by their indices. If not provided, all test cases are run.
+    
+    Examples:
+    # Using list notation for desired test cases:
+    run_tests("create_destination_params", indices=[33, 35, 40, 41, 42, 43, 45, 48, 49, 51])
+
+    # Using slice notation for test cases 60 onwards:
+    run_tests("create_destination_params", indices=slice(60, None))
+
+    Returns:
+        None
+    """
     cases_to_run = filter_test_cases(test_cases, indices) if indices else test_cases
 
     for test_case in cases_to_run:
@@ -58,7 +97,4 @@ def run_tests(func_name=None, indices=None):
             
         print("-" * 40)
 
-
-#run_tests("create_destination_params", indices=[33, 35, 40, 41, 42, 43, 45, 48, 49, 51]) # Using list notation for desired test cases
-run_tests("create_destination_params", indices=slice(60, None)) # Using slice notation for the first three test cases
-
+run_tests("create_destination_params", indices=[0])

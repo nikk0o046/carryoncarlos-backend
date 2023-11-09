@@ -39,7 +39,7 @@ def search_flights():
 
         parsed_request = input_parser(user_request, selectedCityID, user_id)
 
-        destination_params = create_destination_params(parsed_request, selectedCityID, user_id) # Set destination(s)
+        destination_params = create_destination_params(parsed_request, user_id) # Set destination(s)
         time_params = create_time_params(parsed_request, user_id) # Set when
         duration_params = create_duration_params(parsed_request, selectedCityID, user_id) # Set stopovers and journey duration
         other_constraints = create_other_params(selectedCityID, cabinClass, travelers, user_id) # Harcoded and user selected variables

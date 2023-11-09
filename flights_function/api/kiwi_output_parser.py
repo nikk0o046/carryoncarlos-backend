@@ -2,7 +2,18 @@ import logging
 logger = logging.getLogger(__name__)
 import time
 
-def extract_info(api_response, user_id):
+
+def extract_info(api_response : dict, user_id : str) -> list:
+    """
+    This function takes the API response and the user ID and returns one flight (the cheapest) per city as a list of dictionaries.
+    Args:
+        api_response (dict): The API response.
+        user_id (str): The user ID.
+
+    Returns:
+        list: a list where each element is a dictionary containing the most important flight information.
+    """
+
     start_time = time.time() #start timer to log it later
     logger.debug("[UserID: %s] Extracting information from response data...", user_id)
 
@@ -55,7 +66,7 @@ def extract_info(api_response, user_id):
         logger.exception("[UserID: %s] Failed to extract info from API response: %s", user_id, e)
         return []
     
-    #logger.info("[UserID: %s] Information extraction completed. %s flights left after processing.", user_id, len(output))
+    logger.info("[UserID: %s] Information extraction completed. %s flights left after processing.", user_id, len(output))
     end_time = time.time()
     elapsed_time = end_time - start_time
     logger.debug("[UserID: %s] Function execution time: %s seconds", user_id, elapsed_time)

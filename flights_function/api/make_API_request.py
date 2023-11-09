@@ -2,13 +2,28 @@ import os
 import requests
 import time
 import logging
+from dotenv import load_dotenv
+load_dotenv()
 logger = logging.getLogger(__name__)
 
-from dotenv import load_dotenv
-load_dotenv()  # take environment variables from .env.
 KIWI_API_KEY = os.environ.get('KIWI_API_KEY')
 
-def make_API_request(params1, params2, params3, params4, user_id):
+
+def make_API_request(params1 : dict, params2 : dict, params3 : dict, params4 : dict, user_id : str) -> dict:
+    """
+    This function takes the destination, time, duration and other parameters and user ID and returns the Kiwi API response.
+
+    Args:
+        params1 (dict): The destination parameters.
+        params2 (dict): The time parameters.
+        params3 (dict): The duration parameters.
+        params4 (dict): The other parameters.
+        user_id (str): The user ID.
+
+    Returns:
+        dict: The API response.
+    """
+
     start_time = time.time() #start timer to log it later
     logger.debug("[UserID: %s] Making API request...", user_id)
 

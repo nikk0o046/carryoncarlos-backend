@@ -1,3 +1,8 @@
+"""
+This script by OpenAI is used to validate the data format of the training data. It is important to make sure that the data is formatted correctly before training the model.
+It can also be used to validate validation data.
+"""
+
 import json
 from collections import defaultdict
 

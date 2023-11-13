@@ -1,4 +1,4 @@
-In this file are stored instructions given for destination_parameters function, before I had fine-tuned the model.
+In this file are stored examples that were given for destination_parameters function, before I had fine-tuned the model.
 
 
 system_template1 = """INSTRUCTIONS:

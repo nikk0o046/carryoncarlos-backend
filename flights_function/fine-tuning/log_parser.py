@@ -1,10 +1,16 @@
+"""
+THIS SCRIPT IS UNFINISHED
+
+It's purpose is to use user logs to create more training data examples.
+"""
+
 from google.cloud import logging
 from google.cloud.logging import DESCENDING
 import re
 import json
 
 def capture_user_data():
-    """Captures and aggregates user-related information from the logs."""
+    """Captures and aggregates information from the logs."""
     
     # Initialize the logging client
     logging_client = logging.Client()

@@ -1,20 +1,19 @@
+"""
+THIS SCRIPT IS UNFINISHED
+
+This script will be used to use GPT-4 to create fine-tuning data for the time parameters function.
+"""
+
+
 import os
-from datetime import datetime, timedelta
-import time
 import openai
-
 from dotenv import load_dotenv
-load_dotenv()  # take environment variables from .env.
-# Set the API key and organization ID from environment variables
+load_dotenv()
+
 openai.api_key = os.environ.get('OPENAI_API_KEY')
-openai.organization = os.environ.get('OPENAI_ORG_ID')
 
-# Define the time_params function
 
-def create_time_params(user_request, user_id, current_date):
-    start_time = time.time() #start timer to log it later
-    #current_date_unformatted = datetime.now()
-    #current_date = f"{current_date_unformatted:%d/%m/%Y}"
+def create_time_params(user_request, current_date):
 
     #create the prompt templates
     system_template = """API DOCUMENTATION:
@@ -130,7 +129,6 @@ The output should include both:
 
     # Request the response from the model
     response = openai.ChatCompletion.create(
-      #model="gpt-3.5-turbo-0613",
       model="gpt-4",
       temperature=0,
       messages=message_list,
@@ -138,10 +136,3 @@ The output should include both:
     response_content = response.choices[0].message['content']
 
     return response_content
-
-
-
-
-
-#test_request = "Origin: Helsinki, FI; Destination: Vilna; Departure: October, any Friday; Duration: 2 nights"
-#print(create_time_params(test_request, "test_user"))

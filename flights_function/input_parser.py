@@ -9,7 +9,7 @@ load_dotenv()
 
 openai.api_key = os.environ.get('OPENAI_API_KEY')
 
-#def input_parser(user_request, selectedCityID, user_id):
+
 def input_parser(user_request : str, selectedCityID : str, user_id : str) -> str:
     """
     This function takes the user request and the selected city ID and user ID and returns the query in a more structured and concise format.

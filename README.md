@@ -18,7 +18,7 @@ Check live demo here: [carryoncarlos.com](https://carryoncarlos.com)
 - **data/**: Data used for model training and validation.
 - Additional files for Docker, environment variables, and dependency documentation and virtual environment.
 
-![ProcessFlowChart](https://github.com/nikk0o046/carryoncarlos-backend/ProcessFlowChart.png)
+![ProcessFlowChart](https://github.com/nikk0o046/carryoncarlos-backend/blob/master/ProcessFlowChart.png)
 
 ## Technologies Used
 

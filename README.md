@@ -41,7 +41,7 @@ This is a quick overview on how this function works. Duration and time parameter
 - The instructions use ReAct (Reason + Act) framework. This means that the model is instructed to first outline its thought process and only then the answer. The "answer" is a list of IATA airport codes, such as "HEL" for Helsinki. GPT-3.5 and GPT-4 models know these codes pretty well by heart without fine-tuning or RAG (Retrieval Augmented Generation).
 - The list of airport codes is extracted from the response using regex and turned to json format, which is then sent forward in the process.
 
-![ProcessFlowChart](https://github.com/nikk0o046/carryoncarlos-backend/ProcessFlowChart.png)
+![ProcessFlowChart](https://github.com/nikk0o046/carryoncarlos-backend/blob/master/ProcessFlowChart.png)
 
 ## Technologies Used
 

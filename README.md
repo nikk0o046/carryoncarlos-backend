@@ -1,4 +1,4 @@
-### Carry-on Carlos (Backend)
+# Carry-on Carlos (Backend)
 
 ## Overview
 
@@ -18,7 +18,7 @@ Check live demo here: [carryoncarlos.com](https://carryoncarlos.com)
 
 ## Project Structure
 
-# flights_function/:
+### flights_function/:
 
 - **main.py**: Core application code including the entry point and input parsing logic.
 - **input_parser.py**: Modifies the input so that rest of the functions work better.
@@ -33,7 +33,7 @@ Check live demo here: [carryoncarlos.com](https://carryoncarlos.com)
 
 Frontend sends your query to the backend with departure city and the amount of travelers. Your query is first modified to make it concise and adhere to a standardized structure. The formatted query is then used to call multiple params functions, that call OpenAI's API to get a response back. A valid json object is extracted from each response. There object are combined to create a final search query for Kiwi.com's search API. The response is also handled so only the most relevant flights and fields (of the object) are sent back to the frontend.
 
-# Function to create destination parameters
+### Function to create destination parameters
 
 This is a quick overview on how this function works. Duration and time parameters are created similarly. The main difference is that destination function uses a fine-tuned model, while duration and time functions use a few-shot prompting technique.
 

@@ -1,0 +1,1008 @@
+[
+  {
+    "date": "17/09/2022",
+    "user_request": "Origin: Oslo, NO | Destination: Riga | Departure: October, any Friday | Duration: 2 nights",
+    "test_case_number": 1,
+    "response_content": "Thought: The user wants to leave on any Friday in October and stay for two nights. So, we set the departure window to the whole of October, specify that the departure should be on a Friday, and set the stay length to exactly 2 nights.\n```json\n{\n    \"departure_date_from\": \"01/10/2022\",\n    \"departure_date_to\": \"31/10/2022\",\n    \"fly_days\": [5],\n    \"fly_days_type\": \"departure\",\n    \"nights_in_dst_from\": 2,\n    \"nights_in_dst_to\": 2\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/10/2022",
+      "departure_date_to": "31/10/2022",
+      "fly_days": [5],
+      "fly_days_type": "departure",
+      "nights_in_dst_from": 2,
+      "nights_in_dst_to": 2
+    },
+    "elapsed_time": 7.700555324554443,
+    "prompt_tokens": 1092,
+    "completion_tokens": 125,
+    "quality": 1.0
+  },
+  {
+    "date": "19/09/2023",
+    "user_request": "Origin: Stockholm, SE | Destination: Frankfurt | Departure: October 12th | Return: October 15th",
+    "test_case_number": 2,
+    "response_content": "Thought: The user wants to depart on October 12th and return on October 15th. This means a stay of 3 nights at the destination. \n\n```json\n{\n    \"departure_date_from\": \"12/10/2023\",\n    \"departure_date_to\": \"12/10/2023\",\n    \"nights_in_dst_from\": 3,\n    \"nights_in_dst_to\": 3\n}\n```",
+    "time_params": {
+      "departure_date_from": "12/10/2023",
+      "departure_date_to": "12/10/2023",
+      "nights_in_dst_from": 3,
+      "nights_in_dst_to": 3
+    },
+    "elapsed_time": 5.85200309753418,
+    "prompt_tokens": 1092,
+    "completion_tokens": 89,
+    "quality": 1.0
+  },
+  {
+    "date": "10/02/2024",
+    "user_request": "Origin: Copenhagen, DK | Destination: Best surfing spots in Portugal | Departure: Spring 2024 | Duration: 1 week",
+    "test_case_number": 3,
+    "response_content": "Thought: The user wants to leave in spring 2024, which is typically from March to May, and stay for a week. So, we set the departure_date_from and departure_date_to to cover the spring months, and nights_in_dst_from and nights_in_dst_to to 7.\n```json\n{\n    \"departure_date_from\": \"01/03/2024\",\n    \"departure_date_to\": \"31/05/2024\",\n    \"nights_in_dst_from\": 7,\n    \"nights_in_dst_to\": 7\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/03/2024",
+      "departure_date_to": "31/05/2024",
+      "nights_in_dst_from": 7,
+      "nights_in_dst_to": 7
+    },
+    "elapsed_time": 5.828445196151733,
+    "prompt_tokens": 1095,
+    "completion_tokens": 115,
+    "quality": 1.0
+  },
+  {
+    "date": "19/07/2023",
+    "user_request": "Origin: Amsterdam, NL | Destination: Valencia, Spain | Departure: 1st September | Return: 7th September | Passengers: 2 adults",
+    "test_case_number": 4,
+    "response_content": "Thought: The user wants to depart on 1st September and return on 7th September. This means a stay of 6 nights. Therefore, we set both nights_in_dst_from and nights_in_dst_to to 6. The departure and return dates are specific, so we set departure_date_from and departure_date_to to 1st September.\n```json\n{\n    \"departure_date_from\": \"01/09/2023\",\n    \"departure_date_to\": \"01/09/2023\",\n    \"nights_in_dst_from\": 6,\n    \"nights_in_dst_to\": 6\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/09/2023",
+      "departure_date_to": "01/09/2023",
+      "nights_in_dst_from": 6,
+      "nights_in_dst_to": 6
+    },
+    "elapsed_time": 7.468569755554199,
+    "prompt_tokens": 1101,
+    "completion_tokens": 127,
+    "quality": 1.0
+  },
+  {
+    "date": "01/06/2023",
+    "user_request": "Origin: Brussels, BE | Destination: Casablanca, Morocco | Departure: September 7th | Return: September 23rd | Passengers: 3 adults",
+    "test_case_number": 5,
+    "response_content": "Thought: The user wants to depart on September 7th and return on September 23rd. This means they will be staying for 16 nights. \n\n```json\n{\n    \"departure_date_from\": \"07/09/2023\",\n    \"departure_date_to\": \"07/09/2023\",\n    \"nights_in_dst_from\": 16,\n    \"nights_in_dst_to\": 16\n}\n```",
+    "time_params": {
+      "departure_date_from": "07/09/2023",
+      "departure_date_to": "07/09/2023",
+      "nights_in_dst_from": 16,
+      "nights_in_dst_to": 16
+    },
+    "elapsed_time": 7.008594512939453,
+    "prompt_tokens": 1104,
+    "completion_tokens": 88,
+    "quality": 1.0
+  },
+  {
+    "date": "27/08/2021",
+    "user_request": "Origin: Dublin, IE | Destination: East Coast US (Boston/Washington D.C.) | Departure: September-October | Duration: 12-16 days",
+    "test_case_number": 6,
+    "response_content": "Thought: The user wants to depart between September and October and stay for 12 to 16 days. \n```json\n{\n    \"departure_date_from\": \"01/09/2021\",\n    \"departure_date_to\": \"31/10/2021\",\n    \"nights_in_dst_from\": 12,\n    \"nights_in_dst_to\": 16\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/09/2021",
+      "departure_date_to": "31/10/2021",
+      "nights_in_dst_from": 12,
+      "nights_in_dst_to": 16
+    },
+    "elapsed_time": 4.882633447647095,
+    "prompt_tokens": 1101,
+    "completion_tokens": 78,
+    "quality": 1.0
+  },
+  {
+    "date": "12/04/2024",
+    "user_request": "Origin: Paris, FR | Destination: Greek Isles | Departure: Flexible | Duration: 7-12 days",
+    "test_case_number": 7,
+    "response_content": "Thought: The user is flexible with the departure date, so we don't need to specify it. The stay should be between 7 and 12 nights.\n```json\n{\n    \"nights_in_dst_from\": 7,\n    \"nights_in_dst_to\": 12\n}\n```",
+    "time_params": {
+      "nights_in_dst_from": 7,
+      "nights_in_dst_to": 12
+    },
+    "elapsed_time": 4.026310682296753,
+    "prompt_tokens": 1091,
+    "completion_tokens": 60,
+    "quality": 1.0
+  },
+  {
+    "date": "14/09/2023",
+    "user_request": "Origin: Berlin, DE | Destination: Tropical destination in Asia | Departure: Mid-November to December | Duration: Approx. 10 nights",
+    "test_case_number": 8,
+    "response_content": "Thought: The user wants to depart between mid-November and December and stay for approximately 10 nights. We can interpret \"approximately\" as a range, so we'll set the nights_in_dst_from and nights_in_dst_to to 9 and 11 nights respectively.\n```json\n{\n    \"departure_date_from\": \"15/11/2023\",\n    \"departure_date_to\": \"31/12/2023\",\n    \"nights_in_dst_from\": 9,\n    \"nights_in_dst_to\": 11\n}\n```",
+    "time_params": {
+      "departure_date_from": "15/11/2023",
+      "departure_date_to": "31/12/2023",
+      "nights_in_dst_from": 9,
+      "nights_in_dst_to": 11
+    },
+    "elapsed_time": 7.436319589614868,
+    "prompt_tokens": 1097,
+    "completion_tokens": 110,
+    "quality": 1.0
+  },
+  {
+    "date": "22/07/2021",
+    "user_request": "Origin: Tampere, FI | Destination: City in Eastern Europe | Departure: Evening | Duration: 2 nights | Occasion: Bachelors party",
+    "test_case_number": 9,
+    "response_content": "Thought: The user wants to leave in the evening and stay for 2 nights. However, the specific departure date is not mentioned. As the current date is 22/07/2021, we can assume the user wants to leave as soon as possible. Therefore, we can set the departure date from tomorrow, 23/07/2021. \n\n```json\n{\n    \"departure_date_from\": \"23/07/2021\",\n    \"departure_date_to\": \"23/07/2021\",\n    \"nights_in_dst_from\": 2,\n    \"nights_in_dst_to\": 2\n}\n```",
+    "time_params": {
+      "departure_date_from": "23/07/2021",
+      "departure_date_to": "23/07/2021",
+      "nights_in_dst_from": 2,
+      "nights_in_dst_to": 2
+    },
+    "elapsed_time": 9.028752088546753,
+    "prompt_tokens": 1101,
+    "completion_tokens": 129,
+    "quality": 1.0
+  },
+  {
+    "date": "19/09/2023",
+    "user_request": "Origin: Madrid, ES | Destination: Tropical snorkeling destination | Departure: Before Summer 2024 | Duration: Approx. 1 week",
+    "test_case_number": 10,
+    "response_content": "Thought: The user wants to leave before summer 2024, which means any time before June. They want to stay for approximately one week, which I'll interpret as 6-8 nights.\n```json\n{\n    \"departure_date_from\": \"20/09/2023\",\n    \"departure_date_to\": \"31/05/2024\",\n    \"nights_in_dst_from\": 6,\n    \"nights_in_dst_to\": 8\n}\n```",
+    "time_params": {
+      "departure_date_from": "20/09/2023",
+      "departure_date_to": "31/05/2024",
+      "nights_in_dst_from": 6,
+      "nights_in_dst_to": 8
+    },
+    "elapsed_time": 6.68575382232666,
+    "prompt_tokens": 1097,
+    "completion_tokens": 96,
+    "quality": 1.0
+  },
+  {
+    "date": "23/10/2022",
+    "user_request": "Origin: Helsinki, FI | Destination: Lapland, FI | Departure: December 24th | Duration: 7 days | Occasion: Christmas holidays",
+    "test_case_number": 11,
+    "response_content": "Thought: The user wants to leave on December 24th and stay for 7 nights. So, we set the departure_date_from and departure_date_to to the specific date, and match nights_in_dst_from and nights_in_dst_to so that the return day will be correct.\n```json\n{\n    \"departure_date_from\": \"24/12/2022\",\n    \"departure_date_to\": \"24/12/2022\",\n    \"nights_in_dst_from\": 7,\n    \"nights_in_dst_to\": 7\n}\n```",
+    "time_params": {
+      "departure_date_from": "24/12/2022",
+      "departure_date_to": "24/12/2022",
+      "nights_in_dst_from": 7,
+      "nights_in_dst_to": 7
+    },
+    "elapsed_time": 6.76433801651001,
+    "prompt_tokens": 1100,
+    "completion_tokens": 112,
+    "quality": 1.0
+  },
+  {
+    "date": "02/02/2024",
+    "user_request": "Origin: Rome, IT | Destination: Tokyo, Japan | Departure: Spring 2024 | Duration: 3 weeks",
+    "test_case_number": 12,
+    "response_content": "Thought: The user wants to leave in spring 2024 (March, April, May) and stay for 3 weeks (21 nights). \n```json\n{\n    \"departure_date_from\": \"01/03/2024\",\n    \"departure_date_to\": \"31/05/2024\",\n    \"nights_in_dst_from\": 21,\n    \"nights_in_dst_to\": 21\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/03/2024",
+      "departure_date_to": "31/05/2024",
+      "nights_in_dst_from": 21,
+      "nights_in_dst_to": 21
+    },
+    "elapsed_time": 5.090591669082642,
+    "prompt_tokens": 1093,
+    "completion_tokens": 86,
+    "quality": 1.0
+  },
+  {
+    "date": "28/06/2023",
+    "user_request": "Origin: Warsaw, PL | Destination: New York, US | Departure: Any Wednesday of September | Duration: 5 nights",
+    "test_case_number": 13,
+    "response_content": "Thought: The user wants to depart on any Wednesday in September and stay for 5 nights. Wednesday corresponds to 3 in our fly_days list.\n```json\n{\n    \"departure_date_from\": \"01/09/2023\",\n    \"departure_date_to\": \"30/09/2023\",\n    \"nights_in_dst_from\": 5,\n    \"nights_in_dst_to\": 5,\n    \"fly_days\": [3],\n    \"fly_days_type\": \"departure\"\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/09/2023",
+      "departure_date_to": "30/09/2023",
+      "nights_in_dst_from": 5,
+      "nights_in_dst_to": 5,
+      "fly_days": [3],
+      "fly_days_type": "departure"
+    },
+    "elapsed_time": 6.334304571151733,
+    "prompt_tokens": 1094,
+    "completion_tokens": 103,
+    "quality": 1.0
+  },
+  {
+    "date": "09/01/2025",
+    "user_request": "Origin: London, GB | Destination: Sydney, AU | Departure: Mid-February | Duration: 14 days",
+    "test_case_number": 14,
+    "response_content": "Thought: The user wants to depart in mid-February, which I'll interpret as between the 10th and 20th of February. They want to stay for 14 days, so I'll set both nights_in_dst_from and nights_in_dst_to to 14.\n```json\n{\n    \"departure_date_from\": \"10/02/2025\",\n    \"departure_date_to\": \"20/02/2025\",\n    \"nights_in_dst_from\": 14,\n    \"nights_in_dst_to\": 14\n}\n```",
+    "time_params": {
+      "departure_date_from": "10/02/2025",
+      "departure_date_to": "20/02/2025",
+      "nights_in_dst_from": 14,
+      "nights_in_dst_to": 14
+    },
+    "elapsed_time": 6.111842393875122,
+    "prompt_tokens": 1092,
+    "completion_tokens": 112,
+    "quality": 1.0
+  },
+  {
+    "date": "11/08/2022",
+    "user_request": "Origin: Vienna, AT | Destination: Bangkok, Thailand | Departure: October 1st | Duration: 10 nights",
+    "test_case_number": 15,
+    "response_content": "Thought: The user wants to depart on October 1st and stay for 10 nights. Therefore, we set the departure_date_from and departure_date_to to the specific date of October 1st, and the nights_in_dst_from and nights_in_dst_to to 10.\n```json\n{\n    \"departure_date_from\": \"01/10/2022\",\n    \"departure_date_to\": \"01/10/2022\",\n    \"nights_in_dst_from\": 10,\n    \"nights_in_dst_to\": 10\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/10/2022",
+      "departure_date_to": "01/10/2022",
+      "nights_in_dst_from": 10,
+      "nights_in_dst_to": 10
+    },
+    "elapsed_time": 7.060745477676392,
+    "prompt_tokens": 1093,
+    "completion_tokens": 112,
+    "quality": 1.0
+  },
+  {
+    "date": "24/07/2023",
+    "user_request": "Origin: Vienna, AT | Destination: Helsinki, FI | Departure: Early November | Duration: 7 nights",
+    "test_case_number": 16,
+    "response_content": "Thought: The user wants to leave in early November and stay for exactly 7 nights. Early November can be interpreted as the first two weeks of November.\n```json\n{\n    \"departure_date_from\": \"01/11/2023\",\n    \"departure_date_to\": \"14/11/2023\",\n    \"nights_in_dst_from\": 7,\n    \"nights_in_dst_to\": 7\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/11/2023",
+      "departure_date_to": "14/11/2023",
+      "nights_in_dst_from": 7,
+      "nights_in_dst_to": 7
+    },
+    "elapsed_time": 5.285219430923462,
+    "prompt_tokens": 1091,
+    "completion_tokens": 87,
+    "quality": 1.0
+  },
+  {
+    "date": "19/12/2023",
+    "user_request": "Origin: Lisbon, PT | Destination: Rio de Janeiro, Brazil | Departure: Carnival season | Duration: 5 days",
+    "test_case_number": 17,
+    "response_content": "Thought: The user wants to travel during the Carnival season in Rio, which usually takes place in February. The stay is exactly 5 nights. Therefore, we set the departure window to the month of February and the nights_in_dst parameters to 5.\n```json\n{\n    \"departure_date_from\": \"01/02/2024\",\n    \"departure_date_to\": \"28/02/2024\",\n    \"nights_in_dst_from\": 5,\n    \"nights_in_dst_to\": 5\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/02/2024",
+      "departure_date_to": "28/02/2024",
+      "nights_in_dst_from": 5,
+      "nights_in_dst_to": 5
+    },
+    "elapsed_time": 6.041311740875244,
+    "prompt_tokens": 1093,
+    "completion_tokens": 107,
+    "quality": 1.0
+  },
+  {
+    "date": "12/01/2023",
+    "user_request": "Origin: Zurich, CH | Destination: Mount Everest Base Camp, Nepal | Departure: April 5th | Duration: 15 days | Occasion: Trekking",
+    "test_case_number": 18,
+    "response_content": "Thought: The user wants to depart on April 5th and stay for 15 days. So, we set the departure_date_from and departure_date_to to the specific date of April 5th, and nights_in_dst_from and nights_in_dst_to to 15.\n```json\n{\n    \"departure_date_from\": \"05/04/2023\",\n    \"departure_date_to\": \"05/04/2023\",\n    \"nights_in_dst_from\": 15,\n    \"nights_in_dst_to\": 15\n}\n```",
+    "time_params": {
+      "departure_date_from": "05/04/2023",
+      "departure_date_to": "05/04/2023",
+      "nights_in_dst_from": 15,
+      "nights_in_dst_to": 15
+    },
+    "elapsed_time": 7.1888039112091064,
+    "prompt_tokens": 1102,
+    "completion_tokens": 111,
+    "quality": 1.0
+  },
+  {
+    "date": "11/02/2024",
+    "user_request": "Origin: Oslo, NO | Destination: Maldives | Departure: Honeymoon in June | Duration: 7 nights",
+    "test_case_number": 19,
+    "response_content": "Thought: The user wants to leave in June for their honeymoon and stay for exactly 7 nights.\n```json\n{\n    \"departure_date_from\": \"01/06/2024\",\n    \"departure_date_to\": \"30/06/2024\",\n    \"nights_in_dst_from\": 7,\n    \"nights_in_dst_to\": 7\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/06/2024",
+      "departure_date_to": "30/06/2024",
+      "nights_in_dst_from": 7,
+      "nights_in_dst_to": 7
+    },
+    "elapsed_time": 5.103493690490723,
+    "prompt_tokens": 1093,
+    "completion_tokens": 76,
+    "quality": 1.0
+  },
+  {
+    "date": "01/01/2025",
+    "user_request": "Origin: Budapest, HU | Destination: Milan, IT | Departure: First week of March | Duration: 4 days | Occasion: Fashion week",
+    "test_case_number": 20,
+    "response_content": "Thought: The user wants to leave in the first week of March and stay for 4 nights. The return flight will be 4 days after the departure.\n```json\n{\n    \"departure_date_from\": \"01/03/2025\",\n    \"departure_date_to\": \"07/03/2025\",\n    \"nights_in_dst_from\": 4,\n    \"nights_in_dst_to\": 4\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/03/2025",
+      "departure_date_to": "07/03/2025",
+      "nights_in_dst_from": 4,
+      "nights_in_dst_to": 4
+    },
+    "elapsed_time": 5.798691987991333,
+    "prompt_tokens": 1100,
+    "completion_tokens": 88,
+    "quality": 1.0
+  },
+  {
+    "date": "28/07/2024",
+    "user_request": "Origin: Athens, GR | Destination: Bali, Indonesia | Departure: September 5th | Duration: 12 days",
+    "test_case_number": 21,
+    "response_content": "Thought: The user wants to depart on September 5th and stay for 12 days. So, we set the departure_date_from and departure_date_to to the specific date, and nights_in_dst_from and nights_in_dst_to to 12.\n```json\n{\n    \"departure_date_from\": \"05/09/2024\",\n    \"departure_date_to\": \"05/09/2024\",\n    \"nights_in_dst_from\": 12,\n    \"nights_in_dst_to\": 12\n}\n```",
+    "time_params": {
+      "departure_date_from": "05/09/2024",
+      "departure_date_to": "05/09/2024",
+      "nights_in_dst_from": 12,
+      "nights_in_dst_to": 12
+    },
+    "elapsed_time": 6.464025020599365,
+    "prompt_tokens": 1093,
+    "completion_tokens": 106,
+    "quality": 1.0
+  },
+  {
+    "date": "19/11/2023",
+    "user_request": "Origin: Prague, CZ | Destination: Shanghai, China | Departure: Spring 2024 | Duration: 10 days",
+    "test_case_number": 22,
+    "response_content": "Thought: The user wants to travel in spring 2024, which typically refers to March, April, and May. The duration of the stay is 10 days.\n```json\n{\n    \"departure_date_from\": \"01/03/2024\",\n    \"departure_date_to\": \"31/05/2024\",\n    \"nights_in_dst_from\": 10,\n    \"nights_in_dst_to\": 10\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/03/2024",
+      "departure_date_to": "31/05/2024",
+      "nights_in_dst_from": 10,
+      "nights_in_dst_to": 10
+    },
+    "elapsed_time": 5.2394208908081055,
+    "prompt_tokens": 1093,
+    "completion_tokens": 90,
+    "quality": 1.0
+  },
+  {
+    "date": "19/03/2024",
+    "user_request": "Origin: Edinburgh, GB | Destination: African Safari | Departure: Summer 2024 | Duration: 2 weeks",
+    "test_case_number": 23,
+    "response_content": "Thought: The user wants to leave in the summer of 2024 and stay for two weeks. Summer is typically June, July, and August. Two weeks translates to 14 nights.\n```json\n{\n    \"departure_date_from\": \"01/06/2024\",\n    \"departure_date_to\": \"31/08/2024\",\n    \"nights_in_dst_from\": 14,\n    \"nights_in_dst_to\": 14\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/06/2024",
+      "departure_date_to": "31/08/2024",
+      "nights_in_dst_from": 14,
+      "nights_in_dst_to": 14
+    },
+    "elapsed_time": 5.488485813140869,
+    "prompt_tokens": 1092,
+    "completion_tokens": 94,
+    "quality": 1.0
+  },
+  {
+    "date": "22/10/2026",
+    "user_request": "Origin: Moscow, RU | Destination: Santa's Village, FI | Departure: December 24th | Duration: 3 days",
+    "test_case_number": 24,
+    "response_content": "Thought: The user wants to depart on December 24th and stay for 3 days. So, the return flight will be on December 27th. \n```json\n{\n    \"departure_date_from\": \"24/12/2026\",\n    \"departure_date_to\": \"24/12/2026\",\n    \"nights_in_dst_from\": 3,\n    \"nights_in_dst_to\": 3\n}\n```",
+    "time_params": {
+      "departure_date_from": "24/12/2026",
+      "departure_date_to": "24/12/2026",
+      "nights_in_dst_from": 3,
+      "nights_in_dst_to": 3
+    },
+    "elapsed_time": 6.5890233516693115,
+    "prompt_tokens": 1095,
+    "completion_tokens": 89,
+    "quality": 1.0
+  },
+  {
+    "date": "04/03/2025",
+    "user_request": "Origin: Barcelona, ES | Destination: Tokyo Disneyland, Japan | Departure: Summer holidays | Duration: 10 days",
+    "test_case_number": 25,
+    "response_content": "Thought: The user wants to leave during the summer holidays (June, July, August) and stay for 10 days. \n```json\n{\n    \"departure_date_from\": \"01/06/2025\",\n    \"departure_date_to\": \"31/08/2025\",\n    \"nights_in_dst_from\": 10,\n    \"nights_in_dst_to\": 10\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/06/2025",
+      "departure_date_to": "31/08/2025",
+      "nights_in_dst_from": 10,
+      "nights_in_dst_to": 10
+    },
+    "elapsed_time": 5.078230619430542,
+    "prompt_tokens": 1092,
+    "completion_tokens": 82,
+    "quality": 1.0
+  },
+  {
+    "date": "12/12/2023",
+    "user_request": "Origin: Belgrade, RS | Destination: Caribbean Cruises | Departure: Any time in 2024 | Duration: 15 days",
+    "test_case_number": 26,
+    "response_content": "Thought: The user wants to depart any time in 2024 and stay for 15 days. \n```json\n{\n    \"departure_date_from\": \"01/01/2024\",\n    \"departure_date_to\": \"31/12/2024\",\n    \"nights_in_dst_from\": 15,\n    \"nights_in_dst_to\": 15\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/01/2024",
+      "departure_date_to": "31/12/2024",
+      "nights_in_dst_from": 15,
+      "nights_in_dst_to": 15
+    },
+    "elapsed_time": 5.001126289367676,
+    "prompt_tokens": 1096,
+    "completion_tokens": 77,
+    "quality": 1.0
+  },
+  {
+    "date": "19/06/2024",
+    "user_request": "Origin: Riga, LV | Destination: Best wine regions in France | Departure: Autumn 2024 | Duration: 1 week",
+    "test_case_number": 27,
+    "response_content": "Thought: The user wants to leave in the autumn (September, October, November) and stay for a week. \n```json\n{\n    \"departure_date_from\": \"01/09/2024\",\n    \"departure_date_to\": \"30/11/2024\",\n    \"nights_in_dst_from\": 7,\n    \"nights_in_dst_to\": 7\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/09/2024",
+      "departure_date_to": "30/11/2024",
+      "nights_in_dst_from": 7,
+      "nights_in_dst_to": 7
+    },
+    "elapsed_time": 4.341151475906372,
+    "prompt_tokens": 1096,
+    "completion_tokens": 80,
+    "quality": 1.0
+  },
+  {
+    "date": "13/11/2025",
+    "user_request": "Origin: Kiev, UA | Destination: Goa, India | Departure: New Year's Eve | Duration: 7 days",
+    "test_case_number": 28,
+    "response_content": "Thought: The user wants to depart on New Year's Eve (31/12/2025) and stay for 7 days. So, the return flight will be on 7th of January, 2026.\n```json\n{\n    \"departure_date_from\": \"31/12/2025\",\n    \"departure_date_to\": \"31/12/2025\",\n    \"nights_in_dst_from\": 7,\n    \"nights_in_dst_to\": 7\n}\n```",
+    "time_params": {
+      "departure_date_from": "31/12/2025",
+      "departure_date_to": "31/12/2025",
+      "nights_in_dst_from": 7,
+      "nights_in_dst_to": 7
+    },
+    "elapsed_time": 5.838382959365845,
+    "prompt_tokens": 1093,
+    "completion_tokens": 101,
+    "quality": 1.0
+  },
+  {
+    "date": "19/03/2024",
+    "user_request": "Origin: Bucharest, RO | Destination: Major US cities | Departure: Summer 2024 | Duration: 20 days",
+    "test_case_number": 29,
+    "response_content": "Thought: The user wants to leave in the summer of 2024 and stay for 20 days. Summer is typically June, July, and August.\n```json\n{\n    \"departure_date_from\": \"01/06/2024\",\n    \"departure_date_to\": \"31/08/2024\",\n    \"nights_in_dst_from\": 20,\n    \"nights_in_dst_to\": 20\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/06/2024",
+      "departure_date_to": "31/08/2024",
+      "nights_in_dst_from": 20,
+      "nights_in_dst_to": 20
+    },
+    "elapsed_time": 5.3143675327301025,
+    "prompt_tokens": 1094,
+    "completion_tokens": 87,
+    "quality": 1.0
+  },
+  {
+    "date": "09/02/2024",
+    "user_request": "Origin: Sofia, BG | Destination: Ancient ruins in Peru | Departure: May 2024 | Duration: 15 days",
+    "test_case_number": 30,
+    "response_content": "Thought: The user wants to leave in May 2024 and stay for 15 days. So, we set the departure_date_from and departure_date_to to cover the whole month of May and nights_in_dst_from and nights_in_dst_to to 15.\n```json\n{\n    \"departure_date_from\": \"01/05/2024\",\n    \"departure_date_to\": \"31/05/2024\",\n    \"nights_in_dst_from\": 15,\n    \"nights_in_dst_to\": 15\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/05/2024",
+      "departure_date_to": "31/05/2024",
+      "nights_in_dst_from": 15,
+      "nights_in_dst_to": 15
+    },
+    "elapsed_time": 6.395968198776245,
+    "prompt_tokens": 1094,
+    "completion_tokens": 108,
+    "quality": 1.0
+  },
+  {
+    "date": "03/05/2024",
+    "user_request": "Origin: Rome, IT | Destination: South of France | Departure: Anytime in July | Length: A weekend",
+    "test_case_number": 31,
+    "response_content": "Thought: The user wants to leave anytime in July and stay for a weekend, which is typically 2 nights (Friday to Sunday or Saturday to Monday). So, we set the departure dates to July, and the nights in destination from 2 to 2. The preferred days for outbound and return flights are Friday/Saturday for departure and Sunday/Monday for return.\n\n```json\n{\n    \"departure_date_from\": \"01/07/2024\",\n    \"departure_date_to\": \"31/07/2024\",\n    \"nights_in_dst_from\": 2,\n    \"nights_in_dst_to\": 2,\n    \"fly_days\": [5, 6],\n    \"fly_days_type\": \"departure\",\n    \"ret_fly_days\": [0, 1],\n    \"ret_fly_days_type\": \"departure\"\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/07/2024",
+      "departure_date_to": "31/07/2024",
+      "nights_in_dst_from": 2,
+      "nights_in_dst_to": 2,
+      "fly_days": [5, 6],
+      "fly_days_type": "departure",
+      "ret_fly_days": [0, 1],
+      "ret_fly_days_type": "departure"
+    },
+    "elapsed_time": 9.476325273513794,
+    "prompt_tokens": 1092,
+    "completion_tokens": 175,
+    "quality": 1.0
+  },
+  {
+    "date": "09/02/2024",
+    "user_request": "From: Warsaw, PL | I want to explore: Beaches in Croatia or Greece | Departure: During summer holidays | Duration: 5 to 7 days | Passengers: Me and my partner",
+    "test_case_number": 32,
+    "response_content": "Thought: The user wants to leave during the summer holidays (June, July, August) and stay for 5 to 7 nights. \n```json\n{\n    \"departure_date_from\": \"01/06/2024\",\n    \"departure_date_to\": \"31/08/2024\",\n    \"nights_in_dst_from\": 5,\n    \"nights_in_dst_to\": 7\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/06/2024",
+      "departure_date_to": "31/08/2024",
+      "nights_in_dst_from": 5,
+      "nights_in_dst_to": 7
+    },
+    "elapsed_time": 5.4338672161102295,
+    "prompt_tokens": 1109,
+    "completion_tokens": 85,
+    "quality": 1.0
+  },
+  {
+    "date": "02/12/2024",
+    "user_request": "Origin: Prague, CZ | Destination: Thailand | When: January or February | Stay: Roughly 2 weeks | Class: Business class please",
+    "test_case_number": 33,
+    "response_content": "Thought: The user wants to leave in January or February and stay for about two weeks. I'll set the departure dates to cover both months and the stay to be from 13 to 15 nights.\n```json\n{\n    \"departure_date_from\": \"01/01/2025\",\n    \"departure_date_to\": \"28/02/2025\",\n    \"nights_in_dst_from\": 13,\n    \"nights_in_dst_to\": 15\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/01/2025",
+      "departure_date_to": "28/02/2025",
+      "nights_in_dst_from": 13,
+      "nights_in_dst_to": 15
+    },
+    "elapsed_time": 5.413898944854736,
+    "prompt_tokens": 1097,
+    "completion_tokens": 97,
+    "quality": 1.0
+  },
+  {
+    "date": "06/12/2024",
+    "user_request": "Origin: Budapest, HU | Want to go to: Ski resorts in Switzerland or Austria | Travel dates: Any February weekend | Also, need space for my ski equipment",
+    "test_case_number": 34,
+    "response_content": "Thought: The user wants to travel on any weekend in February. This means departure on Friday (5) and return on Sunday (0). The stay is for 2 nights. The user's need for space for ski equipment is not relevant for these parameters.\n```json\n{\n    \"departure_date_from\": \"01/02/2025\",\n    \"departure_date_to\": \"28/02/2025\",\n    \"nights_in_dst_from\": 2,\n    \"nights_in_dst_to\": 2,\n    \"fly_days\": [5],\n    \"fly_days_type\": \"departure\",\n    \"ret_fly_days\": [0],\n    \"ret_fly_days_type\": \"departure\"\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/02/2025",
+      "departure_date_to": "28/02/2025",
+      "nights_in_dst_from": 2,
+      "nights_in_dst_to": 2,
+      "fly_days": [5],
+      "fly_days_type": "departure",
+      "ret_fly_days": [0],
+      "ret_fly_days_type": "departure"
+    },
+    "elapsed_time": 8.215007543563843,
+    "prompt_tokens": 1102,
+    "completion_tokens": 146,
+    "quality": 1.0
+  },
+  {
+    "date": "09/02/2024",
+    "user_request": "From: Vienna, AT | Destination: Spain but not the touristy parts | Preferably in: May | Duration: Around a week | We're a family of 4",
+    "test_case_number": 35,
+    "response_content": "Thought: The user wants to travel in May for about a week. The exact dates are not specified, so we'll set the departure window to the whole month of May. The duration is \"around a week\", which I'll interpret as 6-8 nights.\n```json\n{\n    \"departure_date_from\": \"01/05/2024\",\n    \"departure_date_to\": \"31/05/2024\",\n    \"nights_in_dst_from\": 6,\n    \"nights_in_dst_to\": 8\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/05/2024",
+      "departure_date_to": "31/05/2024",
+      "nights_in_dst_from": 6,
+      "nights_in_dst_to": 8
+    },
+    "elapsed_time": 7.073833465576172,
+    "prompt_tokens": 1103,
+    "completion_tokens": 110,
+    "quality": 1.0
+  },
+  {
+    "date": "08/11/2024",
+    "user_request": "Origin: Helsinki, FI | Interested in: Bali or other Indonesian islands | Departure: When it's sunny | Trip length: 10-15 days | Prefer vegetarian meal options",
+    "test_case_number": 36,
+    "response_content": "Thought: The user wants to travel to Bali or other Indonesian islands when it's sunny. The sunny season in Indonesia is generally from April to September. The user wants to stay for 10-15 days. The user's preference for vegetarian meal options is not relevant for the flight search parameters.\n\n```json\n{\n    \"departure_date_from\": \"01/04/2025\",\n    \"departure_date_to\": \"30/09/2025\",\n    \"nights_in_dst_from\": 10,\n    \"nights_in_dst_to\": 15\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/04/2025",
+      "departure_date_to": "30/09/2025",
+      "nights_in_dst_from": 10,
+      "nights_in_dst_to": 15
+    },
+    "elapsed_time": 6.112792253494263,
+    "prompt_tokens": 1104,
+    "completion_tokens": 115,
+    "quality": 1.0
+  },
+  {
+    "date": "28/12/2024",
+    "user_request": "Origin: Reykjavik, IS | Destination: Any city in Arizona or New Mexico | Departure: March-April | Stay: 7-10 days",
+    "test_case_number": 37,
+    "response_content": "Thought: The user wants to depart between March and April and stay for 7 to 10 days. \n```json\n{\n    \"departure_date_from\": \"01/03/2025\",\n    \"departure_date_to\": \"30/04/2025\",\n    \"nights_in_dst_from\": 7,\n    \"nights_in_dst_to\": 10\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/03/2025",
+      "departure_date_to": "30/04/2025",
+      "nights_in_dst_from": 7,
+      "nights_in_dst_to": 10
+    },
+    "elapsed_time": 6.218322992324829,
+    "prompt_tokens": 1101,
+    "completion_tokens": 78,
+    "quality": 1.0
+  },
+  {
+    "date": "26/05/2024",
+    "user_request": "From: Lisbon, PT | Destination: East Asian cities, considering Seoul or Tokyo | Leaving: June | Trip time: 9-11 days | We are 2 adults and 1 infant",
+    "test_case_number": 38,
+    "response_content": "Thought: The user wants to leave in June and stay for 9 to 11 days. The exact destination is not specified, but it will be either Seoul or Tokyo.\n```json\n{\n    \"departure_date_from\": \"01/06/2024\",\n    \"departure_date_to\": \"30/06/2024\",\n    \"nights_in_dst_from\": 9,\n    \"nights_in_dst_to\": 11\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/06/2024",
+      "departure_date_to": "30/06/2024",
+      "nights_in_dst_from": 9,
+      "nights_in_dst_to": 11
+    },
+    "elapsed_time": 5.500246047973633,
+    "prompt_tokens": 1107,
+    "completion_tokens": 91,
+    "quality": 1.0
+  },
+  {
+    "date": "04/01/2025",
+    "user_request": "Origin: Athens, GR | I'd like to visit: Japan | Prefer traveling in: Cherry blossom season | Length of trip: 2 weeks max | Also, need WiFi on flight",
+    "test_case_number": 39,
+    "response_content": "Thought: Cherry blossom season in Japan is typically from late March to early April. The user wants to stay for up to 2 weeks, so we'll set the nights_in_dst_from to 1 and nights_in_dst_to to 14 to cover the entire possible range.\n\n```json\n{\n    \"departure_date_from\": \"20/03/2025\",\n    \"departure_date_to\": \"10/04/2025\",\n    \"nights_in_dst_from\": 1,\n    \"nights_in_dst_to\": 14\n}\n```",
+    "time_params": {
+      "departure_date_from": "20/03/2025",
+      "departure_date_to": "10/04/2025",
+      "nights_in_dst_from": 1,
+      "nights_in_dst_to": 14
+    },
+    "elapsed_time": 7.02155876159668,
+    "prompt_tokens": 1105,
+    "completion_tokens": 111,
+    "quality": 1.0
+  },
+  {
+    "date": "13/08/2024",
+    "user_request": "Origin: Sofia, BG | Destination: Adventure spots like Nepal or Peru | When: Before winter | Duration: Not sure, maybe 10 days? | Need to carry camping gear",
+    "test_case_number": 40,
+    "response_content": "Thought: The user wants to travel before winter, which could be anytime before December. They are unsure about the duration, but suggest around 10 days. We can set a range of 8 to 12 days to give some flexibility.\n```json\n{\n    \"departure_date_from\": \"14/08/2024\",\n    \"departure_date_to\": \"30/11/2024\",\n    \"nights_in_dst_from\": 8,\n    \"nights_in_dst_to\": 12\n}\n```",
+    "time_params": {
+      "departure_date_from": "14/08/2024",
+      "departure_date_to": "30/11/2024",
+      "nights_in_dst_from": 8,
+      "nights_in_dst_to": 12
+    },
+    "elapsed_time": 5.604689359664917,
+    "prompt_tokens": 1104,
+    "completion_tokens": 104,
+    "quality": 1.0
+  },
+  {
+    "date": "07/03/2024",
+    "user_request": "From: Bratislava, SK | Destination: Australia's east coast | Departure: Avoid local holidays | Stay: A fortnight | Flying: Economy class",
+    "test_case_number": 41,
+    "response_content": "Thought: The user wants to avoid local holidays, but no specific dates are given. A fortnight means 14 nights. As no specific departure or return days are mentioned, these parameters are not included. The class of the flight is not relevant for these parameters.\n```json\n{\n    \"nights_in_dst_from\": 14,\n    \"nights_in_dst_to\": 14\n}\n```",
+    "time_params": {
+      "nights_in_dst_from": 14,
+      "nights_in_dst_to": 14
+    },
+    "elapsed_time": 5.312728404998779,
+    "prompt_tokens": 1101,
+    "completion_tokens": 81,
+    "quality": 1.0
+  },
+  {
+    "date": "08/06/2025",
+    "user_request": "Origin: Vilnius, LT | Destination: African countries for safari, like Kenya or Tanzania | Thinking of traveling in: August | Trip length: Roughly a week | Passengers: It's just me",
+    "test_case_number": 42,
+    "response_content": "Thought: The user wants to travel in August for about a week. This translates to 6-8 nights. The exact destination is not specified, but it should be an African country suitable for a safari.\n```json\n{\n    \"departure_date_from\": \"01/08/2025\",\n    \"departure_date_to\": \"31/08/2025\",\n    \"nights_in_dst_from\": 6,\n    \"nights_in_dst_to\": 8\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/08/2025",
+      "departure_date_to": "31/08/2025",
+      "nights_in_dst_from": 6,
+      "nights_in_dst_to": 8
+    },
+    "elapsed_time": 5.038823366165161,
+    "prompt_tokens": 1110,
+    "completion_tokens": 98,
+    "quality": 1.0
+  },
+  {
+    "date": "18/07/2024",
+    "user_request": "Origin: Riga, LV | Destination: London, UK or Dublin, IE | Preferably in: September | Duration: 5 nights",
+    "test_case_number": 43,
+    "response_content": "Thought: The user wants to travel in September for 5 nights. The exact days of the week are not specified, so we can leave the fly_days and ret_fly_days parameters out.\n```json\n{\n    \"departure_date_from\": \"01/09/2024\",\n    \"departure_date_to\": \"30/09/2024\",\n    \"nights_in_dst_from\": 5,\n    \"nights_in_dst_to\": 5\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/09/2024",
+      "departure_date_to": "30/09/2024",
+      "nights_in_dst_from": 5,
+      "nights_in_dst_to": 5
+    },
+    "elapsed_time": 4.74439263343811,
+    "prompt_tokens": 1096,
+    "completion_tokens": 95,
+    "quality": 1.0
+  },
+  {
+    "date": "05/05/2025",
+    "user_request": "From: Tallinn, EE | Interested in: Vietnam or Malaysia | Departure: Avoiding rainy seasons | Stay: 10 days maximum | Also, a window seat please",
+    "test_case_number": 44,
+    "response_content": "Thought: The user wants to avoid the rainy season in Vietnam and Malaysia, which typically occurs from May to October. Therefore, the best time to visit would be from November to April. The user also wants to stay for a maximum of 10 days. The request for a window seat is not relevant for these parameters.\n\n```json\n{\n    \"departure_date_from\": \"01/11/2025\",\n    \"departure_date_to\": \"30/04/2026\",\n    \"nights_in_dst_from\": 1,\n    \"nights_in_dst_to\": 10\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/11/2025",
+      "departure_date_to": "30/04/2026",
+      "nights_in_dst_from": 1,
+      "nights_in_dst_to": 10
+    },
+    "elapsed_time": 6.282668828964233,
+    "prompt_tokens": 1103,
+    "completion_tokens": 120,
+    "quality": 1.0
+  },
+  {
+    "date": "06/07/2024",
+    "user_request": "Origin: Ljubljana, SI | Destination: Mexico's coastal cities | When: October-November | Length of trip: Around 1 week | No seafood meal preference",
+    "test_case_number": 45,
+    "response_content": "Thought: The user wants to travel sometime between October and November and stay for about a week. This translates to 6-8 nights.\n```json\n{\n    \"departure_date_from\": \"01/10/2024\",\n    \"departure_date_to\": \"30/11/2024\",\n    \"nights_in_dst_from\": 6,\n    \"nights_in_dst_to\": 8\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/10/2024",
+      "departure_date_to": "30/11/2024",
+      "nights_in_dst_from": 6,
+      "nights_in_dst_to": 8
+    },
+    "elapsed_time": 4.464705944061279,
+    "prompt_tokens": 1104,
+    "completion_tokens": 84,
+    "quality": 1.0
+  },
+  {
+    "date": "23/12/2024",
+    "user_request": "Origin: Zagreb, HR | Destination: South Korea or Taiwan | Thinking of going in: Spring | Trip length: A week | Flying: Premium economy",
+    "test_case_number": 46,
+    "response_content": "Thought: The user wants to travel in the spring, which is typically March, April, and May. They want to stay for about a week, which I'll interpret as 6-8 nights.\n```json\n{\n    \"departure_date_from\": \"01/03/2025\",\n    \"departure_date_to\": \"31/05/2025\",\n    \"nights_in_dst_from\": 6,\n    \"nights_in_dst_to\": 8\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/03/2025",
+      "departure_date_to": "31/05/2025",
+      "nights_in_dst_from": 6,
+      "nights_in_dst_to": 8
+    },
+    "elapsed_time": 6.406571865081787,
+    "prompt_tokens": 1099,
+    "completion_tokens": 97,
+    "quality": 1.0
+  },
+  {
+    "date": "03/01/2025",
+    "user_request": "From: Belgrade, RS | Destination: Maldives or Seychelles | Best time to travel: Off-peak season | Duration: Not more than a week",
+    "test_case_number": 47,
+    "response_content": "Thought: The off-peak season for Maldives and Seychelles is usually May to November. The user wants to stay for not more than a week, so we can set the maximum stay to 7 nights.\n\n```json\n{\n    \"departure_date_from\": \"01/05/2025\",\n    \"departure_date_to\": \"30/11/2025\",\n    \"nights_in_dst_from\": 1,\n    \"nights_in_dst_to\": 7\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/05/2025",
+      "departure_date_to": "30/11/2025",
+      "nights_in_dst_from": 1,
+      "nights_in_dst_to": 7
+    },
+    "elapsed_time": 5.7141876220703125,
+    "prompt_tokens": 1101,
+    "completion_tokens": 100,
+    "quality": 1.0
+  },
+  {
+    "date": "05/06/2024",
+    "user_request": "Origin: Sarajevo, BA | Destination: Chile or Argentina | Preferably in: Their dry season | Stay: 10-14 days | We're a group of 5 friends",
+    "test_case_number": 48,
+    "response_content": "Thought: The dry season in Chile and Argentina is typically from October to April. The user wants to stay for 10-14 days. \n\n```json\n{\n    \"departure_date_from\": \"01/10/2024\",\n    \"departure_date_to\": \"30/04/2025\",\n    \"nights_in_dst_from\": 10,\n    \"nights_in_dst_to\": 14\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/10/2024",
+      "departure_date_to": "30/04/2025",
+      "nights_in_dst_from": 10,
+      "nights_in_dst_to": 14
+    },
+    "elapsed_time": 7.085207939147949,
+    "prompt_tokens": 1106,
+    "completion_tokens": 85,
+    "quality": 1.0
+  },
+  {
+    "date": "02/06/2024",
+    "user_request": "From: Skopje, MK | Destination: New York or Toronto | When: Autumn months | Trip time: 5-7 nights | Class: Business, if there's a deal",
+    "test_case_number": 49,
+    "response_content": "Thought: The user wants to travel in the autumn months (September, October, November) and stay for 5-7 nights. The destination can be either New York or Toronto.\n```json\n{\n    \"departure_date_from\": \"01/09/2024\",\n    \"departure_date_to\": \"30/11/2024\",\n    \"nights_in_dst_from\": 5,\n    \"nights_in_dst_to\": 7\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/09/2024",
+      "departure_date_to": "30/11/2024",
+      "nights_in_dst_from": 5,
+      "nights_in_dst_to": 7
+    },
+    "elapsed_time": 4.906466484069824,
+    "prompt_tokens": 1106,
+    "completion_tokens": 93,
+    "quality": 1.0
+  },
+  {
+    "date": "01/03/2025",
+    "user_request": "Origin: Podgorica, ME | Destination: Moscow or St. Petersburg in Russia | Departure: June-July | Length of trip: Roughly a week | I'm traveling solo",
+    "test_case_number": 50,
+    "response_content": "Thought: The user wants to travel in June or July for about a week. We can interpret \"roughly a week\" as 6 to 8 nights.\n```json\n{\n    \"departure_date_from\": \"01/06/2025\",\n    \"departure_date_to\": \"31/07/2025\",\n    \"nights_in_dst_from\": 6,\n    \"nights_in_dst_to\": 8\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/06/2025",
+      "departure_date_to": "31/07/2025",
+      "nights_in_dst_from": 6,
+      "nights_in_dst_to": 8
+    },
+    "elapsed_time": 4.94682502746582,
+    "prompt_tokens": 1106,
+    "completion_tokens": 89,
+    "quality": 1.0
+  },
+  {
+    "date": "04/07/2024",
+    "user_request": "Origin: Moscow, RU | Destination: South America | Preferably in: October | Duration: At least 10 days | We're two couples",
+    "test_case_number": 51,
+    "response_content": "Thought: The user wants to travel in October for at least 10 days. So, we set the departure window to the whole month of October and the minimum stay to 10 nights. The maximum stay is not specified, so we can leave it open-ended.\n```json\n{\n    \"departure_date_from\": \"01/10/2024\",\n    \"departure_date_to\": \"31/10/2024\",\n    \"nights_in_dst_from\": 10,\n    \"nights_in_dst_to\": null\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/10/2024",
+      "departure_date_to": "31/10/2024",
+      "nights_in_dst_from": 10,
+      "nights_in_dst_to": null
+    },
+    "elapsed_time": 5.617586135864258,
+    "prompt_tokens": 1097,
+    "completion_tokens": 108,
+    "quality": 1.0
+  },
+  {
+    "date": "08/11/2025",
+    "user_request": "From: Prague, CZ | Thinking about: Caribbean islands | Time of year: Not hurricane season | Length of trip: About a week | It's a honeymoon trip",
+    "test_case_number": 52,
+    "response_content": "Thought: The user wants to avoid the hurricane season in the Caribbean, which typically runs from June to November. So, we can assume a departure date from December to May. The user also wants to stay for about a week, which we can interpret as 6-8 nights.\n\n```json\n{\n    \"departure_date_from\": \"01/12/2025\",\n    \"departure_date_to\": \"31/05/2026\",\n    \"nights_in_dst_from\": 6,\n    \"nights_in_dst_to\": 8\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/12/2025",
+      "departure_date_to": "31/05/2026",
+      "nights_in_dst_from": 6,
+      "nights_in_dst_to": 8
+    },
+    "elapsed_time": 6.048363924026489,
+    "prompt_tokens": 1101,
+    "completion_tokens": 113,
+    "quality": 1.0
+  },
+  {
+    "date": "17/01/2024",
+    "user_request": "Origin: Warsaw, PL | Interested in: Scandinavia, especially Norway | Departure: During summer months | Duration: Up to 12 days",
+    "test_case_number": 53,
+    "response_content": "Thought: The user wants to leave during the summer months (June, July, August) and stay for up to 12 days. \n```json\n{\n    \"departure_date_from\": \"01/06/2024\",\n    \"departure_date_to\": \"31/08/2024\",\n    \"nights_in_dst_from\": 1,\n    \"nights_in_dst_to\": 12\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/06/2024",
+      "departure_date_to": "31/08/2024",
+      "nights_in_dst_from": 1,
+      "nights_in_dst_to": 12
+    },
+    "elapsed_time": 4.683531761169434,
+    "prompt_tokens": 1097,
+    "completion_tokens": 84,
+    "quality": 1.0
+  },
+  {
+    "date": "01/12/2024",
+    "user_request": "From: Madrid, ES | Destination: Anywhere in Asia | Prefer traveling in: Spring | Duration: Approximately 3 weeks | Solo traveler",
+    "test_case_number": 54,
+    "response_content": "Thought: The user wants to travel in spring, which is typically from March to May. The duration of the trip is approximately 3 weeks, which is about 21 days. We can set a range from 20 to 22 days to give some flexibility.\n```json\n{\n    \"departure_date_from\": \"01/03/2025\",\n    \"departure_date_to\": \"31/05/2025\",\n    \"nights_in_dst_from\": 20,\n    \"nights_in_dst_to\": 22\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/03/2025",
+      "departure_date_to": "31/05/2025",
+      "nights_in_dst_from": 20,
+      "nights_in_dst_to": 22
+    },
+    "elapsed_time": 6.475627899169922,
+    "prompt_tokens": 1096,
+    "completion_tokens": 109,
+    "quality": 1.0
+  },
+  {
+    "date": "25/08/2024",
+    "user_request": "Origin: Zurich, CH | I'd love to explore: African safaris in southern parts | Departure: Around November | Duration: A few weeks | Mainly for wildlife photography",
+    "test_case_number": 55,
+    "response_content": "Thought: The user wants to leave around November and stay for a few weeks, which I'll interpret as 2-4 weeks. This translates to 14-28 nights.\n```json\n{\n    \"departure_date_from\": \"01/11/2024\",\n    \"departure_date_to\": \"30/11/2024\",\n    \"nights_in_dst_from\": 14,\n    \"nights_in_dst_to\": 28\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/11/2024",
+      "departure_date_to": "30/11/2024",
+      "nights_in_dst_from": 14,
+      "nights_in_dst_to": 28
+    },
+    "elapsed_time": 6.222287654876709,
+    "prompt_tokens": 1104,
+    "completion_tokens": 92,
+    "quality": 1.0
+  },
+  {
+    "date": "08/06/2025",
+    "user_request": "From: Budapest, HU | Destination: Canada's west coast | Time: Avoid winter | Length: Roughly 2 weeks",
+    "test_case_number": 56,
+    "response_content": "Thought: The user wants to avoid winter, so we can assume they want to travel during the spring, summer, or fall. Canada's west coast has a mild climate, so we can safely exclude December, January, and February. The user wants to stay for roughly two weeks, so we can set the nights_in_dst_from and nights_in_dst_to to 13 and 15 respectively.\n\n```json\n{\n    \"departure_date_from\": \"01/03/2025\",\n    \"departure_date_to\": \"30/11/2025\",\n    \"nights_in_dst_from\": 13,\n    \"nights_in_dst_to\": 15\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/03/2025",
+      "departure_date_to": "30/11/2025",
+      "nights_in_dst_from": 13,
+      "nights_in_dst_to": 15
+    },
+    "elapsed_time": 7.835510730743408,
+    "prompt_tokens": 1094,
+    "completion_tokens": 135,
+    "quality": 1.0
+  },
+  {
+    "date": "28/10/2026",
+    "user_request": "Origin: Helsinki, FI | Destination: Tallinn | Departure: November, any Saturday | Duration: 3 nights",
+    "test_case_number": 57,
+    "response_content": "Thought: The user wants to leave on any Saturday in November and stay for three nights. \n```json\n{\n    \"departure_date_from\": \"01/11/2026\",\n    \"departure_date_to\": \"30/11/2026\",\n    \"fly_days\": [6],\n    \"fly_days_type\": \"departure\",\n    \"nights_in_dst_from\": 3,\n    \"nights_in_dst_to\": 3\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/11/2026",
+      "departure_date_to": "30/11/2026",
+      "fly_days": [6],
+      "fly_days_type": "departure",
+      "nights_in_dst_from": 3,
+      "nights_in_dst_to": 3
+    },
+    "elapsed_time": 4.963465690612793,
+    "prompt_tokens": 1092,
+    "completion_tokens": 92,
+    "quality": 1.0
+  },
+  {
+    "date": "08/11/2024",
+    "user_request": "Origin: Gothenburg, SE | Destination: Munich | Departure: November 20th | Return: November 24th",
+    "test_case_number": 58,
+    "response_content": "Thought: The user wants to depart on November 20th and return on November 24th. This means a stay of 4 nights. Therefore, we set both nights_in_dst_from and nights_in_dst_to to 4, and set the departure_date_from and departure_date_to to the specific date of November 20th.\n```json\n{\n    \"departure_date_from\": \"20/11/2024\",\n    \"departure_date_to\": \"20/11/2024\",\n    \"nights_in_dst_from\": 4,\n    \"nights_in_dst_to\": 4\n}\n```",
+    "time_params": {
+      "departure_date_from": "20/11/2024",
+      "departure_date_to": "20/11/2024",
+      "nights_in_dst_from": 4,
+      "nights_in_dst_to": 4
+    },
+    "elapsed_time": 7.522660970687866,
+    "prompt_tokens": 1094,
+    "completion_tokens": 123,
+    "quality": 1.0
+  },
+  {
+    "date": "23/03/2024",
+    "user_request": "Origin: Malmo, SE | Destination: Best wine regions in France | Departure: Summer 2024 | Duration: 10 days",
+    "test_case_number": 59,
+    "response_content": "Thought: The user wants to travel in the summer of 2024 for 10 days. Summer is typically June, July, and August. \n```json\n{\n    \"departure_date_from\": \"01/06/2024\",\n    \"departure_date_to\": \"31/08/2024\",\n    \"nights_in_dst_from\": 10,\n    \"nights_in_dst_to\": 10\n}\n```",
+    "time_params": {
+      "departure_date_from": "01/06/2024",
+      "departure_date_to": "31/08/2024",
+      "nights_in_dst_from": 10,
+      "nights_in_dst_to": 10
+    },
+    "elapsed_time": 4.694581031799316,
+    "prompt_tokens": 1096,
+    "completion_tokens": 86,
+    "quality": 1.0
+  },
+  {
+    "date": "08/09/2027",
+    "user_request": "Origin: Brussels, BE | Destination: Seville, Spain | Departure: 10th October | Return: 18th October | Passengers: 3 adults",
+    "test_case_number": 60,
+    "response_content": "Thought: The user wants to depart on 10th October and return on 18th October. This means they will be staying for 8 nights. \n\n```json\n{\n    \"departure_date_from\": \"10/10/2027\",\n    \"departure_date_to\": \"10/10/2027\",\n    \"nights_in_dst_from\": 8,\n    \"nights_in_dst_to\": 8\n}\n```",
+    "time_params": {
+      "departure_date_from": "10/10/2027",
+      "departure_date_to": "10/10/2027",
+      "nights_in_dst_from": 8,
+      "nights_in_dst_to": 8
+    },
+    "elapsed_time": 5.2760350704193115,
+    "prompt_tokens": 1102,
+    "completion_tokens": 88,
+    "quality": 1.0
+  },
+  {
+    "date": "03/10/2024",
+    "user_request": "Origin: Valencia, ES | Destination: Vancouver, CA | Departure: First or second full week of November | Duration: 1 week | Flights: max 1 layover",
+    "test_case_number": 61,
+    "response_content": "Thought: The user wants to depart on the first or second full week of November, which would be between 4th and 17th of November. The duration of the stay is 1 week, so nights_in_dst_from and nights_in_dst_to are both set to 7.\n```json\n{\n    \"departure_date_from\": \"04/11/2024\",\n    \"departure_date_to\": \"17/11/2024\",\n    \"nights_in_dst_from\": 7,\n    \"nights_in_dst_to\": 7\n}\n```",
+    "time_params": {
+      "departure_date_from": "04/11/2024",
+      "departure_date_to": "17/11/2024",
+      "nights_in_dst_from": 7,
+      "nights_in_dst_to": 7
+    },
+    "elapsed_time": 6.633059740066528,
+    "prompt_tokens": 1105,
+    "completion_tokens": 114,
+    "quality": 1.0
+  },
+  {
+    "date": "01/08/2025",
+    "user_request": "Origin: Helsinki, FI | Travelers: 2 adults, 2 children | Destination: Somewhere warm and sunny in October | Departure: Saturday before week 42 | Duration: Approximately 1 week | Flight Preference: Direct flights preferred, but layovers are acceptable as long as total travel time is under 10 hours",
+    "test_case_number": 62,
+    "response_content": "Thought: The user wants to leave on a Saturday before week 42 in October, and stay for about a week. The exact date will need to be calculated based on the calendar for 2025, but for the purpose of this task, we will assume it's the third Saturday of October. \n\n```json\n{\n    \"departure_date_from\": \"18/10/2025\",\n    \"departure_date_to\": \"18/10/2025\",\n    \"nights_in_dst_from\": 6,\n    \"nights_in_dst_to\": 8,\n    \"fly_days\": [6],\n    \"fly_days_type\": \"departure\",\n    \"ret_fly_days\": [6],\n    \"ret_fly_days_type\": \"departure\"\n}\n```",
+    "time_params": {
+      "departure_date_from": "18/10/2025",
+      "departure_date_to": "18/10/2025",
+      "nights_in_dst_from": 6,
+      "nights_in_dst_to": 8,
+      "fly_days": [6],
+      "fly_days_type": "departure",
+      "ret_fly_days": [6],
+      "ret_fly_days_type": "departure"
+    },
+    "elapsed_time": 9.074439287185669,
+    "prompt_tokens": 1134,
+    "completion_tokens": 155,
+    "quality": 1.0
+  }
+]

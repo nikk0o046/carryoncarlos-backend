@@ -1,747 +1,808 @@
 [
-    {
-        "test_case_number": 1,
-        "user_request": "Origin: Oslo, NO | Destination: Riga | Departure: October, any Friday | Duration: 2 nights",
-        "selectedCityID": "oslo_no",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user wants to travel from Oslo to Riga specifically. Therefore, the only relevant destination airport code is that of Riga.\nDestinations (IATA codes): [RIX]"
+  {
+    "test_case_number": 1,
+    "date": "17/09/2022",
+    "user_request": "Origin: Oslo, NO | Destination: Riga | Departure: October, any Friday | Duration: 2 nights",
+    "selectedCityID": "oslo_no",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 2,
-        "user_request": "Origin: Stockholm, SE | Destination: Frankfurt | Departure: October 12th | Return: October 15th",
-        "selectedCityID": "stockholm_se",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user wants to travel from Stockholm to Frankfurt. Therefore, the only relevant destination airport code is that of Frankfurt.\nDestinations (IATA codes): [FRA]"
+    "destination_answer": "Thought: The user wants to travel from Oslo to Riga specifically. Therefore, the only relevant destination airport code is that of Riga.\nDestinations (IATA codes): [RIX]"
+  },
+  {
+    "test_case_number": 2,
+    "date": "19/09/2023",
+    "user_request": "Origin: Stockholm, SE | Destination: Frankfurt | Departure: October 12th | Return: October 15th",
+    "selectedCityID": "stockholm_se",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 3,
-        "user_request": "Origin: Copenhagen, DK | Destination: Best surfing spots in Portugal | Departure: Spring 2024 | Duration: 1 week",
-        "selectedCityID": "copenhagen_dk",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user is interested in finding the best surfing spots in Portugal. I will provide a list of airports in Portugal that are located near popular surfing destinations.\nDestinations (IATA codes): [LIS,FAO,OPO,PXO,TER,PDL,GRW]"
+    "destination_answer": "Thought: The user wants to travel from Stockholm to Frankfurt. Therefore, the only relevant destination airport code is that of Frankfurt.\nDestinations (IATA codes): [FRA]"
+  },
+  {
+    "test_case_number": 3,
+    "date": "10/02/2024",
+    "user_request": "Origin: Copenhagen, DK | Destination: Best surfing spots in Portugal | Departure: Spring 2024 | Duration: 1 week",
+    "selectedCityID": "copenhagen_dk",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 4,
-        "user_request": "Origin: Amsterdam, NL | Destination: Valencia, Spain | Departure: 1st September | Return: 7th September | Passengers: 2 adults",
-        "selectedCityID": "amsterdam_nl",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 2,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user has specified a specific destination, Valencia, Spain. Therefore, I will only list the airport of Valencia.\nDestinations (IATA codes): [VLC]"
+    "destination_answer": "Thought: The user is interested in finding the best surfing spots in Portugal. I will provide a list of airports in Portugal that are located near popular surfing destinations.\nDestinations (IATA codes): [LIS,FAO,OPO,PXO,TER,PDL,GRW]"
+  },
+  {
+    "test_case_number": 4,
+    "date": "19/07/2023",
+    "user_request": "Origin: Amsterdam, NL | Destination: Valencia, Spain | Departure: 1st September | Return: 7th September | Passengers: 2 adults",
+    "selectedCityID": "amsterdam_nl",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 2,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 5,
-        "user_request": "Origin: Brussels, BE | Destination: Casablanca, Morocco | Departure: September 7th | Return: September 23rd | Passengers: 3 adults",
-        "selectedCityID": "brussels_be",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 3,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user has a specific destination in mind: Casablanca, Morocco. Therefore, the only relevant destination airport code is that of Casablanca.\nDestinations (IATA codes): [CMN]"
+    "destination_answer": "Thought: The user has specified a specific destination, Valencia, Spain. Therefore, I will only list the airport of Valencia.\nDestinations (IATA codes): [VLC]"
+  },
+  {
+    "test_case_number": 5,
+    "date": "01/06/2023",
+    "user_request": "Origin: Brussels, BE | Destination: Casablanca, Morocco | Departure: September 7th | Return: September 23rd | Passengers: 3 adults",
+    "selectedCityID": "brussels_be",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 3,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 6,
-        "user_request": "Origin: Dublin, IE | Destination: East Coast US (Boston/Washington D.C.) | Departure: September-October | Duration: 12-16 days",
-        "selectedCityID": "dublin_ie",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user wants to travel to the East Coast of the United States, specifically naming Boston and Washington D.C. I will include relevant airport codes for both cities, as well as some additional nearby airports for more options.\nDestinations (IATA codes): [BOS,IAD,DCA,JFK,EWR,PHL,BWI]"
+    "destination_answer": "Thought: The user has a specific destination in mind: Casablanca, Morocco. Therefore, the only relevant destination airport code is that of Casablanca.\nDestinations (IATA codes): [CMN]"
+  },
+  {
+    "test_case_number": 6,
+    "date": "27/08/2021",
+    "user_request": "Origin: Dublin, IE | Destination: East Coast US (Boston/Washington D.C.) | Departure: September-October | Duration: 12-16 days",
+    "selectedCityID": "dublin_ie",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 7,
-        "user_request": "Origin: Paris, FR | Destination: Greek Isles | Departure: Flexible | Duration: 7-12 days",
-        "selectedCityID": "paris_fr",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user is traveling from Paris to the Greek Isles. To provide access to these numerous islands, I've listed the main airports serving as primary entry points to popular Greek islands.\nDestinations (IATA codes): [ATH,JTR,HER,RHO,CHQ,CFU,LXS,KGS,EFL,ZTH]"
+    "destination_answer": "Thought: The user wants to travel to the East Coast of the United States, specifically naming Boston and Washington D.C. I will include relevant airport codes for both cities, as well as some additional nearby airports for more options.\nDestinations (IATA codes): [BOS,IAD,DCA,JFK,EWR,PHL,BWI]"
+  },
+  {
+    "test_case_number": 7,
+    "date": "12/04/2024",
+    "user_request": "Origin: Paris, FR | Destination: Greek Isles | Departure: Flexible | Duration: 7-12 days",
+    "selectedCityID": "paris_fr",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 8,
-        "user_request": "Origin: Berlin, DE | Destination: Tropical destination in Asia | Departure: Mid-November to December | Duration: Approx. 10 nights",
-        "selectedCityID": "berlin_de",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user is looking for a tropical destination in Asia. I have included popular tropical destinations in Asia.\nDestinations (IATA codes): [BKK,DMK,HKT,SGN,KUL,DPS,MNL,CMB,MLE,GOI,USM,LGK,BWN,CRK,MAA,CCU,DEL,PNH,RGN,REP]"
+    "destination_answer": "Thought: The user is traveling from Paris to the Greek Isles. To provide access to these numerous islands, I've listed the main airports serving as primary entry points to popular Greek islands.\nDestinations (IATA codes): [ATH,JTR,HER,RHO,CHQ,CFU,LXS,KGS,EFL,ZTH]"
+  },
+  {
+    "test_case_number": 8,
+    "date": "14/09/2023",
+    "user_request": "Origin: Berlin, DE | Destination: Tropical destination in Asia | Departure: Mid-November to December | Duration: Approx. 10 nights",
+    "selectedCityID": "berlin_de",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 9,
-        "user_request": "Origin: Tampere, FI | Destination: City in Eastern Europe | Departure: Evening | Duration: 2 nights | Occasion: Bachelors party",
-        "selectedCityID": "tampere_fi",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user is looking for a city in Eastern Europe for a bachelor's party. I have included a list of popular destinations known for their vibrant nightlife and bachelor party-friendly atmosphere in Eastern Europe.\nDestinations (IATA codes): [PRG,BUD,KRK,WAW,RIG,VNO,TLL,BEG,OTP,CLJ,SKP,SOF,BTS,VAR,RIX]"
+    "destination_answer": "Thought: The user is looking for a tropical destination in Asia. I have included popular tropical destinations in Asia.\nDestinations (IATA codes): [BKK,DMK,HKT,SGN,KUL,DPS,MNL,CMB,MLE,GOI,USM,LGK,BWN,CRK,MAA,CCU,DEL,PNH,RGN,REP]"
+  },
+  {
+    "test_case_number": 9,
+    "date": "22/07/2021",
+    "user_request": "Origin: Tampere, FI | Destination: City in Eastern Europe | Departure: Evening | Duration: 2 nights | Occasion: Bachelors party",
+    "selectedCityID": "tampere_fi",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 10,
-        "user_request": "Origin: Madrid, ES | Destination: Tropical snorkeling destination | Departure: Before Summer 2024 | Duration: Approx. 1 week",
-        "selectedCityID": "madrid_es",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user is looking for a tropical snorkeling destination from Madrid. I have considered popular destinations known for their tropical beaches and snorkeling opportunities.\nDestinations (IATA codes): [CUN,CZM,MBJ,PUJ,SDQ,ACA,RTB,PTY,CTG,ANU,BGI,CUR,UVF,MBE,NGS,OKA,HNL,OGG,AKL,BNE,CNS,DRW]"
+    "destination_answer": "Thought: The user is looking for a city in Eastern Europe for a bachelor's party. I have included a list of popular destinations known for their vibrant nightlife and bachelor party-friendly atmosphere in Eastern Europe.\nDestinations (IATA codes): [PRG,BUD,KRK,WAW,RIG,VNO,TLL,BEG,OTP,CLJ,SKP,SOF,BTS,VAR,RIX]"
+  },
+  {
+    "test_case_number": 10,
+    "date": "19/09/2023",
+    "user_request": "Origin: Madrid, ES | Destination: Tropical snorkeling destination | Departure: Before Summer 2024 | Duration: Approx. 1 week",
+    "selectedCityID": "madrid_es",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 11,
-        "user_request": "Origin: Helsinki, FI | Destination: Lapland, FI | Departure: December 24th | Duration: 7 days | Occasion: Christmas holidays",
-        "selectedCityID": "helsinki_fi",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 2,
-            "children": 2,
-            "infants": 1
-        },
-        "destination_answer": "Thought: The user wants to travel from Helsinki to Lapland in Finland. I have included airports in Lapland.\nDestinations (IATA codes): [RVN,KTT,IVL,KEM,ENF]"
+    "destination_answer": "Thought: The user is looking for a tropical snorkeling destination from Madrid. I have considered popular destinations known for their tropical beaches and snorkeling opportunities.\nDestinations (IATA codes): [CUN,CZM,MBJ,PUJ,SDQ,ACA,RTB,PTY,CTG,ANU,BGI,CUR,UVF,MBE,NGS,OKA,HNL,OGG,AKL,BNE,CNS,DRW]"
+  },
+  {
+    "test_case_number": 11,
+    "date": "23/10/2022",
+    "user_request": "Origin: Helsinki, FI | Destination: Lapland, FI | Departure: December 24th | Duration: 7 days | Occasion: Christmas holidays",
+    "selectedCityID": "helsinki_fi",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 2,
+      "children": 2,
+      "infants": 1
     },
-    {
-        "test_case_number": 12,
-        "user_request": "Origin: Rome, IT | Destination: Tokyo, Japan | Departure: Spring 2024 | Duration: 3 weeks",
-        "selectedCityID": "rome_it",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user has a specific destination in mind: Tokyo, Japan. Therefore, the only relevant destination airport codes are those of Tokyo.\nDestinations (IATA codes): [HND,NRT]"
+    "destination_answer": "Thought: The user wants to travel from Helsinki to Lapland in Finland. I have included airports in Lapland.\nDestinations (IATA codes): [RVN,KTT,IVL,KEM,ENF]"
+  },
+  {
+    "test_case_number": 12,
+    "date": "02/02/2024",
+    "user_request": "Origin: Rome, IT | Destination: Tokyo, Japan | Departure: Spring 2024 | Duration: 3 weeks",
+    "selectedCityID": "rome_it",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 13,
-        "user_request": "Origin: Warsaw, PL | Destination: New York, US | Departure: Any Wednesday of September | Duration: 5 nights",
-        "selectedCityID": "warsaw_pl",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 2,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user wants to travel from Warsaw to New York. I will provide a list of possible destination airports in New York.\nDestinations (IATA codes): [JFK,EWR,LGA]"
+    "destination_answer": "Thought: The user has a specific destination in mind: Tokyo, Japan. Therefore, the only relevant destination airport codes are those of Tokyo.\nDestinations (IATA codes): [HND,NRT]"
+  },
+  {
+    "test_case_number": 13,
+    "date": "28/06/2023",
+    "user_request": "Origin: Warsaw, PL | Destination: New York, US | Departure: Any Wednesday of September | Duration: 5 nights",
+    "selectedCityID": "warsaw_pl",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 2,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 14,
-        "user_request": "Origin: London, GB | Destination: Sydney, AU | Departure: Mid-February | Duration: 14 days",
-        "selectedCityID": "london_gb",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 1,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user wants to travel from London to Sydney. Since the user has specified the destination, I will provide the IATA code for Sydney as the only relevant destination.\nDestinations (IATA codes): [SYD]"
+    "destination_answer": "Thought: The user wants to travel from Warsaw to New York. I will provide a list of possible destination airports in New York.\nDestinations (IATA codes): [JFK,EWR,LGA]"
+  },
+  {
+    "test_case_number": 14,
+    "date": "09/01/2025",
+    "user_request": "Origin: London, GB | Destination: Sydney, AU | Departure: Mid-February | Duration: 14 days",
+    "selectedCityID": "london_gb",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 1,
+      "infants": 0
     },
-    {
-        "test_case_number": 15,
-        "user_request": "Origin: Vienna, AT | Destination: Bangkok, Thailand | Departure: October 1st | Duration: 10 nights",
-        "selectedCityID": "vienna_at",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user has a specific destination in mind: Bangkok, Thailand. Therefore, the only relevant destination airport codes are those of Bangkok.\nDestinations (IATA codes): [BKK,DMK]"
+    "destination_answer": "Thought: The user wants to travel from London to Sydney. Since the user has specified the destination, I will provide the IATA code for Sydney as the only relevant destination.\nDestinations (IATA codes): [SYD]"
+  },
+  {
+    "test_case_number": 15,
+    "date": "11/08/2022",
+    "user_request": "Origin: Vienna, AT | Destination: Bangkok, Thailand | Departure: October 1st | Duration: 10 nights",
+    "selectedCityID": "vienna_at",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 16,
-        "user_request": "Origin: Vienna, AT | Destination: Helsinki, FI | Departure: Early November | Duration: 7 nights",
-        "selectedCityID": "vienna_at",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 0,
-            "children": 1,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user has a specific destination in mind: Helsinki. Therefore, the only relevant destination airport code is that of Helsinki.\nDestinations (IATA codes): [HEL]"
+    "destination_answer": "Thought: The user has a specific destination in mind: Bangkok, Thailand. Therefore, the only relevant destination airport codes are those of Bangkok.\nDestinations (IATA codes): [BKK,DMK]"
+  },
+  {
+    "test_case_number": 16,
+    "date": "24/07/2023",
+    "user_request": "Origin: Vienna, AT | Destination: Helsinki, FI | Departure: Early November | Duration: 7 nights",
+    "selectedCityID": "vienna_at",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 0,
+      "children": 1,
+      "infants": 0
     },
-    {
-        "test_case_number": 17,
-        "user_request": "Origin: Lisbon, PT | Destination: Rio de Janeiro, Brazil | Departure: Carnival season | Duration: 5 days",
-        "selectedCityID": "lisbon_pt",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 2,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user wants to travel from Lisbon to Rio de Janeiro. Therefore, I will provide the IATA codes for Rio de Janeiro's airports.\nDestinations (IATA codes): [GIG,SDU]"
+    "destination_answer": "Thought: The user has a specific destination in mind: Helsinki. Therefore, the only relevant destination airport code is that of Helsinki.\nDestinations (IATA codes): [HEL]"
+  },
+  {
+    "test_case_number": 17,
+    "date": "19/12/2023",
+    "user_request": "Origin: Lisbon, PT | Destination: Rio de Janeiro, Brazil | Departure: Carnival season | Duration: 5 days",
+    "selectedCityID": "lisbon_pt",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 2,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 18,
-        "user_request": "Origin: Zurich, CH | Destination: Mount Everest Base Camp, Nepal | Departure: April 5th | Duration: 15 days | Occasion: Trekking",
-        "selectedCityID": "zurich_ch",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user has a specific destination in mind: the Mount Everest Base Camp in Nepal. Since Kathmandu is the primary gateway to Nepal and the starting point for Everest treks, I will include its airport code.\nDestinations (IATA codes): [KTM]"
+    "destination_answer": "Thought: The user wants to travel from Lisbon to Rio de Janeiro. Therefore, I will provide the IATA codes for Rio de Janeiro's airports.\nDestinations (IATA codes): [GIG,SDU]"
+  },
+  {
+    "test_case_number": 18,
+    "date": "12/01/2023",
+    "user_request": "Origin: Zurich, CH | Destination: Mount Everest Base Camp, Nepal | Departure: April 5th | Duration: 15 days | Occasion: Trekking",
+    "selectedCityID": "zurich_ch",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 19,
-        "user_request": "Origin: Oslo, NO | Destination: Maldives | Departure: Honeymoon in June | Duration: 7 nights",
-        "selectedCityID": "oslo_no",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 2,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "The user has a specific destination in mind: the Maldives. Therefore, the only relevant destination airport code is that of the Maldives.\nDestinations (IATA codes): [MLE]"
+    "destination_answer": "Thought: The user has a specific destination in mind: the Mount Everest Base Camp in Nepal. Since Kathmandu is the primary gateway to Nepal and the starting point for Everest treks, I will include its airport code.\nDestinations (IATA codes): [KTM]"
+  },
+  {
+    "test_case_number": 19,
+    "date": "11/02/2024",
+    "user_request": "Origin: Oslo, NO | Destination: Maldives | Departure: Honeymoon in June | Duration: 7 nights",
+    "selectedCityID": "oslo_no",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 2,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 20,
-        "user_request": "Origin: Budapest, HU | Destination: Milan, IT | Departure: First week of March | Duration: 4 days | Occasion: Fashion week",
-        "selectedCityID": "budapest_hu",
-        "cabinClass": "business",
-        "travelers": {
-            "adults": 1,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user is specifically interested in traveling to Milan. Therefore, the only relevant destination airport codes are those of Milan.\nDestinations (IATA codes): [MXP,LIN]"
+    "destination_answer": "The user has a specific destination in mind: the Maldives. Therefore, the only relevant destination airport code is that of the Maldives.\nDestinations (IATA codes): [MLE]"
+  },
+  {
+    "test_case_number": 20,
+    "date": "01/01/2025",
+    "user_request": "Origin: Budapest, HU | Destination: Milan, IT | Departure: First week of March | Duration: 4 days | Occasion: Fashion week",
+    "selectedCityID": "budapest_hu",
+    "cabinClass": "business",
+    "travelers": {
+      "adults": 1,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 21,
-        "user_request": "Origin: Athens, GR | Destination: Bali, Indonesia | Departure: September 5th | Duration: 12 days",
-        "selectedCityID": "athens_gr",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 2,
-            "children": 1,
-            "infants": 1
-        },
-        "destination_answer": "Thought: The user has a specific destination in mind: Bali, Indonesia. Therefore, the only relevant destination airport code is that of Bali.\nDestinations (IATA codes): [DPS]"
+    "destination_answer": "Thought: The user is specifically interested in traveling to Milan. Therefore, the only relevant destination airport codes are those of Milan.\nDestinations (IATA codes): [MXP,LIN]"
+  },
+  {
+    "test_case_number": 21,
+    "date": "28/07/2024",
+    "user_request": "Origin: Athens, GR | Destination: Bali, Indonesia | Departure: September 5th | Duration: 12 days",
+    "selectedCityID": "athens_gr",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 2,
+      "children": 1,
+      "infants": 1
     },
-    {
-        "test_case_number": 22,
-        "user_request": "Origin: Prague, CZ | Destination: Shanghai, China | Departure: Spring 2024 | Duration: 10 days",
-        "selectedCityID": "prague_cz",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 1,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user has a specific destination in mind: Shanghai, China. Therefore, the only relevant destination airport codes are those of Shanghai.\nDestinations (IATA codes): [PVG,SHA]"
+    "destination_answer": "Thought: The user has a specific destination in mind: Bali, Indonesia. Therefore, the only relevant destination airport code is that of Bali.\nDestinations (IATA codes): [DPS]"
+  },
+  {
+    "test_case_number": 22,
+    "date": "19/11/2023",
+    "user_request": "Origin: Prague, CZ | Destination: Shanghai, China | Departure: Spring 2024 | Duration: 10 days",
+    "selectedCityID": "prague_cz",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 1,
+      "infants": 0
     },
-    {
-        "test_case_number": 23,
-        "user_request": "Origin: Edinburgh, GB | Destination: African Safari | Departure: Summer 2024 | Duration: 2 weeks",
-        "selectedCityID": "edinburgh_gb",
-        "cabinClass": "premium_economy",
-        "travelers": {
-            "adults": 2,
-            "children": 1,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user is interested in going on an African safari. There are several popular destinations for safaris in Africa, so I've included a variety of airports that serve as gateways to these safaris.\nDestinations (IATA codes): [JNB,NBO,KGL,DAR,CPT,ZNZ,EBB,SEZ,MPM,ADD,LUN,WDH,DKR,ROB,LOS,ACC,CAI,MRU]"
+    "destination_answer": "Thought: The user has a specific destination in mind: Shanghai, China. Therefore, the only relevant destination airport codes are those of Shanghai.\nDestinations (IATA codes): [PVG,SHA]"
+  },
+  {
+    "test_case_number": 23,
+    "date": "19/03/2024",
+    "user_request": "Origin: Edinburgh, GB | Destination: African Safari | Departure: Summer 2024 | Duration: 2 weeks",
+    "selectedCityID": "edinburgh_gb",
+    "cabinClass": "premium_economy",
+    "travelers": {
+      "adults": 2,
+      "children": 1,
+      "infants": 0
     },
-    {
-        "test_case_number": 24,
-        "user_request": "Origin: Moscow, RU | Destination: Santa's Village, FI | Departure: December 24th | Duration: 3 days",
-        "selectedCityID": "moscow_ru",
-        "cabinClass": "business",
-        "travelers": {
-            "adults": 2,
-            "children": 2,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user wants to travel from Moscow to Santa's Village in Finland. Since Santa's Village is located in Rovaniemi, Finland, the relevant destination airport code is Rovaniemi.\nDestinations (IATA codes): [RVN]"
+    "destination_answer": "Thought: The user is interested in going on an African safari. There are several popular destinations for safaris in Africa, so I've included a variety of airports that serve as gateways to these safaris.\nDestinations (IATA codes): [JNB,NBO,KGL,DAR,CPT,ZNZ,EBB,SEZ,MPM,ADD,LUN,WDH,DKR,ROB,LOS,ACC,CAI,MRU]"
+  },
+  {
+    "test_case_number": 24,
+    "date": "22/10/2026",
+    "user_request": "Origin: Moscow, RU | Destination: Santa's Village, FI | Departure: December 24th | Duration: 3 days",
+    "selectedCityID": "moscow_ru",
+    "cabinClass": "business",
+    "travelers": {
+      "adults": 2,
+      "children": 2,
+      "infants": 0
     },
-    {
-        "test_case_number": 25,
-        "user_request": "Origin: Barcelona, ES | Destination: Tokyo Disneyland, Japan | Departure: Summer holidays | Duration: 10 days",
-        "selectedCityID": "barcelona_es",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 2,
-            "children": 2,
-            "infants": 1
-        },
-        "destination_answer": "Thought: The user wants to travel to Tokyo Disneyland in Japan. The most convenient airport to reach Tokyo Disneyland is Tokyo Haneda Airport. However, I will also include Tokyo Narita Airport as an alternative option.\nDestinations (IATA codes): [HND,NRT]"
+    "destination_answer": "Thought: The user wants to travel from Moscow to Santa's Village in Finland. Since Santa's Village is located in Rovaniemi, Finland, the relevant destination airport code is Rovaniemi.\nDestinations (IATA codes): [RVN]"
+  },
+  {
+    "test_case_number": 25,
+    "date": "04/03/2025",
+    "user_request": "Origin: Barcelona, ES | Destination: Tokyo Disneyland, Japan | Departure: Summer holidays | Duration: 10 days",
+    "selectedCityID": "barcelona_es",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 2,
+      "children": 2,
+      "infants": 1
     },
-    {
-        "test_case_number": 26,
-        "user_request": "Origin: Belgrade, RS | Destination: Caribbean Cruises | Departure: Any time in 2024 | Duration: 15 days",
-        "selectedCityID": "belgrade_rs",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 2,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user is interested in going on a Caribbean cruise. Since Caribbean cruises often embark from major ports in the region, I've listed major Caribbean airports that are proximate to popular cruise departure points\nDestinations (IATA codes): [MIA,FLL,SJU,NAS,AUA,BGI,MBJ,PUJ]"
+    "destination_answer": "Thought: The user wants to travel to Tokyo Disneyland in Japan. The most convenient airport to reach Tokyo Disneyland is Tokyo Haneda Airport. However, I will also include Tokyo Narita Airport as an alternative option.\nDestinations (IATA codes): [HND,NRT]"
+  },
+  {
+    "test_case_number": 26,
+    "date": "12/12/2023",
+    "user_request": "Origin: Belgrade, RS | Destination: Caribbean Cruises | Departure: Any time in 2024 | Duration: 15 days",
+    "selectedCityID": "belgrade_rs",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 2,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 27,
-        "user_request": "Origin: Riga, LV | Destination: Best wine regions in France | Departure: Autumn 2024 | Duration: 1 week",
-        "selectedCityID": "riga_lv",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 2,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user is interested in visiting the best wine regions in France. I have included the major wine regions in France that are worth visiting.\nDestinations (IATA codes): [CDG,BOD,LYS,MRS,NCE,TLS,BSL,GVA]"
+    "destination_answer": "Thought: The user is interested in going on a Caribbean cruise. Since Caribbean cruises often embark from major ports in the region, I've listed major Caribbean airports that are proximate to popular cruise departure points\nDestinations (IATA codes): [MIA,FLL,SJU,NAS,AUA,BGI,MBJ,PUJ]"
+  },
+  {
+    "test_case_number": 27,
+    "date": "19/06/2024",
+    "user_request": "Origin: Riga, LV | Destination: Best wine regions in France | Departure: Autumn 2024 | Duration: 1 week",
+    "selectedCityID": "riga_lv",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 2,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 28,
-        "user_request": "Origin: Kiev, UA | Destination: Goa, India | Departure: New Year's Eve | Duration: 7 days",
-        "selectedCityID": "kiev_ua",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 2,
-            "children": 1,
-            "infants": 1
-        },
-        "destination_answer": "Thought: The user wants to travel to Goa. I will provide the IATA code of the airport of GOA.\nDestinations (IATA codes): [GOI]"
+    "destination_answer": "Thought: The user is interested in visiting the best wine regions in France. I have included the major wine regions in France that are worth visiting.\nDestinations (IATA codes): [CDG,BOD,LYS,MRS,NCE,TLS,BSL,GVA]"
+  },
+  {
+    "test_case_number": 28,
+    "date": "13/11/2025",
+    "user_request": "Origin: Kiev, UA | Destination: Goa, India | Departure: New Year's Eve | Duration: 7 days",
+    "selectedCityID": "kiev_ua",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 2,
+      "children": 1,
+      "infants": 1
     },
-    {
-        "test_case_number": 29,
-        "user_request": "Origin: Bucharest, RO | Destination: Major US cities | Departure: Summer 2024 | Duration: 20 days",
-        "selectedCityID": "bucharest_ro",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user wants to travel from to major cities in the US. I have included major US cities that are popular tourist destinations.\nDestinations (IATA codes): [JFK,LAX,SFO,MIA,ORD,DFW,ATL,SEA,DEN,PHL,CLT,PHX,MSP,DTW,BOS,LAS,IAD,EWR,IAH,SAN]"
+    "destination_answer": "Thought: The user wants to travel to Goa. I will provide the IATA code of the airport of GOA.\nDestinations (IATA codes): [GOI]"
+  },
+  {
+    "test_case_number": 29,
+    "date": "19/03/2024",
+    "user_request": "Origin: Bucharest, RO | Destination: Major US cities | Departure: Summer 2024 | Duration: 20 days",
+    "selectedCityID": "bucharest_ro",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 30,
-        "user_request": "Origin: Sofia, BG | Destination: Ancient ruins in Peru | Departure: May 2024 | Duration: 15 days",
-        "selectedCityID": "sofia_bg",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 1,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user wants to travel to visit ancient ruins in Peru. Given the specific destination, I will provide the airport codes for the major airports in Peru that would be suitable for this trip.\nDestinations (IATA codes): [LIM,CUZ,AQP,TRU,IQT,PCL,TBP,TPP,PIU,TAL]"
+    "destination_answer": "Thought: The user wants to travel from to major cities in the US. I have included major US cities that are popular tourist destinations.\nDestinations (IATA codes): [JFK,LAX,SFO,MIA,ORD,DFW,ATL,SEA,DEN,PHL,CLT,PHX,MSP,DTW,BOS,LAS,IAD,EWR,IAH,SAN]"
+  },
+  {
+    "test_case_number": 30,
+    "date": "09/02/2024",
+    "user_request": "Origin: Sofia, BG | Destination: Ancient ruins in Peru | Departure: May 2024 | Duration: 15 days",
+    "selectedCityID": "sofia_bg",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 1,
+      "infants": 0
     },
-    {
-        "test_case_number": 31,
-        "user_request": "Origin: Rome, IT | Destination: South of France | Departure: Anytime in July | Length: A weekend",
-        "selectedCityID": "rome_it",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 2,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user wants to travel to the south of France. I have included airports in the south of France.\nDestinations (IATA codes): [NCE,MRS,TLS,BZR,AVN,PGF,CTT,LPY,MPL,FNI]"
+    "destination_answer": "Thought: The user wants to travel to visit ancient ruins in Peru. Given the specific destination, I will provide the airport codes for the major airports in Peru that would be suitable for this trip.\nDestinations (IATA codes): [LIM,CUZ,AQP,TRU,IQT,PCL,TBP,TPP,PIU,TAL]"
+  },
+  {
+    "test_case_number": 31,
+    "date": "03/05/2024",
+    "user_request": "Origin: Rome, IT | Destination: South of France | Departure: Anytime in July | Length: A weekend",
+    "selectedCityID": "rome_it",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 2,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 32,
-        "user_request": "From: Warsaw, PL | I want to explore: Beaches in Croatia or Greece | Departure: During summer holidays | Duration: 5 to 7 days | Passengers: Me and my partner",
-        "selectedCityID": "warsaw_pl",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 2,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user wants to explore beaches in either Croatia or Greece. I will provide a list of airports in those countries that are located near beach destinations.\nDestinations (IATA codes): [DBV,SPU,ZAD,PUY,RJK,OSI,BWK,ATH,HER,CHQ,RHO,CFU,KGS,JSI,JMK,JTR,EFL,PVK,ZTH,SKG,MJT,LXS]"
+    "destination_answer": "Thought: The user wants to travel to the south of France. I have included airports in the south of France.\nDestinations (IATA codes): [NCE,MRS,TLS,BZR,AVN,PGF,CTT,LPY,MPL,FNI]"
+  },
+  {
+    "test_case_number": 32,
+    "date": "09/02/2024",
+    "user_request": "From: Warsaw, PL | I want to explore: Beaches in Croatia or Greece | Departure: During summer holidays | Duration: 5 to 7 days | Passengers: Me and my partner",
+    "selectedCityID": "warsaw_pl",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 2,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 33,
-        "user_request": "Origin: Prague, CZ | Destination: Thailand | When: January or February | Stay: Roughly 2 weeks | Class: Business class please",
-        "selectedCityID": "prague_cz",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user wants to travel to Thailand. I will provide a list of airports in Thailand.\nDestinations (IATA codes): [BKK,DMK,HKT,CNX,USM,KBV,URT,CEI,HDY,UTH,HGN,ROI,NST,TST,LPT,PHS]"
+    "destination_answer": "Thought: The user wants to explore beaches in either Croatia or Greece. I will provide a list of airports in those countries that are located near beach destinations.\nDestinations (IATA codes): [DBV,SPU,ZAD,PUY,RJK,OSI,BWK,ATH,HER,CHQ,RHO,CFU,KGS,JSI,JMK,JTR,EFL,PVK,ZTH,SKG,MJT,LXS]"
+  },
+  {
+    "test_case_number": 33,
+    "date": "02/12/2024",
+    "user_request": "Origin: Prague, CZ | Destination: Thailand | When: January or February | Stay: Roughly 2 weeks | Class: Business class please",
+    "selectedCityID": "prague_cz",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 34,
-        "user_request": "Origin: Budapest, HU | Want to go to: Ski resorts in Switzerland or Austria | Travel dates: Any February weekend | Also, need space for my ski equipment",
-        "selectedCityID": "budapest_hu",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user wants to go to ski resorts in Switzerland or Austria, so I will list all airports that are close to popular ski destinations in these countries.\nDestinations (IATA codes): [ZRH,GVA,BSL,INN,SZG,KLU,GRZ]"
+    "destination_answer": "Thought: The user wants to travel to Thailand. I will provide a list of airports in Thailand.\nDestinations (IATA codes): [BKK,DMK,HKT,CNX,USM,KBV,URT,CEI,HDY,UTH,HGN,ROI,NST,TST,LPT,PHS]"
+  },
+  {
+    "test_case_number": 34,
+    "date": "06/12/2024",
+    "user_request": "Origin: Budapest, HU | Want to go to: Ski resorts in Switzerland or Austria | Travel dates: Any February weekend | Also, need space for my ski equipment",
+    "selectedCityID": "budapest_hu",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 35,
-        "user_request": "From: Vienna, AT | Destination: Spain but not the touristy parts | Preferably in: May | Duration: Around a week | We're a family of 4",
-        "selectedCityID": "vienna_at",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 2,
-            "children": 2,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user wants to travel to Spain, but not to the touristy parts. I will include a comprehensive list of airports in Spain, excluding the most touristic ones.\nDestinations (IATA codes): [VLC,SVQ,SCQ,SJU,LEI,REU,CQM,ODB,GRX,SDR]"
+    "destination_answer": "Thought: The user wants to go to ski resorts in Switzerland or Austria, so I will list all airports that are close to popular ski destinations in these countries.\nDestinations (IATA codes): [ZRH,GVA,BSL,INN,SZG,KLU,GRZ]"
+  },
+  {
+    "test_case_number": 35,
+    "date": "09/02/2024",
+    "user_request": "From: Vienna, AT | Destination: Spain but not the touristy parts | Preferably in: May | Duration: Around a week | We're a family of 4",
+    "selectedCityID": "vienna_at",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 2,
+      "children": 2,
+      "infants": 0
     },
-    {
-        "test_case_number": 36,
-        "user_request": "Origin: Helsinki, FI | Interested in: Bali or other Indonesian islands | Departure: When it's sunny | Trip length: 10-15 days | Prefer vegetarian meal options",
-        "selectedCityID": "helsinki_fi",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user is interested in traveling to Bali or other Indonesian islands. I will provide a list of airports in Bali and other Indonesian islands.\nDestinations (IATA codes): [DPS,JOG,CGK,SUB,LOP,UPG,SRG,BPN,MDC,AMQ]"
+    "destination_answer": "Thought: The user wants to travel to Spain, but not to the touristy parts. I will include a comprehensive list of airports in Spain, excluding the most touristic ones.\nDestinations (IATA codes): [VLC,SVQ,SCQ,SJU,LEI,REU,CQM,ODB,GRX,SDR]"
+  },
+  {
+    "test_case_number": 36,
+    "date": "08/11/2024",
+    "user_request": "Origin: Helsinki, FI | Interested in: Bali or other Indonesian islands | Departure: When it's sunny | Trip length: 10-15 days | Prefer vegetarian meal options",
+    "selectedCityID": "helsinki_fi",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 37,
-        "user_request": "Origin: Reykjavik, IS | Destination: Any city in Arizona or New Mexico | Departure: March-April | Stay: 7-10 days",
-        "selectedCityID": "reykjavik_is",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user wants to travel to any city in Arizona or New Mexico. I have included the major airports in both states to provide a variety of options for the user.\nDestinations (IATA codes): [PHX,TUS,ABQ,SAF]"
+    "destination_answer": "Thought: The user is interested in traveling to Bali or other Indonesian islands. I will provide a list of airports in Bali and other Indonesian islands.\nDestinations (IATA codes): [DPS,JOG,CGK,SUB,LOP,UPG,SRG,BPN,MDC,AMQ]"
+  },
+  {
+    "test_case_number": 37,
+    "date": "28/12/2024",
+    "user_request": "Origin: Reykjavik, IS | Destination: Any city in Arizona or New Mexico | Departure: March-April | Stay: 7-10 days",
+    "selectedCityID": "reykjavik_is",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 38,
-        "user_request": "From: Lisbon, PT | Destination: East Asian cities, considering Seoul or Tokyo | Leaving: June | Trip time: 9-11 days | We are 2 adults and 1 infant",
-        "selectedCityID": "lisbon_pt",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 2,
-            "children": 0,
-            "infants": 1
-        },
-        "destination_answer": "Thought: The user wants to travel to East Asian cities, specifically considering Seoul or Tokyo. I have included airports in both cities, as well as other major airports in East Asia.\nDestinations (IATA codes): [ICN,NRT,HND,PVG,PEK,HKG,SIN,KUL,BKK,DMK,MNL,TPE]"
+    "destination_answer": "Thought: The user wants to travel to any city in Arizona or New Mexico. I have included the major airports in both states to provide a variety of options for the user.\nDestinations (IATA codes): [PHX,TUS,ABQ,SAF]"
+  },
+  {
+    "test_case_number": 38,
+    "date": "26/05/2024",
+    "user_request": "From: Lisbon, PT | Destination: East Asian cities, considering Seoul or Tokyo | Leaving: June | Trip time: 9-11 days | We are 2 adults and 1 infant",
+    "selectedCityID": "lisbon_pt",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 2,
+      "children": 0,
+      "infants": 1
     },
-    {
-        "test_case_number": 39,
-        "user_request": "Origin: Athens, GR | I'd like to visit: Japan | Prefer traveling in: Cherry blossom season | Length of trip: 2 weeks max | Also, need WiFi on flight",
-        "selectedCityID": "athens_gr",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user wants to travel to Japan. I will make a comprehensive list of Airports in Japan.\nDestinations (IATA codes): [HND,NRT,KIX,CTS,FUK,OKA,NGO,ITM,KOJ,SDJ,HIJ,OKJ,ASJ,MYJ,ISG,FSZ,TKN,MMY,IKI,KMI]"
+    "destination_answer": "Thought: The user wants to travel to East Asian cities, specifically considering Seoul or Tokyo. I have included airports in both cities, as well as other major airports in East Asia.\nDestinations (IATA codes): [ICN,NRT,HND,PVG,PEK,HKG,SIN,KUL,BKK,DMK,MNL,TPE]"
+  },
+  {
+    "test_case_number": 39,
+    "date": "04/01/2025",
+    "user_request": "Origin: Athens, GR | I'd like to visit: Japan | Prefer traveling in: Cherry blossom season | Length of trip: 2 weeks max | Also, need WiFi on flight",
+    "selectedCityID": "athens_gr",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 40,
-        "user_request": "Origin: Sofia, BG | Destination: Adventure spots like Nepal or Peru | When: Before winter | Duration: Not sure, maybe 10 days? | Need to carry camping gear",
-        "selectedCityID": "sofia_bg",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user is interested in adventure destinations like Nepal or Peru. These destinations are known for their outdoor activities and trekking opportunities. I have included airports that serve as gateways to these adventure spots as well as many other destinations with similar adventurous vibe.\nDestinations (IATA codes): [KTM,PKR,LUA,BIR,LIM,CUZ,AQP,JUL,HUU,TCQ,PBH,JRO,DAR,AKL,CHC,EZE,FTE,SCL,PUQ]"
+    "destination_answer": "Thought: The user wants to travel to Japan. I will make a comprehensive list of Airports in Japan.\nDestinations (IATA codes): [HND,NRT,KIX,CTS,FUK,OKA,NGO,ITM,KOJ,SDJ,HIJ,OKJ,ASJ,MYJ,ISG,FSZ,TKN,MMY,IKI,KMI]"
+  },
+  {
+    "test_case_number": 40,
+    "date": "13/08/2024",
+    "user_request": "Origin: Sofia, BG | Destination: Adventure spots like Nepal or Peru | When: Before winter | Duration: Not sure, maybe 10 days? | Need to carry camping gear",
+    "selectedCityID": "sofia_bg",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 41,
-        "user_request": "From: Bratislava, SK | Destination: Australia's east coast | Departure: Avoid local holidays | Stay: A fortnight | Flying: Economy class",
-        "selectedCityID": "bratislava_sk",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user wants to travel to Australia's east coast. I will consider major airports on Australia's east coast and provide a list of possible destinations.\nDestinations (IATA codes): [SYD,MEL,BNE,CNS,OOL,HTI,CBR]"
+    "destination_answer": "Thought: The user is interested in adventure destinations like Nepal or Peru. These destinations are known for their outdoor activities and trekking opportunities. I have included airports that serve as gateways to these adventure spots as well as many other destinations with similar adventurous vibe.\nDestinations (IATA codes): [KTM,PKR,LUA,BIR,LIM,CUZ,AQP,JUL,HUU,TCQ,PBH,JRO,DAR,AKL,CHC,EZE,FTE,SCL,PUQ]"
+  },
+  {
+    "test_case_number": 41,
+    "date": "07/03/2024",
+    "user_request": "From: Bratislava, SK | Destination: Australia's east coast | Departure: Avoid local holidays | Stay: A fortnight | Flying: Economy class",
+    "selectedCityID": "bratislava_sk",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 42,
-        "user_request": "Origin: Vilnius, LT | Destination: African countries for safari, like Kenya or Tanzania | Thinking of traveling in: August | Trip length: Roughly a week | Passengers: It's just me",
-        "selectedCityID": "vilnius_lt",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user is interested in going on a safari in Africa, specifically in countries like Kenya or Tanzania. I have included airports in both countries, as well as many other nearby countries that offer safari experiences.\nDestinations (IATA codes): [NBO,JRO,ZNZ,DAR,ARK,SEU,EBB,ADD,MPM,WDH,MRU,DKR,CPT,JNB,SEZ]"
+    "destination_answer": "Thought: The user wants to travel to Australia's east coast. I will consider major airports on Australia's east coast and provide a list of possible destinations.\nDestinations (IATA codes): [SYD,MEL,BNE,CNS,OOL,HTI,CBR]"
+  },
+  {
+    "test_case_number": 42,
+    "date": "08/06/2025",
+    "user_request": "Origin: Vilnius, LT | Destination: African countries for safari, like Kenya or Tanzania | Thinking of traveling in: August | Trip length: Roughly a week | Passengers: It's just me",
+    "selectedCityID": "vilnius_lt",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 43,
-        "user_request": "Origin: Riga, LV | Destination: London, UK or Dublin, IE | Preferably in: September | Duration: 5 nights",
-        "selectedCityID": "riga_lv",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user has specified two specific destinations: London, UK or Dublin, IE. Therefore, I will include all airport codes for these two cities.\nDestinations (IATA codes): [LHR,LGW,LCY,STN,LTN,DUB]"
+    "destination_answer": "Thought: The user is interested in going on a safari in Africa, specifically in countries like Kenya or Tanzania. I have included airports in both countries, as well as many other nearby countries that offer safari experiences.\nDestinations (IATA codes): [NBO,JRO,ZNZ,DAR,ARK,SEU,EBB,ADD,MPM,WDH,MRU,DKR,CPT,JNB,SEZ]"
+  },
+  {
+    "test_case_number": 43,
+    "date": "18/07/2024",
+    "user_request": "Origin: Riga, LV | Destination: London, UK or Dublin, IE | Preferably in: September | Duration: 5 nights",
+    "selectedCityID": "riga_lv",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 44,
-        "user_request": "From: Tallinn, EE | Interested in: Vietnam or Malaysia | Departure: Avoiding rainy seasons | Stay: 10 days maximum | Also, a window seat please",
-        "selectedCityID": "tallinn_ee",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user is interested in traveling to Vietnam or Malaysia. I will list airport codes of those countries.\nDestinations (IATA codes): [SGN,HAN,DAD,CXR,PQC,KUL,PEN,BKI,KCH,LGK]"
+    "destination_answer": "Thought: The user has specified two specific destinations: London, UK or Dublin, IE. Therefore, I will include all airport codes for these two cities.\nDestinations (IATA codes): [LHR,LGW,LCY,STN,LTN,DUB]"
+  },
+  {
+    "test_case_number": 44,
+    "date": "05/05/2025",
+    "user_request": "From: Tallinn, EE | Interested in: Vietnam or Malaysia | Departure: Avoiding rainy seasons | Stay: 10 days maximum | Also, a window seat please",
+    "selectedCityID": "tallinn_ee",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 45,
-        "user_request": "Origin: Ljubljana, SI | Destination: Mexico's coastal cities | When: October-November | Length of trip: Around 1 week | No seafood meal preference",
-        "selectedCityID": "ljubljana_si",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user wants to travel to coastal cities in Mexico. I have included major coastal cities in Mexico that have airports.\nDestinations (IATA codes): [CUN,CZM,ACA,PVR,SJD,MID,VER,MTY,CTM,TPQ,REX,ZIH,CLQ,SLP,TRC,LOV,SLW]"
+    "destination_answer": "Thought: The user is interested in traveling to Vietnam or Malaysia. I will list airport codes of those countries.\nDestinations (IATA codes): [SGN,HAN,DAD,CXR,PQC,KUL,PEN,BKI,KCH,LGK]"
+  },
+  {
+    "test_case_number": 45,
+    "date": "06/07/2024",
+    "user_request": "Origin: Ljubljana, SI | Destination: Mexico's coastal cities | When: October-November | Length of trip: Around 1 week | No seafood meal preference",
+    "selectedCityID": "ljubljana_si",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 46,
-        "user_request": "Origin: Zagreb, HR | Destination: South Korea or Taiwan | Thinking of going in: Spring | Trip length: A week | Flying: Premium economy",
-        "selectedCityID": "zagreb_hr",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user is looking to travel to either South Korea or Taiwan. I've provided airports in both countries to give multiple options.\nDestinations (IATA codes): [ICN,GMP,CJU,PUS,BUS,USN,TAE,ICN,TPE,KHH,RMQ,HSZ,TNN]"
+    "destination_answer": "Thought: The user wants to travel to coastal cities in Mexico. I have included major coastal cities in Mexico that have airports.\nDestinations (IATA codes): [CUN,CZM,ACA,PVR,SJD,MID,VER,MTY,CTM,TPQ,REX,ZIH,CLQ,SLP,TRC,LOV,SLW]"
+  },
+  {
+    "test_case_number": 46,
+    "date": "23/12/2024",
+    "user_request": "Origin: Zagreb, HR | Destination: South Korea or Taiwan | Thinking of going in: Spring | Trip length: A week | Flying: Premium economy",
+    "selectedCityID": "zagreb_hr",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 47,
-        "user_request": "From: Belgrade, RS | Destination: Maldives or Seychelles | Best time to travel: Off-peak season | Duration: Not more than a week",
-        "selectedCityID": "belgrade_rs",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user is interested in visiting either the Maldives or the Seychelles. I've listed all airports for these island destinations.\nDestinations (IATA codes): [MLE,DRV,GAN,HAQ,FVM,SEZ,PRI,DEI,FSM,DES]"
+    "destination_answer": "Thought: The user is looking to travel to either South Korea or Taiwan. I've provided airports in both countries to give multiple options.\nDestinations (IATA codes): [ICN,GMP,CJU,PUS,BUS,USN,TAE,ICN,TPE,KHH,RMQ,HSZ,TNN]"
+  },
+  {
+    "test_case_number": 47,
+    "date": "03/01/2025",
+    "user_request": "From: Belgrade, RS | Destination: Maldives or Seychelles | Best time to travel: Off-peak season | Duration: Not more than a week",
+    "selectedCityID": "belgrade_rs",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 48,
-        "user_request": "Origin: Sarajevo, BA | Destination: Chile or Argentina | Preferably in: Their dry season | Stay: 10-14 days | We're a group of 5 friends",
-        "selectedCityID": "sarajevo_ba",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 5,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user wants to travel to either Chile or Argentina. I will provide a list of airports in both countries.\nDestinations (IATA codes): [SCL,CCP,PUQ,PMC,IPC,ANF,CJC,ZAL,EZE,AEP,CRD,BRC,FTE,MDZ,SLA,USH,REL,IGR]"
+    "destination_answer": "Thought: The user is interested in visiting either the Maldives or the Seychelles. I've listed all airports for these island destinations.\nDestinations (IATA codes): [MLE,DRV,GAN,HAQ,FVM,SEZ,PRI,DEI,FSM,DES]"
+  },
+  {
+    "test_case_number": 48,
+    "date": "05/06/2024",
+    "user_request": "Origin: Sarajevo, BA | Destination: Chile or Argentina | Preferably in: Their dry season | Stay: 10-14 days | We're a group of 5 friends",
+    "selectedCityID": "sarajevo_ba",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 5,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 49,
-        "user_request": "From: Skopje, MK | Destination: New York or Toronto | When: Autumn months | Trip time: 5-7 nights | Class: Business, if there's a deal",
-        "selectedCityID": "skopje_mk",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user wants to travel to either New York or Toront. I will provide a list of possible destination airports in New York and Toronto.\nDestinations (IATA codes): [JFK,EWR,LGA,YYZ]"
+    "destination_answer": "Thought: The user wants to travel to either Chile or Argentina. I will provide a list of airports in both countries.\nDestinations (IATA codes): [SCL,CCP,PUQ,PMC,IPC,ANF,CJC,ZAL,EZE,AEP,CRD,BRC,FTE,MDZ,SLA,USH,REL,IGR]"
+  },
+  {
+    "test_case_number": 49,
+    "date": "02/06/2024",
+    "user_request": "From: Skopje, MK | Destination: New York or Toronto | When: Autumn months | Trip time: 5-7 nights | Class: Business, if there's a deal",
+    "selectedCityID": "skopje_mk",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 50,
-        "user_request": "Origin: Podgorica, ME | Destination: Moscow or St. Petersburg in Russia | Departure: June-July | Length of trip: Roughly a week | I'm traveling solo",
-        "selectedCityID": "podgorica_me",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user wishes to travel to either Moscow or St. Petersburg in Russia. I've included all the airports of both cities to offer the user a comprehensive list of choices.\nDestinations (IATA codes): [SVO,DME,VKO,ZIA,LED,LED]"
+    "destination_answer": "Thought: The user wants to travel to either New York or Toront. I will provide a list of possible destination airports in New York and Toronto.\nDestinations (IATA codes): [JFK,EWR,LGA,YYZ]"
+  },
+  {
+    "test_case_number": 50,
+    "date": "01/03/2025",
+    "user_request": "Origin: Podgorica, ME | Destination: Moscow or St. Petersburg in Russia | Departure: June-July | Length of trip: Roughly a week | I'm traveling solo",
+    "selectedCityID": "podgorica_me",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 51,
-        "user_request": "Origin: Moscow, RU | Destination: South America | Preferably in: October | Duration: At least 10 days | We're two couples",
-        "selectedCityID": "moscow_ru",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 4,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user wants to travel to South America. I will provide a list of airports across South American countries.\nDestinations (IATA codes): [GRU,GIG,EZE,BOG,LIM,UIO,CCS,MDZ,LPB,GYE,REC,BEL,CLO,POA,ASU,ROS,VVI,SLA,SCZ,SDU]"
+    "destination_answer": "Thought: The user wishes to travel to either Moscow or St. Petersburg in Russia. I've included all the airports of both cities to offer the user a comprehensive list of choices.\nDestinations (IATA codes): [SVO,DME,VKO,ZIA,LED,LED]"
+  },
+  {
+    "test_case_number": 51,
+    "date": "04/07/2024",
+    "user_request": "Origin: Moscow, RU | Destination: South America | Preferably in: October | Duration: At least 10 days | We're two couples",
+    "selectedCityID": "moscow_ru",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 4,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 52,
-        "user_request": "From: Prague, CZ | Thinking about: Caribbean islands | Time of year: Not hurricane season | Length of trip: About a week | It's a honeymoon trip",
-        "selectedCityID": "prague_cz",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 2,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user is looking for a honeymoon trip to the Caribbean islands. I'll provide major airport destinations in the Caribbean.\nDestinations (IATA codes): [MBJ,AUA,SXM,PUJ,NAS,BGI,UVF,GND,PAP,PLS,ANU,STT,SDQ,POS,CUN,POP,SKB,HAV,CZM,SLU]"
+    "destination_answer": "Thought: The user wants to travel to South America. I will provide a list of airports across South American countries.\nDestinations (IATA codes): [GRU,GIG,EZE,BOG,LIM,UIO,CCS,MDZ,LPB,GYE,REC,BEL,CLO,POA,ASU,ROS,VVI,SLA,SCZ,SDU]"
+  },
+  {
+    "test_case_number": 52,
+    "date": "08/11/2025",
+    "user_request": "From: Prague, CZ | Thinking about: Caribbean islands | Time of year: Not hurricane season | Length of trip: About a week | It's a honeymoon trip",
+    "selectedCityID": "prague_cz",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 2,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 53,
-        "user_request": "Origin: Warsaw, PL | Interested in: Scandinavia, especially Norway | Departure: During summer months | Duration: Up to 12 days",
-        "selectedCityID": "warsaw_pl",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user wants to explore Scandinavia, especially Norway. I'll provide airport codes for major Scandinavian cities, emphasizing Norway.\nDestinations (IATA codes): [OSL,BGO,TRD,SVG,CPH,ARN,GOT,HEL,MMX,LPI,UME,AAE,VDS,TOS,BNN,LLA,KRS,KKN,HAU,MOL]"
+    "destination_answer": "Thought: The user is looking for a honeymoon trip to the Caribbean islands. I'll provide major airport destinations in the Caribbean.\nDestinations (IATA codes): [MBJ,AUA,SXM,PUJ,NAS,BGI,UVF,GND,PAP,PLS,ANU,STT,SDQ,POS,CUN,POP,SKB,HAV,CZM,SLU]"
+  },
+  {
+    "test_case_number": 53,
+    "date": "17/01/2024",
+    "user_request": "Origin: Warsaw, PL | Interested in: Scandinavia, especially Norway | Departure: During summer months | Duration: Up to 12 days",
+    "selectedCityID": "warsaw_pl",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 54,
-        "user_request": "From: Madrid, ES | Destination: Anywhere in Asia | Prefer traveling in: Spring | Duration: Approximately 3 weeks | Solo traveler",
-        "selectedCityID": "madrid_es",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user is looking to travel anywhere in Asia. I'll list a mix of airport codes from various Asian countries.\nDestinations (IATA codes): [BKK,DMK,DEL,HKG,ICN,TPE,PEK,NRT,SGN,MNL,KUL,PVG,KTM,CMB,CCU,DAC,CGK,SUB,ISB,HAN,DXB]"
+    "destination_answer": "Thought: The user wants to explore Scandinavia, especially Norway. I'll provide airport codes for major Scandinavian cities, emphasizing Norway.\nDestinations (IATA codes): [OSL,BGO,TRD,SVG,CPH,ARN,GOT,HEL,MMX,LPI,UME,AAE,VDS,TOS,BNN,LLA,KRS,KKN,HAU,MOL]"
+  },
+  {
+    "test_case_number": 54,
+    "date": "01/12/2024",
+    "user_request": "From: Madrid, ES | Destination: Anywhere in Asia | Prefer traveling in: Spring | Duration: Approximately 3 weeks | Solo traveler",
+    "selectedCityID": "madrid_es",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 55,
-        "user_request": "Origin: Zurich, CH | I'd love to explore: African safaris in southern parts | Departure: Around November | Duration: A few weeks | Mainly for wildlife photography",
-        "selectedCityID": "zurich_ch",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user is looking to go on a safari in southern Africa mainly for wildlife photography. I'll suggest major gateways to safari destinations in southern Africa.\nDestinations (IATA codes): [JNB,CPT,WDH,MRU,MUB,LVI,GAB,FRW,HDS,MPM,GBE,MFU,BZV,LUN,DUR,LLW,PLZ,ELS,GRJ,HLA]"
+    "destination_answer": "Thought: The user is looking to travel anywhere in Asia. I'll list a mix of airport codes from various Asian countries.\nDestinations (IATA codes): [BKK,DMK,DEL,HKG,ICN,TPE,PEK,NRT,SGN,MNL,KUL,PVG,KTM,CMB,CCU,DAC,CGK,SUB,ISB,HAN,DXB]"
+  },
+  {
+    "test_case_number": 55,
+    "date": "25/08/2024",
+    "user_request": "Origin: Zurich, CH | I'd love to explore: African safaris in southern parts | Departure: Around November | Duration: A few weeks | Mainly for wildlife photography",
+    "selectedCityID": "zurich_ch",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 56,
-        "user_request": "From: Budapest, HU | Destination: Canada's west coast | Time: Avoid winter | Length: Roughly 2 weeks",
-        "selectedCityID": "budapest_hu",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user wants to explore Canada's west coast. I will list the major airports on the west coast of Canada.\nDestinations (IATA codes): [YVR,YYC,YEG,YLW,YYJ,YXS,YXT,YPR,YCD,YQQ]"
+    "destination_answer": "Thought: The user is looking to go on a safari in southern Africa mainly for wildlife photography. I'll suggest major gateways to safari destinations in southern Africa.\nDestinations (IATA codes): [JNB,CPT,WDH,MRU,MUB,LVI,GAB,FRW,HDS,MPM,GBE,MFU,BZV,LUN,DUR,LLW,PLZ,ELS,GRJ,HLA]"
+  },
+  {
+    "test_case_number": 56,
+    "date": "08/06/2025",
+    "user_request": "From: Budapest, HU | Destination: Canada's west coast | Time: Avoid winter | Length: Roughly 2 weeks",
+    "selectedCityID": "budapest_hu",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 57,
-        "user_request": "Origin: Helsinki, FI | Destination: Tallinn | Departure: November, any Saturday | Duration: 3 nights",
-        "selectedCityID": "helsinki_fi",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user wants to travel from Helsinki to Tallinn specifically. Therefore, the only relevant destination airport code is that of Tallinn.\nDestinations (IATA codes): [TLL]"
+    "destination_answer": "Thought: The user wants to explore Canada's west coast. I will list the major airports on the west coast of Canada.\nDestinations (IATA codes): [YVR,YYC,YEG,YLW,YYJ,YXS,YXT,YPR,YCD,YQQ]"
+  },
+  {
+    "test_case_number": 57,
+    "date": "28/10/2026",
+    "user_request": "Origin: Helsinki, FI | Destination: Tallinn | Departure: November, any Saturday | Duration: 3 nights",
+    "selectedCityID": "helsinki_fi",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 58,
-        "user_request": "Origin: Gothenburg, SE | Destination: Munich | Departure: November 20th | Return: November 24th",
-        "selectedCityID": "gothenburg_se",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user wants to travel from Gothenburg to Munich. Therefore, the only relevant destination airport code is that of Munich.\nDestinations (IATA codes): [MUC]"
+    "destination_answer": "Thought: The user wants to travel from Helsinki to Tallinn specifically. Therefore, the only relevant destination airport code is that of Tallinn.\nDestinations (IATA codes): [TLL]"
+  },
+  {
+    "test_case_number": 58,
+    "date": "08/11/2024",
+    "user_request": "Origin: Gothenburg, SE | Destination: Munich | Departure: November 20th | Return: November 24th",
+    "selectedCityID": "gothenburg_se",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 59,
-        "user_request": "Origin: Malmo, SE | Destination: Best wine regions in France | Departure: Summer 2024 | Duration: 10 days",
-        "selectedCityID": "malmo_se",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user is interested in the best wine regions in France. I will provide a list of airports in France that are located near renowned wine-producing regions.\nDestinations (IATA codes): [BOD,LYS,MRS,NCE,CDG,LIL]"
+    "destination_answer": "Thought: The user wants to travel from Gothenburg to Munich. Therefore, the only relevant destination airport code is that of Munich.\nDestinations (IATA codes): [MUC]"
+  },
+  {
+    "test_case_number": 59,
+    "date": "23/03/2024",
+    "user_request": "Origin: Malmo, SE | Destination: Best wine regions in France | Departure: Summer 2024 | Duration: 10 days",
+    "selectedCityID": "malmo_se",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 60,
-        "user_request": "Origin: Brussels, BE | Destination: Seville, Spain | Departure: 10th October | Return: 18th October | Passengers: 3 adults",
-        "selectedCityID": "brussels_be",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 3,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user has specified a specific destination, Seville, Spain. Therefore, I will only list the airport of Seville.\nDestinations (IATA codes): [SVQ]"
+    "destination_answer": "Thought: The user is interested in the best wine regions in France. I will provide a list of airports in France that are located near renowned wine-producing regions.\nDestinations (IATA codes): [BOD,LYS,MRS,NCE,CDG,LIL]"
+  },
+  {
+    "test_case_number": 60,
+    "date": "08/09/2027",
+    "user_request": "Origin: Brussels, BE | Destination: Seville, Spain | Departure: 10th October | Return: 18th October | Passengers: 3 adults",
+    "selectedCityID": "brussels_be",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 3,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 61,
-        "user_request": "Origin: Valencia, ES | Destination: Vancouver, CA | Departure: First or second full week of November | Duration: 1 week | Flights: max 1 layover",
-        "selectedCityID": "valencia_es",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "Thought: The user has specified a specific destination, Vanvoucer, Canada. Therefore, I will only list the airports of Vancouver.\nDestinations (IATA codes): [YVR,YDT]"
+    "destination_answer": "Thought: The user has specified a specific destination, Seville, Spain. Therefore, I will only list the airport of Seville.\nDestinations (IATA codes): [SVQ]"
+  },
+  {
+    "test_case_number": 61,
+    "date": "03/10/2024",
+    "user_request": "Origin: Valencia, ES | Destination: Vancouver, CA | Departure: First or second full week of November | Duration: 1 week | Flights: max 1 layover",
+    "selectedCityID": "valencia_es",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 0,
+      "infants": 0
     },
-    {
-        "test_case_number": 62,
-        "user_request": "Origin: Helsinki, FI | Travelers: 2 adults, 2 children | Destination: Somewhere warm and sunny in October | Departure: Saturday before week 42 | Duration: Approximately 1 week | Flight Preference: Direct flights preferred, but layovers are acceptable as long as total travel time is under 10 hours",
-        "selectedCityID": "helsinki_fi",
-        "cabinClass": "economy",
-        "travelers": {
-            "adults": 1,
-            "children": 0,
-            "infants": 0
-        },
-        "destination_answer": "???"
-    }    
+    "destination_answer": "Thought: The user has specified a specific destination, Vanvoucer, Canada. Therefore, I will only list the airports of Vancouver.\nDestinations (IATA codes): [YVR,YDT]"
+  },
+  {
+    "test_case_number": 62,
+    "date": "01/08/2025",
+    "user_request": "Origin: Helsinki, FI | Travelers: 2 adults, 2 children | Destination: Somewhere warm and sunny in October | Departure: Saturday before week 42 | Duration: Approximately 1 week | Flight Preference: Direct flights preferred, but layovers are acceptable as long as total travel time is under 10 hours",
+    "selectedCityID": "helsinki_fi",
+    "cabinClass": "economy",
+    "travelers": {
+      "adults": 1,
+      "children": 0,
+      "infants": 0
+    },
+    "destination_answer": "???"
+  }
 ]
-  

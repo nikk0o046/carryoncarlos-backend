@@ -7,7 +7,7 @@ import json
 from collections import defaultdict
 
 # Specify the data path and open the JSONL file
-train_data_path = "./data/dest_training_data.jsonl"
+train_data_path = "../data/time_validation_data.jsonl"
 data_path = train_data_path
 
 # Load dataset

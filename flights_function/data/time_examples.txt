@@ -1,0 +1,68 @@
+  #example 1
+    userExample1 = "Current date: 10/07/2023\nInfo: Origin: London, GB | Destination: Paris, FR | Departure: Next month's Friday| Duration: Weekend | Flights: Any"
+
+    botExample1 = """Thought: User wants to leave on a Friday next month (August) and stay for two nights.
+```json
+{
+    "date_from": "01/08/2023",
+    "date_to": "31/08/2023",
+    "fly_days": 5,
+    "fly_days_type": "departure",
+    "nights_in_dst_from": 2,
+    "nights_in_dst_to": 2,
+    "ret_fly_days": 0,
+    "ret_fly_days_type": "departure"
+}
+```"""
+
+    #example 2
+    userExample2 = """Current date: 01/01/2024\nInfo: Origin: San Francisco, US | Destination: Anywhere abroad | Departure: March | Duration: About a week | Flights: Any"""
+
+    botExample2 = """Thought: setting departure dates for next March, lasting about a week which translated to 6-8 nights.
+```json
+{
+"date_from": "01/03/2024",
+"date_to": "31/03/2024",
+"nights_in_dst_from": 6,
+"nights_in_dst_to": 8
+}
+```"""
+
+    #example 3
+    userExample3 = "Current date: 10/08/2023\nInfo: Origin: Los Angeles, US | Destination: Miami, US | Departure: October's Long Weekend | Duration: 3 days | Flights: direct"
+
+    botExample3 = """Thought: Long weekend usually means three days. Possible departure days are Thursday and Friday. Possible return flight days are Sunday or Monday.
+```json
+{
+    "date_from": "01/10/2023",
+    "date_to": "31/10/2023",
+    "nights_in_dst_from": 3,
+    "nights_in_dst_to": 3,
+    "fly_days": [4, 5],
+    "ret_fly_days": [0, 1]
+}
+```"""
+
+    #example 4
+    userExample4 = "Current date: 10/04/2023\nInfo: Origin: Chicago, US | Destination: Paris, FR | Departure: Summer | Flights: One-way"
+
+    botExample4 = """Thought: The user only needs an outbound flight to Paris, which should be anytime in the summer months (June, July, August). Because it is a one-way trip, nights_in_dst-parameters must be excluded. 
+```json
+{
+    "date_from": "01/06/2023",
+    "date_to": "31/08/2023"
+}
+```"""
+
+    #example 5
+    userExample5 = "Current date: 10/07/2023\nInfo: Origin: Boston, US | Destination: Abroad | Activity: not specified | Flights: 4th of October to 8th of October"
+
+    botExample5 = """Thought: The user wants the outbound flight on 4th of October, so we set the departure window (date_from and date_to) to a single day. The return is on 8th of October, so the stay is exactly 4 nights. Therefore we set both nights_in_dst_from and nights_in_dst_to to 4.
+```json
+{
+    "date_from": "04/10/2023",
+    "date_to": "04/10/2023",
+    "nights_in_dst_from": 4,
+    "nights_in_dst_to": 4
+}
+```"""

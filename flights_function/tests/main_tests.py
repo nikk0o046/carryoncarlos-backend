@@ -1,11 +1,11 @@
 import requests
 import json
-from params.destination import create_destination_params
-from params.time import create_time_params
-from params.duration import create_duration_params
+from flights_function.params.destination import create_destination_params
+from flights_function.params.time import create_time_params
+from flights_function.params.duration import create_duration_params
 
 # Load the test cases from the JSON file
-with open('data/test_cases.json', 'r') as file:
+with open('./flights_function/data/test_cases.json', 'r') as file:
     test_cases = json.load(file)
 
 # URL of your backend service
@@ -97,4 +97,4 @@ def run_tests(func_name: str | None = None, indices: list[int] | slice = None) -
             
         print("-" * 40)
 
-run_tests("create_destination_params", indices=[0])
+run_tests("create_time_params", indices=slice(45, None))

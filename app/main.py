@@ -1,11 +1,11 @@
 import os
 import logging
 from google.cloud import logging as cloudlogging
-client = cloudlogging.Client()
-client.setup_logging(log_level=logging.DEBUG) 
+#client = cloudlogging.Client()
+#client.setup_logging(log_level=logging.DEBUG) 
 logger = logging.getLogger()
-# logging.basicConfig(level=logging.INFO) # for local testing
-# logger = logging.getLogger(__name__) # for local testing
+logging.basicConfig(level=logging.INFO) # for local testing
+logger = logging.getLogger(__name__) # for local testing
 
 from flask import Flask, request, jsonify
 from flask_cors import CORS

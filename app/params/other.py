@@ -1,5 +1,8 @@
 import logging
+
+
 logger = logging.getLogger(__name__)
+
 
 def create_other_params(selectedCityID : str, cabinClass : str, travelers : dict, user_id : str) -> dict:
     """

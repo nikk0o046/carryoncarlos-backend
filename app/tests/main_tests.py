@@ -1,8 +1,8 @@
 import requests
 import json
-from flights_function.params.destination import create_destination_params
-from flights_function.params.time import create_time_params
-from flights_function.params.duration import create_duration_params
+from app.params.destination import create_destination_params
+from app.params.time import create_time_params
+from app.params.duration import create_duration_params
 
 # Load the test cases from the JSON file
 with open('./flights_function/data/test_cases.json', 'r') as file:
@@ -57,11 +57,11 @@ def filter_test_cases(test_cases : list[dict], indices : list[int] | slice) -> l
 
 def run_tests(func_name: str | None = None, indices: list[int] | slice = None) -> None:
     """
-    Execute a suite of test cases for specified functions or the entire flights_function and print the results.
-    If testing the entire flights_function, the app should be running on localhost:8080.
+    Execute a suite of test cases for specified functions or the entire app and print the results.
+    If testing the entire app, the app should be running on localhost:8080.
 
     Args:
-        func_name (str or None): Specifies the function to test. If not provided, tests the entire flights_function.
+        func_name (str or None): Specifies the function to test. If not provided, tests the entire app.
         indices (list[int] or slice): Specifies the test cases to run by their indices. If not provided, all test cases are run.
     
     Examples:

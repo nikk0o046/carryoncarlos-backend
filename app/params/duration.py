@@ -1,15 +1,14 @@
-import os
 import re
 import time
 import logging
 import json
-import openai
-from dotenv import load_dotenv
-load_dotenv()
+from openai import OpenAI
+
+from app.settings import OPENAI_MODEL
+
 
 logger = logging.getLogger(__name__)
-
-openai.api_key = os.environ.get('OPENAI_API_KEY')
+openai_client = OpenAI()
 
 
 def create_duration_params(user_request : str, selectedCityID : str, user_id : str) -> dict:
@@ -111,12 +110,12 @@ Provide:
     ]
 
     # Request the response from the model
-    response = openai.ChatCompletion.create(
-      model="gpt-3.5-turbo-0613",
+    response = openai_client.chat.completions.create(
+      model=OPENAI_MODEL,
       temperature=0,
       messages=message_list,
     )
-    response_content = response.choices[0].message['content']
+    response_content = response.choices[0].message.content
 
     logger.debug("[UserID: %s] Duration parameters response: %s", user_id, response_content)
 

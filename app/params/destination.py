@@ -3,12 +3,12 @@ import re
 import time
 import logging
 logger = logging.getLogger(__name__)
-import openai
+from openai import OpenAI
 
-from dotenv import load_dotenv
-load_dotenv()
+from app.settings import OPENAI_MODEL
 
-openai.api_key = os.environ.get('OPENAI_API_KEY')
+
+openai_client = OpenAI()
 
 
 def create_destination_params(user_request : str, user_id : str) -> dict:
@@ -43,12 +43,12 @@ For ambiguous destinations, aim for at least 15 to 20 airport codes. Offering mo
     ]
 
     # Request the response from the model
-    response = openai.ChatCompletion.create(
-      model="ft:gpt-3.5-turbo-0613:personal::8H7hy8ud",
+    response = openai_client.chat.completions.create(
+      model=OPENAI_MODEL,
       temperature=0,
       messages=message_list,
     )
-    response_content = response.choices[0].message['content']
+    response_content = response.choices[0].message.content
 
     logger.debug("[UserID: %s] Destination parameters response: %s", user_id, response_content)
 

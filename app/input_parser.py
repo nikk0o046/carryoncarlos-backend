@@ -1,14 +1,12 @@
-import os
 import time
 import logging
-import openai
+
+from openai import OpenAI
+
+from app.settings import OPENAI_MODEL
+
 logger = logging.getLogger(__name__)
-
-from dotenv import load_dotenv
-load_dotenv()
-
-openai.api_key = os.environ.get('OPENAI_API_KEY')
-
+openai_client = OpenAI()
 
 def input_parser(user_request : str, selectedCityID : str, user_id : str) -> str:
     """
@@ -61,12 +59,12 @@ User request: Two-week trip to somewhere in South America. Departure in January.
     ]
 
     # Request the response from the model
-    response = openai.ChatCompletion.create(
-      model="gpt-3.5-turbo-0613",
+    response = openai_client.chat.completions.create(
+      model=OPENAI_MODEL,
       temperature=0,
       messages=message_list,
     )
-    response_content = response.choices[0].message['content']
+    response_content = response.choices[0].message.content
 
     logger.debug("[UserID: %s] Parsed input: %s", user_id, response_content)
 

@@ -7,9 +7,10 @@ logger = logging.getLogger()
 logging.basicConfig(level=logging.INFO) # for local testing
 logger = logging.getLogger(__name__) # for local testing
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from typing import Dict, Any
 
 from input_parser import input_parser
 from params.destination import create_destination_params
@@ -29,27 +30,28 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-class FlightRequest(BaseModel):
-    user_request: str
-    selectedCityID: str
-    cabinClass: str
-    travelers: str
-
 @app.post('/search_flights')
-async def search_flights(request: FlightRequest, customer_id: str | None = None):
+async def search_flights(request: Request, customer_id: str | None = None):
     try:
         user_id = customer_id or 'Not Provided'
-        logger.info("[UserID: %s] user_request: %s", user_id, request.user_request)
-        logger.debug("[UserID: %s] selectedCityID: %s", user_id, request.selectedCityID)
-        logger.debug("[UserID: %s] cabinClass: %s", user_id, request.cabinClass)
-        logger.debug("[UserID: %s] travelers: %s", user_id, request.travelers)
+        request_body = await request.json()
+        
+        user_request = request_body.get('user_request', 'Not Provided')
+        selectedCityID = request_body.get('selectedCityID', 'Not Provided')
+        cabinClass = request_body.get('cabinClass', 'Not Provided')
+        travelers = request_body.get('travelers', 'Not Provided')
 
-        parsed_request = input_parser(request.user_request, request.selectedCityID, user_id)
+        logger.info("[UserID: %s] user_request: %s", user_id, user_request)
+        logger.debug("[UserID: %s] selectedCityID: %s", user_id, selectedCityID)
+        logger.debug("[UserID: %s] cabinClass: %s", user_id, cabinClass)
+        logger.debug("[UserID: %s] travelers: %s", user_id, travelers)
+
+        parsed_request = input_parser(user_request, selectedCityID, user_id)
 
         destination_params = create_destination_params(parsed_request, user_id) # Set destination(s)
         time_params = create_time_params(parsed_request, user_id) # Set when
-        duration_params = create_duration_params(parsed_request, request.selectedCityID, user_id) # Set stopovers and journey duration
-        other_constraints = create_other_params(request.selectedCityID, request.cabinClass, request.travelers, user_id) # Harcoded and user selected variables
+        duration_params = create_duration_params(parsed_request, selectedCityID, user_id) # Set stopovers and journey duration
+        other_constraints = create_other_params(selectedCityID, cabinClass, travelers, user_id) # Harcoded and user selected variables
 
         response_data = make_API_request(destination_params, time_params, duration_params, other_constraints, user_id)
         if response_data is None:  # If API request failed

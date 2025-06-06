@@ -7,8 +7,9 @@ logger = logging.getLogger()
 logging.basicConfig(level=logging.INFO) # for local testing
 logger = logging.getLogger(__name__) # for local testing
 
-from flask import Flask, request, jsonify
-from flask_cors import CORS
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 
 from input_parser import input_parser
 from params.destination import create_destination_params
@@ -18,50 +19,56 @@ from params.other import create_other_params
 from api.make_API_request import make_API_request
 from api.kiwi_output_parser import extract_info
 
-app = Flask(__name__)
-CORS(app)
+app = FastAPI(title="Carry-on Carlos API")
 
-@app.route('/search_flights', methods=['POST'])
-def search_flights():
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+class FlightRequest(BaseModel):
+    user_request: str
+    selectedCityID: str
+    cabinClass: str
+    travelers: str
+
+@app.post('/search_flights')
+async def search_flights(request: FlightRequest, customer_id: str | None = None):
     try:
-        user_id = request.headers.get('Customer-ID', 'Not Provided')
-        requestBody = request.json
+        user_id = customer_id or 'Not Provided'
+        logger.info("[UserID: %s] user_request: %s", user_id, request.user_request)
+        logger.debug("[UserID: %s] selectedCityID: %s", user_id, request.selectedCityID)
+        logger.debug("[UserID: %s] cabinClass: %s", user_id, request.cabinClass)
+        logger.debug("[UserID: %s] travelers: %s", user_id, request.travelers)
 
-        user_request = requestBody.get('user_request', 'Not Provided')
-        selectedCityID = requestBody.get('selectedCityID', 'Not Provided')
-        cabinClass = requestBody.get('cabinClass', 'Not Provided')
-        travelers = requestBody.get('travelers', 'Not Provided')
-
-        logger.info("[UserID: %s] user_request: %s", user_id, user_request)
-        logger.debug("[UserID: %s] selectedCityID: %s", user_id, selectedCityID)
-        logger.debug("[UserID: %s] cabinClass: %s", user_id, cabinClass)
-        logger.debug("[UserID: %s] travelers: %s", user_id, travelers)
-
-        parsed_request = input_parser(user_request, selectedCityID, user_id)
+        parsed_request = input_parser(request.user_request, request.selectedCityID, user_id)
 
         destination_params = create_destination_params(parsed_request, user_id) # Set destination(s)
         time_params = create_time_params(parsed_request, user_id) # Set when
-        duration_params = create_duration_params(parsed_request, selectedCityID, user_id) # Set stopovers and journey duration
-        other_constraints = create_other_params(selectedCityID, cabinClass, travelers, user_id) # Harcoded and user selected variables
+        duration_params = create_duration_params(parsed_request, request.selectedCityID, user_id) # Set stopovers and journey duration
+        other_constraints = create_other_params(request.selectedCityID, request.cabinClass, request.travelers, user_id) # Harcoded and user selected variables
 
         response_data = make_API_request(destination_params, time_params, duration_params, other_constraints, user_id)
         if response_data is None:  # If API request failed
-            return jsonify({"error": "API request failed. Please try again later."}), 500
+            raise HTTPException(status_code=500, detail="API request failed. Please try again later.")
 
         flights_info = extract_info(response_data, user_id)
         if not flights_info:  # If no flights were found
-            return jsonify({"error": "No flights found matching your request."}), 404
-        return jsonify(flights_info), 200  # If everything went fine
+            raise HTTPException(status_code=404, detail="No flights found matching your request.")
+        return flights_info
 
     except KeyError as e:
         logger.exception("[UserID: %s] An error occurred: %s. The key doesn't exist in the dictionary.", user_id, e)
-        return jsonify({"error": f"An error occurred: {e}. The key doesn't exist in the dictionary."}), 400
+        raise HTTPException(status_code=400, detail=f"An error occurred: {e}. The key doesn't exist in the dictionary.")
     except Exception as e:
         logger.exception("[UserID: %s] An unexpected error occurred: %s", user_id, e)
-        return jsonify({"error": f"An unexpected error occurred: {e}"}), 500
-    
+        raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
 
 # Run the app
 if __name__ == '__main__':
+    import uvicorn
     port = int(os.environ.get('PORT', 8080))
-    app.run(host='0.0.0.0', port=port)
+    uvicorn.run(app, host='0.0.0.0', port=port)

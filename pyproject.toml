@@ -7,8 +7,8 @@ name = "carryoncarlos"
 version = "0.1.0"
 dependencies = [
     "google-cloud-logging",
-    "flask",
-    "flask-cors",
+    "fastapi",
+    "uvicorn",
     "openai",
     "python-dotenv"
 ]

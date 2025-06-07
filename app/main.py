@@ -10,6 +10,7 @@ logger = logging.getLogger(__name__) # for local testing
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
+from openinference.instrumentation.openai import OpenAIInstrumentor
 from phoenix.otel import register
 
 # Tracing must be initialized before instrumented modules or libraries (e.g. OpenAI) are imported
@@ -20,6 +21,7 @@ tracer_provider = register(
     batch=True,
 )
 tracer = tracer_provider.get_tracer(__name__)
+OpenAIInstrumentor().instrument(tracer_provider=tracer_provider)
 
 from input_parser import input_parser
 from params.destination import create_destination_params

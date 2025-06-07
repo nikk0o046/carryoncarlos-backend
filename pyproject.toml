@@ -12,6 +12,7 @@ dependencies = [
     "openai",
     "python-dotenv",
     "openinference-semantic-conventions",
+    "openinference-instrumentation-openai",
     "opentelemetry-api",
     "opentelemetry-sdk",
     "arize-phoenix",

@@ -2,12 +2,15 @@ import time
 import logging
 
 from openai import OpenAI
+from opentelemetry import trace
 
 from app.settings import OPENAI_MODEL
 
 logger = logging.getLogger(__name__)
+tracer = trace.get_tracer(__name__)
 openai_client = OpenAI()
 
+@tracer.chain
 def input_parser(user_request : str, selectedCityID : str, user_id : str) -> str:
     """
     This function takes the user request and the selected city ID and user ID and returns the query in a more structured and concise format.

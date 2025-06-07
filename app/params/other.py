@@ -1,9 +1,12 @@
 import logging
+from opentelemetry import trace
 
 
 logger = logging.getLogger(__name__)
+tracer = trace.get_tracer(__name__)
 
 
+@tracer.chain
 def create_other_params(selectedCityID : str, cabinClass : str, travelers : dict, user_id : str) -> dict:
     """
     This function takes the selected city ID, the cabin class, the travelers and the user ID and returns them and some default parameters as a dictionary.

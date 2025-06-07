@@ -2,15 +2,18 @@ import os
 import re
 import time
 import logging
-logger = logging.getLogger(__name__)
+
+from opentelemetry import trace
 from openai import OpenAI
 
 from app.settings import OPENAI_MODEL
 
+logger = logging.getLogger(__name__)
+tracer = trace.get_tracer(__name__)
 
 openai_client = OpenAI()
 
-
+@tracer.chain
 def create_destination_params(user_request : str, user_id : str) -> dict:
     """
     This function takes the user request and the selectedcityID and returns the destination parameters.

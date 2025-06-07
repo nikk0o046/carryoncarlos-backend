@@ -7,10 +7,19 @@ logger = logging.getLogger()
 logging.basicConfig(level=logging.INFO) # for local testing
 logger = logging.getLogger(__name__) # for local testing
 
+from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-from typing import Dict, Any
+from phoenix.otel import register
+
+# Tracing must be initialized before instrumented modules or libraries (e.g. OpenAI) are imported
+load_dotenv()
+tracer_provider = register(
+    protocol="http/protobuf",
+    project_name="carryon-carlos",
+    batch=True,
+)
+tracer = tracer_provider.get_tracer(__name__)
 
 from input_parser import input_parser
 from params.destination import create_destination_params
@@ -31,6 +40,7 @@ app.add_middleware(
 )
 
 @app.post('/search_flights')
+@tracer.chain
 async def search_flights(request: Request, customer_id: str | None = None):
     try:
         user_id = customer_id or 'Not Provided'

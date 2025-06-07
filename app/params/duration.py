@@ -2,15 +2,18 @@ import re
 import time
 import logging
 import json
+from opentelemetry import trace
 from openai import OpenAI
 
 from app.settings import OPENAI_MODEL
 
 
 logger = logging.getLogger(__name__)
+tracer = trace.get_tracer(__name__)
 openai_client = OpenAI()
 
 
+@tracer.chain
 def create_duration_params(user_request : str, selectedCityID : str, user_id : str) -> dict:
     """
     This function takes the user request, the selected city ID and the user ID and returns the duration parameters.

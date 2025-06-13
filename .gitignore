@@ -228,3 +228,6 @@ backend/secret_keys.py
 #ignore special venv name
 venv-flights/
 venv-chat/
+
+# vscode stuff
+.vscode/

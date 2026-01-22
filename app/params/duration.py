@@ -14,7 +14,7 @@ openai_client = OpenAI()
 
 
 @tracer.chain
-def create_duration_params(user_request : str, selectedCityID : str, user_id : str) -> dict:
+def create_duration_params(user_request: str, selectedCityID: str, user_id: str) -> dict:
     """
     This function takes the user request, the selected city ID and the user ID and returns the duration parameters.
 
@@ -63,7 +63,7 @@ Provide:
 }
     ```"""
 
-    #example 1
+    # example 1
     userExample1 = """Origin: Madrid
     Info: Origin: Madrid, ES | Destination: Barcelona, ES | Departure: Next month | Duration: Weekend"""
 
@@ -74,7 +74,7 @@ Provide:
     }
     ```"""
 
-    #example 2
+    # example 2
     userExample2 = """Origin: Helsinki
     Info: Origin: Helsinki, FI | Destination: South America | Departure: January | Duration: 2 weeks | Flights: Any"""
 
@@ -87,7 +87,7 @@ Provide:
     }
     ```"""
 
-    #example 3
+    # example 3
     userExample3 = """Origin: New York
     Info: "Origin: New York, US | Destination: Sydney, AU | Departure: March | Duration: 1 week | Flights: direct"""
 
@@ -100,7 +100,6 @@ Provide:
 
     human_template = f"Origin: {selectedCityID}\nInfo: {user_request}"
 
-  # Construct the conversation message list
     message_list = [
         {"role": "system", "content": system_template},
         {"role": "user", "content": userExample1},
@@ -109,14 +108,13 @@ Provide:
         {"role": "assistant", "content": botExample2},
         {"role": "user", "content": userExample3},
         {"role": "assistant", "content": botExample3},
-        {"role": "user", "content": human_template}
+        {"role": "user", "content": human_template},
     ]
 
-    # Request the response from the model
     response = openai_client.chat.completions.create(
-      model=OPENAI_MODEL,
-      temperature=0,
-      messages=message_list,
+        model=OPENAI_MODEL,
+        temperature=0,
+        messages=message_list,
     )
     response_content = response.choices[0].message.content
 
@@ -124,7 +122,7 @@ Provide:
 
     # Extract the json string using regular expressions
     json_str = re.search(r"\{.*\}", response_content, re.DOTALL).group()
-    
+
     # Convert the json string to a Python dictionary
     logger.debug("[UserID: %s] json_str: %s", user_id, json_str)
     duration_params = json.loads(json_str)

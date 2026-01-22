@@ -1,11 +1,12 @@
 import os
 import logging
 from google.cloud import logging as cloudlogging
-#client = cloudlogging.Client()
-#client.setup_logging(log_level=logging.DEBUG) 
+
+# client = cloudlogging.Client()
+# client.setup_logging(log_level=logging.DEBUG)
 logger = logging.getLogger()
-logging.basicConfig(level=logging.INFO) # for local testing
-logger = logging.getLogger(__name__) # for local testing
+logging.basicConfig(level=logging.INFO)  # for local testing
+logger = logging.getLogger(__name__)  # for local testing
 
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Request
@@ -41,17 +42,18 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.post('/search_flights')
+
+@app.post("/search_flights")
 @tracer.chain
 async def search_flights(request: Request, customer_id: str | None = None):
     try:
-        user_id = customer_id or 'Not Provided'
+        user_id = customer_id or "Not Provided"
         request_body = await request.json()
-        
-        user_request = request_body.get('user_request', 'Not Provided')
-        selectedCityID = request_body.get('selectedCityID', 'Not Provided')
-        cabinClass = request_body.get('cabinClass', 'Not Provided')
-        travelers = request_body.get('travelers', 'Not Provided')
+
+        user_request = request_body.get("user_request", "Not Provided")
+        selectedCityID = request_body.get("selectedCityID", "Not Provided")
+        cabinClass = request_body.get("cabinClass", "Not Provided")
+        travelers = request_body.get("travelers", "Not Provided")
 
         logger.info("[UserID: %s] user_request: %s", user_id, user_request)
         logger.debug("[UserID: %s] selectedCityID: %s", user_id, selectedCityID)
@@ -60,14 +62,24 @@ async def search_flights(request: Request, customer_id: str | None = None):
 
         parsed_request = input_parser(user_request, selectedCityID, user_id)
 
-        destination_params = create_destination_params(parsed_request, user_id) # Set destination(s)
-        time_params = create_time_params(parsed_request, user_id) # Set when
-        duration_params = create_duration_params(parsed_request, selectedCityID, user_id) # Set stopovers and journey duration
-        other_constraints = create_other_params(selectedCityID, cabinClass, travelers, user_id) # Harcoded and user selected variables
+        destination_params = create_destination_params(
+            parsed_request, user_id
+        )  # Set destination(s)
+        time_params = create_time_params(parsed_request, user_id)  # Set when
+        duration_params = create_duration_params(
+            parsed_request, selectedCityID, user_id
+        )  # Set stopovers and journey duration
+        other_constraints = create_other_params(
+            selectedCityID, cabinClass, travelers, user_id
+        )  # Harcoded and user selected variables
 
-        response_data = make_API_request(destination_params, time_params, duration_params, other_constraints, user_id)
+        response_data = make_API_request(
+            destination_params, time_params, duration_params, other_constraints, user_id
+        )
         if response_data is None:  # If API request failed
-            raise HTTPException(status_code=500, detail="API request failed. Please try again later.")
+            raise HTTPException(
+                status_code=500, detail="API request failed. Please try again later."
+            )
 
         flights_info = extract_info(response_data, user_id)
         if not flights_info:  # If no flights were found
@@ -75,14 +87,23 @@ async def search_flights(request: Request, customer_id: str | None = None):
         return flights_info
 
     except KeyError as e:
-        logger.exception("[UserID: %s] An error occurred: %s. The key doesn't exist in the dictionary.", user_id, e)
-        raise HTTPException(status_code=400, detail=f"An error occurred: {e}. The key doesn't exist in the dictionary.")
+        logger.exception(
+            "[UserID: %s] An error occurred: %s. The key doesn't exist in the dictionary.",
+            user_id,
+            e,
+        )
+        raise HTTPException(
+            status_code=400,
+            detail=f"An error occurred: {e}. The key doesn't exist in the dictionary.",
+        )
     except Exception as e:
         logger.exception("[UserID: %s] An unexpected error occurred: %s", user_id, e)
         raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
 
+
 # Run the app
-if __name__ == '__main__':
+if __name__ == "__main__":
     import uvicorn
-    port = int(os.environ.get('PORT', 8080))
-    uvicorn.run(app, host='0.0.0.0', port=port)
+
+    port = int(os.environ.get("PORT", 8080))
+    uvicorn.run(app, host="0.0.0.0", port=port)

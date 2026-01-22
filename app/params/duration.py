@@ -14,13 +14,13 @@ openai_client = OpenAI()
 
 
 @tracer.chain
-def create_duration_params(user_request: str, selectedCityID: str, user_id: str) -> dict:
+def create_duration_params(user_request: str, selected_city_id: str, user_id: str) -> dict:
     """
     This function takes the user request, the selected city ID and the user ID and returns the duration parameters.
 
     Args:
         user_request (str): The user request.
-        selectedCityID (str): The selected city ID.
+        selected_city_id (str): The selected city ID.
         user_id (str): The user ID.
 
     Returns:
@@ -30,7 +30,8 @@ def create_duration_params(user_request: str, selectedCityID: str, user_id: str)
     logger.debug("[UserID: %s] Creating duration parameters...", user_id)
 
     # Create the prompt templates
-    system_template = r"""You're an intelligent AI agent, and your job is to create search parameters about the flight duration, stopovers, and stopover duration.
+    system_template = r"""You're an intelligent AI agent, and your job is to create search parameters about the flight
+duration, stopovers, and stopover duration.
 
 INSTRUCTIONS:
 When creating flight search parameters based on user info, consider the following:
@@ -54,20 +55,23 @@ ANSWER INSTRUCTIONS:
 Provide:
 
 1) Thought: Detail your reasoning briefly.
-2) Markdown code snippet formatted in the following schema, including the leading and trailing "\`\`\`json" and "\`\`\`":
+2) Markdown code snippet formatted in the following schema, including the leading
+and trailing "\`\`\`json" and "\`\`\`":
 
 ```json
 {
-    "key1": value1  // Define relevant values. Only use keys mentioned in the API documentation. 
+    "key1": value1  // Define relevant values. Only use keys mentioned in the API documentation.
     "key2": value2
 }
     ```"""
 
     # example 1
-    userExample1 = """Origin: Madrid
+    user_example1 = """Origin: Madrid
     Info: Origin: Madrid, ES | Destination: Barcelona, ES | Departure: Next month | Duration: Weekend"""
 
-    botExample1 = """Thought: Considering the short-haul nature of Madrid to Barcelona and the short duration of the trip (weekend), direct flights would be ideal. Major hubs like Madrid and Barcelona have numerous direct flight options.
+    bot_example1 = """Thought: Considering the short-haul nature of Madrid to Barcelona and the short duration of the
+trip (weekend), direct flights would be ideal.
+Major hubs like Madrid and Barcelona have numerous direct flight options.
     ```json
     {
         "max_sector_stopovers": 0
@@ -75,10 +79,12 @@ Provide:
     ```"""
 
     # example 2
-    userExample2 = """Origin: Helsinki
+    user_example2 = """Origin: Helsinki
     Info: Origin: Helsinki, FI | Destination: South America | Departure: January | Duration: 2 weeks | Flights: Any"""
 
-    botExample2 = """Thought: The long-haul nature of Helsinki to South America, combined with the user's flexibility for any flights, suggests that we should allow some layovers. However, we'll aim to optimize for comfort by limiting lengthy stopovers and excessive travel time.
+    bot_example2 = """Thought: The long-haul nature of Helsinki to South America, combined with the user's flexibility
+for any flights, suggests that we should allow some layovers.
+However, we'll aim to optimize for comfort by limiting lengthy stopovers and excessive travel time.
     ```json
     {
         "max_fly_duration": 20,
@@ -88,26 +94,27 @@ Provide:
     ```"""
 
     # example 3
-    userExample3 = """Origin: New York
+    user_example3 = """Origin: New York
     Info: "Origin: New York, US | Destination: Sydney, AU | Departure: March | Duration: 1 week | Flights: direct"""
 
-    botExample3 = """Thought: The user wants direct flights, so we set max_sector_stopovers to 0. We omit stopover_to and max_fly_duration for direct flights.
+    bot_example3 = """Thought: The user wants direct flights, so we set max_sector_stopovers to 0.
+We omit stopover_to and max_fly_duration for direct flights.
      ```json
     {
         "max_sector_stopovers": 0
     }
     ```"""
 
-    human_template = f"Origin: {selectedCityID}\nInfo: {user_request}"
+    human_template = f"Origin: {selected_city_id}\nInfo: {user_request}"
 
     message_list = [
         {"role": "system", "content": system_template},
-        {"role": "user", "content": userExample1},
-        {"role": "assistant", "content": botExample1},
-        {"role": "user", "content": userExample2},
-        {"role": "assistant", "content": botExample2},
-        {"role": "user", "content": userExample3},
-        {"role": "assistant", "content": botExample3},
+        {"role": "user", "content": user_example1},
+        {"role": "assistant", "content": bot_example1},
+        {"role": "user", "content": user_example2},
+        {"role": "assistant", "content": bot_example2},
+        {"role": "user", "content": user_example3},
+        {"role": "assistant", "content": bot_example3},
         {"role": "user", "content": human_template},
     ]
 

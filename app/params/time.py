@@ -32,25 +32,29 @@ def create_time_params(user_request: str, user_id: str) -> dict:
 
     # create the prompt templates
     system_template = r"""API DOCUMENTATION:
-departure_date_from, departure_date_to: Range for outbound flight departure (dd/mm/yyyy). These must be included. If not provided, you must make an assumption.
+departure_date_from, departure_date_to: Range for outbound flight departure (dd/mm/yyyy). These must be included.
+If not provided, you must make an assumption.
 
-nights_in_dst_from, nights_in_dst_to: Minimum and maximum stay length at the destination (in nights). Only exclude these if the user is looking for a one-way trip. If not provided, you must make an assumption.
+nights_in_dst_from, nights_in_dst_to: Minimum and maximum stay length at the destination (in nights). Only exclude these
+if the user is looking for a one-way trip. If not provided, you must make an assumption.
 
-fly_days, ret_fly_days: List of preferred days for outbound and return flights (0=Sunday, 1=Monday, ... 6=Saturday). 
+fly_days, ret_fly_days: List of preferred days for outbound and return flights (0=Sunday, 1=Monday, ... 6=Saturday).
 
 fly_days_type, ret_fly_days_type: Specifies if fly_days/ret_fly_days is for an arrival or a departure flight.
 
-If the user looks for specific dates, set departure_date_from and departure_date_to to a specific date, and match nights_in_dst_from and nights_in_dst_to so that the return day will be correct.
+If the user looks for specific dates, set departure_date_from and departure_date_to to a specific date,
+and match nights_in_dst_from and nights_in_dst_to so that the return day will be correct.
 
 ANSWER INSTRUCTIONS:
-Your task is to create parameters specified above based on user information. The parameters will be forwarded to another assistant, who uses them to search flights. Do not come up with any other parameters.
+Your task is to create parameters specified above based on user information. The parameters will be forwarded to
+another assistant, who uses them to search flights. Do not come up with any other parameters.
 The output should include both:
 1) Thought: Thinking out loud about the user's needs and the task.
-2) Markdown code snippet formatted in the following schema, including the leading and trailing "\`\`\`json" and "\`\`\`":
+2) Markdown code snippet formatted in the following schema including the leading and trailing "\`\`\`json" and "\`\`\`":
 
 ```json
 {
-    "key1": value1  // Define relevant values. Only use keys mentioned in the API documentation. 
+    "key1": value1  // Define relevant values. Only use keys mentioned in the API documentation.
     "key2": value2
 }
 ```"""
@@ -81,7 +85,9 @@ The output should include both:
     logger.debug("[UserID: %s] json_str: %s", user_id, json_str)
     time_params = json.loads(json_str)
 
-    # Edit date_from keys. Kiwi API excects "date_from" instead of "departure_date_from", and the same for "date_to". "departure_date_from" and "departure_date_to" were used for model training, because it did not confuse them with the length of the trip, like it sometimes did with "date_from" and "date_to".
+    # Edit date_from keys. Kiwi API excects "date_from" instead of "departure_date_from", and the same for "date_to".
+    # "departure_date_from" and "departure_date_to" were used for model training, because it did not confuse them with
+    # the length of the trip, like it sometimes did with "date_from" and "date_to".
     if "departure_date_from" in time_params:
         time_params["date_from"] = time_params.pop("departure_date_from")
 

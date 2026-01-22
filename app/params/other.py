@@ -7,13 +7,14 @@ tracer = trace.get_tracer(__name__)
 
 
 @tracer.chain
-def create_other_params(selectedCityID: str, cabinClass: str, travelers: dict, user_id: str) -> dict:
+def create_other_params(selected_city_id: str, cabin_class: str, travelers: dict, user_id: str) -> dict:
     """
-    This function takes the selected city ID, the cabin class, the travelers and the user ID and returns them and some default parameters as a dictionary.
+    This function takes the selected city ID, the cabin class, the travelers and the user ID and returns them and
+    some default parameters as a dictionary.
 
     Args:
-        selectedCityID (str): The selected city ID.
-        cabinClass (str): The cabin class.
+        selected_city_id (str): The selected city ID.
+        cabin_class (str): The cabin class.
         travelers (dict): The travelers.
         user_id (str): The user ID.
 
@@ -23,9 +24,9 @@ def create_other_params(selectedCityID: str, cabinClass: str, travelers: dict, u
 
     logger.debug("[UserID: %s] Creating other parameters...", user_id)
 
-    # Map the cabinClass to the expected API value
+    # Map the cabin_class to the expected API value
     cabin_mapping = {"Economy": "M", "Economy Premium": "W", "Business": "C", "First Class": "F"}
-    selected_cabin = cabin_mapping.get(cabinClass, "M")  # Default to Economy if not found
+    selected_cabin = cabin_mapping.get(cabin_class, "M")  # Default to Economy if not found
 
     adults = travelers.get("adults", 1)
     children = travelers.get("children", 0)
@@ -36,7 +37,7 @@ def create_other_params(selectedCityID: str, cabinClass: str, travelers: dict, u
         "children": str(children),
         "infants": str(infants),
         "selected_cabins": selected_cabin,
-        "fly_from": selectedCityID,
+        "fly_from": selected_city_id,
         "stopover_from": "1:00",
         "limit": "1000",
         "conn_on_diff_airport": "0",

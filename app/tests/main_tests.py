@@ -64,7 +64,8 @@ def run_tests(func_name: str | None = None, indices: list[int] | slice = None) -
 
     Args:
         func_name (str or None): Specifies the function to test. If not provided, tests the entire app.
-        indices (list[int] or slice): Specifies the test cases to run by their indices. If not provided, all test cases are run.
+        indices (list[int] or slice): Specifies the test cases to run by their indices.
+        If not provided, all test cases are run.
 
     Examples:
     # Using list notation for desired test cases:
@@ -86,7 +87,7 @@ def run_tests(func_name: str | None = None, indices: list[int] | slice = None) -
         else:
             headers = {
                 "Content-Type": "application/json",
-                "Customer-ID": f"TestUser-{test_case['test_case_number']}",  # Using test_case_number for unique user IDs
+                "Customer-ID": f"TestUser-{test_case['test_case_number']}",  # test_case_number for unique user IDs
             }
 
             response = requests.post(BASE_URL, headers=headers, data=json.dumps(test_case))

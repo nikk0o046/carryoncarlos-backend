@@ -1,9 +1,9 @@
-from datetime import datetime, timedelta
 import logging
 import time
-from opentelemetry import trace
+from datetime import datetime, timedelta
 
 from openai import OpenAI
+from opentelemetry import trace
 
 from app.settings import OPENAI_MODEL
 
@@ -31,7 +31,7 @@ def create_time_params(user_request: str, user_id: str) -> dict:
     current_date = f"{current_date_unformatted:%d/%m/%Y}"
 
     # create the prompt templates
-    system_template = """API DOCUMENTATION:
+    system_template = r"""API DOCUMENTATION:
 departure_date_from, departure_date_to: Range for outbound flight departure (dd/mm/yyyy). These must be included. If not provided, you must make an assumption.
 
 nights_in_dst_from, nights_in_dst_to: Minimum and maximum stay length at the destination (in nights). Only exclude these if the user is looking for a one-way trip. If not provided, you must make an assumption.
@@ -72,8 +72,8 @@ The output should include both:
     logger.debug("[UserID: %s] OpenAI response content: %s", user_id, str(response_content))
 
     # Extract the json string using regular expressions
-    import re
     import json
+    import re
 
     json_str = re.search(r"\{.*\}", response_content, re.DOTALL).group()
 

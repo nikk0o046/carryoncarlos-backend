@@ -1,10 +1,9 @@
-import os
+import logging
 import re
 import time
-import logging
 
-from opentelemetry import trace
 from openai import OpenAI
+from opentelemetry import trace
 
 from app.settings import OPENAI_MODEL
 

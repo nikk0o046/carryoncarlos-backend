@@ -1,7 +1,8 @@
-import os
-import requests
-import time
 import logging
+import os
+import time
+
+import requests
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -10,9 +11,7 @@ logger = logging.getLogger(__name__)
 KIWI_API_KEY = os.environ.get("KIWI_API_KEY")
 
 
-def make_API_request(
-    params1: dict, params2: dict, params3: dict, params4: dict, user_id: str
-) -> dict:
+def make_API_request(params1: dict, params2: dict, params3: dict, params4: dict, user_id: str) -> dict:
     """
     This function takes the destination, time, duration and other parameters and user ID and returns the Kiwi API response.
 
@@ -70,9 +69,7 @@ def make_API_request(
                 data["_results"],
             )
         else:
-            logger.info(
-                "[UserID: %s] No flights found. Total search results: %s", user_id, data["_results"]
-            )
+            logger.info("[UserID: %s] No flights found. Total search results: %s", user_id, data["_results"])
     except KeyError:
         logger.error("[UserID: %s] Key 'data' not found in the response.", user_id)
 

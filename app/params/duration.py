@@ -1,12 +1,12 @@
+import json
+import logging
 import re
 import time
-import logging
-import json
-from opentelemetry import trace
+
 from openai import OpenAI
+from opentelemetry import trace
 
 from app.settings import OPENAI_MODEL
-
 
 logger = logging.getLogger(__name__)
 tracer = trace.get_tracer(__name__)
@@ -30,7 +30,7 @@ def create_duration_params(user_request: str, selectedCityID: str, user_id: str)
     logger.debug("[UserID: %s] Creating duration parameters...", user_id)
 
     # Create the prompt templates
-    system_template = """You're an intelligent AI agent, and your job is to create search parameters about the flight duration, stopovers, and stopover duration.
+    system_template = r"""You're an intelligent AI agent, and your job is to create search parameters about the flight duration, stopovers, and stopover duration.
 
 INSTRUCTIONS:
 When creating flight search parameters based on user info, consider the following:

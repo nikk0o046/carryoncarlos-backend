@@ -1,6 +1,5 @@
-import os
 import logging
-from google.cloud import logging as cloudlogging
+import os
 
 # client = cloudlogging.Client()
 # client.setup_logging(log_level=logging.DEBUG)
@@ -24,13 +23,13 @@ tracer_provider = register(
 tracer = tracer_provider.get_tracer(__name__)
 OpenAIInstrumentor().instrument(tracer_provider=tracer_provider)
 
+from api.kiwi_output_parser import extract_info
+from api.make_API_request import make_API_request
 from input_parser import input_parser
 from params.destination import create_destination_params
-from params.time import create_time_params
 from params.duration import create_duration_params
 from params.other import create_other_params
-from api.make_API_request import make_API_request
-from api.kiwi_output_parser import extract_info
+from params.time import create_time_params
 
 app = FastAPI(title="Carry-on Carlos API")
 
@@ -62,9 +61,7 @@ async def search_flights(request: Request, customer_id: str | None = None):
 
         parsed_request = input_parser(user_request, selectedCityID, user_id)
 
-        destination_params = create_destination_params(
-            parsed_request, user_id
-        )  # Set destination(s)
+        destination_params = create_destination_params(parsed_request, user_id)  # Set destination(s)
         time_params = create_time_params(parsed_request, user_id)  # Set when
         duration_params = create_duration_params(
             parsed_request, selectedCityID, user_id
@@ -73,13 +70,9 @@ async def search_flights(request: Request, customer_id: str | None = None):
             selectedCityID, cabinClass, travelers, user_id
         )  # Harcoded and user selected variables
 
-        response_data = make_API_request(
-            destination_params, time_params, duration_params, other_constraints, user_id
-        )
+        response_data = make_API_request(destination_params, time_params, duration_params, other_constraints, user_id)
         if response_data is None:  # If API request failed
-            raise HTTPException(
-                status_code=500, detail="API request failed. Please try again later."
-            )
+            raise HTTPException(status_code=500, detail="API request failed. Please try again later.")
 
         flights_info = extract_info(response_data, user_id)
         if not flights_info:  # If no flights were found

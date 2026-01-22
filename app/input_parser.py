@@ -1,5 +1,5 @@
-import time
 import logging
+import time
 
 from openai import OpenAI
 from opentelemetry import trace

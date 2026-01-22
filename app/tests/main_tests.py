@@ -1,8 +1,10 @@
-import requests
 import json
+
+import requests
+
 from app.params.destination import create_destination_params
-from app.params.time import create_time_params
 from app.params.duration import create_duration_params
+from app.params.time import create_time_params
 
 # Load the test cases from the JSON file
 with open("./flights_function/data/test_cases.json", "r") as file:
@@ -29,9 +31,7 @@ def test_function(func_name: str, test_case: dict) -> None:
     elif func_name == "create_time_params":
         result = create_time_params(test_case["user_request"], user_id)
     elif func_name == "create_duration_params":
-        result = create_duration_params(
-            test_case["user_request"], test_case["selectedCityID"], user_id
-        )
+        result = create_duration_params(test_case["user_request"], test_case["selectedCityID"], user_id)
     else:
         raise ValueError("Invalid function name provided.")
 

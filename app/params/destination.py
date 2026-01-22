@@ -30,12 +30,15 @@ def create_destination_params(user_request: str, user_id: str) -> dict:
     start_time = time.time()  # start timer to log it later
     logger.debug("[UserID: %s] Creating destination parameters...", user_id)
 
-    system_template = """You are an advanced AI agent tasked with identifying as many potential destination airports as possible based on user preferences. Your response should include:
+    system_template = """You are an advanced AI agent tasked with identifying as many potential destination airports as
+possible based on user preferences. Your response should include:
 
 1. An initial thought process or reasoning for the task.
 2. An exhaustive list of IATA airport codes matching the criteria, formatted as [XXX,YYY,ZZZ].
 
-For ambiguous destinations, aim for at least 15 to 20 airport codes. Offering more options increases the chances of finding affordable flights for the user. Focus on final destination airports only, excluding connecting airports. Disregard any irrelevant information."""
+For ambiguous destinations, aim for at least 15 to 20 airport codes. Offering more options increases the chances of
+finding affordable flights for the user. Focus on final destination airports only, excluding connecting airports.
+Disregard any irrelevant information."""
 
     human_template = user_request
 

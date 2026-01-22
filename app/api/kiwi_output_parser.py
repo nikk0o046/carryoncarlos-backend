@@ -1,12 +1,12 @@
 import logging
-
-logger = logging.getLogger(__name__)
 import time
 
+logger = logging.getLogger(__name__)
 
-def extract_info(api_response: dict, user_id: str) -> list:
+
+def extract_info(api_response: dict, user_id: str) -> list[dict]:
     """
-    This function takes the API response and the user ID and returns one flight (the cheapest) per city as a list of dictionaries.
+    This function takes the API response and the user ID and returns the cheapest flight per city as a list of dicts.
     Args:
         api_response (dict): The API response.
         user_id (str): The user ID.

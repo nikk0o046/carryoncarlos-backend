@@ -11,9 +11,9 @@ logger = logging.getLogger(__name__)
 KIWI_API_KEY = os.environ.get("KIWI_API_KEY")
 
 
-def make_API_request(params1: dict, params2: dict, params3: dict, params4: dict, user_id: str) -> dict:
+def make_api_request(params1: dict, params2: dict, params3: dict, params4: dict, user_id: str) -> dict:
     """
-    This function takes the destination, time, duration and other parameters and user ID and returns the Kiwi API response.
+    This function takes the destination, time, duration and other parameters and user ID and returns Kiwi API response.
 
     Args:
         params1 (dict): The destination parameters.

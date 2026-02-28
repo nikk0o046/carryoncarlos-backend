@@ -1,5 +1,5 @@
-import time
 import logging
+import time
 
 from openai import OpenAI
 from opentelemetry import trace
@@ -10,20 +10,25 @@ logger = logging.getLogger(__name__)
 tracer = trace.get_tracer(__name__)
 openai_client = OpenAI()
 
+
 @tracer.chain
-def input_parser(user_request : str, selectedCityID : str, user_id : str) -> str:
+def input_parser(user_request: str, selected_city_id: str, user_id: str) -> str:
     """
-    This function takes the user request and the selected city ID and user ID and returns the query in a more structured and concise format.
+    This function takes the user request and the selected city ID and user ID and returns the query in a more structured
+    and concise format.
 
     Args:
         user_request (str): The user request.
-        selectedCityID (str): The selected city ID.
+        selected_city_id (str): The selected city ID.
         user_id (str): The user ID.
-    
+
     Example:
-        >>> input_parser("I want to go to barcelona for the weekend on 12th of january. Outbound flight departure after 4pm. Direct flights.", "madrid_es", "TestUser")
-        Origin: Madrid, ES | Destination: Barcelona, ES | Departure: 12.1. after 4pm | Duration: Weekend | Flights: Direct
-    
+        >>> input_parser("I want to go to barcelona for the weekend on 12th of january.
+        Outbound flight departure after 4pm. Direct flights.", "madrid_es", "TestUser")
+
+        Origin: Madrid, ES | Destination: Barcelona, ES | Departure: 12.1. after 4pm | Duration: Weekend |
+        Flights: Direct
+
     Returns:
         str: The parsed input.
     """
@@ -33,39 +38,46 @@ def input_parser(user_request : str, selectedCityID : str, user_id : str) -> str
 
     # Create the prompt templates
     system_template = """INSTRUCTIONS:
-You're an intelligent AI agent. You are going to get user's description about a flight they are looking for. Your job is to formulate user requests in a structured and concise manner, so that another trained AI flight search system can handle the request more easily.
-Example ot the desired output: "Origin: Stockholm, SE | Destination: Somewhere in Eastern Europe | Departure: March 2024 | Duration: Weekend | Flights: max 1 layover"
+You're an intelligent AI agent. You are going to get user's description about a flight they are looking for. Your job is
+to formulate user requests in a structured and concise manner, so that another trained AI flight search system can
+handle the request more easily.
+
+Example ot the desired output:
+"Origin: Stockholm, SE | Destination: Somewhere in Eastern Europe | Departure: March 2024 | Duration: Weekend |
+Flights: max 1 layover"
 """
 
-    #example 1
-    userExample1 = """Origin: madrid_es
-User request: I want to go to barcelona for the weekend on 12th of january. Outbound flight departure after 4pm. Direct flights."""
+    # example 1
+    user_example1 = """Origin: madrid_es
+User request: I want to go to barcelona for the weekend on 12th of january. Outbound flight departure after 4pm.
+Direct flights."""
 
-    botExample1 = """Origin: Madrid, ES | Destination: Barcelona, ES | Departure: 12.1. after 4pm | Duration: Weekend | Flights: Direct"""
+    bot_example1 = """Origin: Madrid, ES | Destination: Barcelona, ES | Departure: 12.1. after 4pm | Duration: Weekend |
+Flights: Direct"""
 
-    #example 2
-    userExample2 = """Origin: munich_de
+    # example 2
+    user_example2 = """Origin: munich_de
 User request: Two-week trip to somewhere in South America. Departure in January."""
 
-    botExample2 = """Origin: Munich, DE | Destination: South America | Departure: January | Duration: 2 weeks"""
+    bot_example2 = """Origin: Munich, DE | Destination: South America | Departure: January | Duration: 2 weeks"""
 
-    human_template = f"Origin: {selectedCityID}\nUser request: {user_request}"
+    human_template = f"Origin: {selected_city_id}\nUser request: {user_request}"
 
-  # Construct the conversation message list
+    # Construct the conversation message list
     message_list = [
         {"role": "system", "content": system_template},
-        {"role": "user", "content": userExample1},
-        {"role": "assistant", "content": botExample1},
-        {"role": "user", "content": userExample2},
-        {"role": "assistant", "content": botExample2},
-        {"role": "user", "content": human_template}
+        {"role": "user", "content": user_example1},
+        {"role": "assistant", "content": bot_example1},
+        {"role": "user", "content": user_example2},
+        {"role": "assistant", "content": bot_example2},
+        {"role": "user", "content": human_template},
     ]
 
     # Request the response from the model
     response = openai_client.chat.completions.create(
-      model=OPENAI_MODEL,
-      temperature=0,
-      messages=message_list,
+        model=OPENAI_MODEL,
+        temperature=0,
+        messages=message_list,
     )
     response_content = response.choices[0].message.content
 

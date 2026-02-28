@@ -1,11 +1,5 @@
-import os
 import logging
-from google.cloud import logging as cloudlogging
-#client = cloudlogging.Client()
-#client.setup_logging(log_level=logging.DEBUG) 
-logger = logging.getLogger()
-logging.basicConfig(level=logging.INFO) # for local testing
-logger = logging.getLogger(__name__) # for local testing
+import os
 
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Request
@@ -23,14 +17,19 @@ tracer_provider = register(
 tracer = tracer_provider.get_tracer(__name__)
 OpenAIInstrumentor().instrument(tracer_provider=tracer_provider)
 
-from input_parser import input_parser
-from params.destination import create_destination_params
-from params.time import create_time_params
-from params.duration import create_duration_params
-from params.other import create_other_params
-from api.make_API_request import make_API_request
-from api.kiwi_output_parser import extract_info
+from api.kiwi_output_parser import extract_info  # noqa: E402
+from api.make_api_request import make_api_request  # noqa: E402
+from input_parser import input_parser  # noqa: E402
+from params.destination import create_destination_params  # noqa: E402
+from params.duration import create_duration_params  # noqa: E402
+from params.other import create_other_params  # noqa: E402
+from params.time import create_time_params  # noqa: E402
 
+# client = cloudlogging.Client()
+# client.setup_logging(log_level=logging.DEBUG)
+logger = logging.getLogger()
+logging.basicConfig(level=logging.INFO)  # for local testing
+logger = logging.getLogger(__name__)  # for local testing
 app = FastAPI(title="Carry-on Carlos API")
 
 app.add_middleware(
@@ -41,31 +40,36 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.post('/search_flights')
+
+@app.post("/search_flights")
 @tracer.chain
 async def search_flights(request: Request, customer_id: str | None = None):
     try:
-        user_id = customer_id or 'Not Provided'
+        user_id = customer_id or "Not Provided"
         request_body = await request.json()
-        
-        user_request = request_body.get('user_request', 'Not Provided')
-        selectedCityID = request_body.get('selectedCityID', 'Not Provided')
-        cabinClass = request_body.get('cabinClass', 'Not Provided')
-        travelers = request_body.get('travelers', 'Not Provided')
+
+        user_request = request_body.get("user_request", "Not Provided")
+        selected_city_id = request_body.get("selectedCityID", "Not Provided")
+        cabin_class = request_body.get("cabinClass", "Not Provided")
+        travelers = request_body.get("travelers", "Not Provided")
 
         logger.info("[UserID: %s] user_request: %s", user_id, user_request)
-        logger.debug("[UserID: %s] selectedCityID: %s", user_id, selectedCityID)
-        logger.debug("[UserID: %s] cabinClass: %s", user_id, cabinClass)
+        logger.debug("[UserID: %s] selectedCityID: %s", user_id, selected_city_id)
+        logger.debug("[UserID: %s] cabinClass: %s", user_id, cabin_class)
         logger.debug("[UserID: %s] travelers: %s", user_id, travelers)
 
-        parsed_request = input_parser(user_request, selectedCityID, user_id)
+        parsed_request = input_parser(user_request, selected_city_id, user_id)
 
-        destination_params = create_destination_params(parsed_request, user_id) # Set destination(s)
-        time_params = create_time_params(parsed_request, user_id) # Set when
-        duration_params = create_duration_params(parsed_request, selectedCityID, user_id) # Set stopovers and journey duration
-        other_constraints = create_other_params(selectedCityID, cabinClass, travelers, user_id) # Harcoded and user selected variables
+        destination_params = create_destination_params(parsed_request, user_id)  # Set destination(s)
+        time_params = create_time_params(parsed_request, user_id)  # Set when
+        duration_params = create_duration_params(
+            parsed_request, selected_city_id, user_id
+        )  # Set stopovers and journey duration
+        other_constraints = create_other_params(
+            selected_city_id, cabin_class, travelers, user_id
+        )  # Harcoded and user selected variables
 
-        response_data = make_API_request(destination_params, time_params, duration_params, other_constraints, user_id)
+        response_data = make_api_request(destination_params, time_params, duration_params, other_constraints, user_id)
         if response_data is None:  # If API request failed
             raise HTTPException(status_code=500, detail="API request failed. Please try again later.")
 
@@ -75,14 +79,23 @@ async def search_flights(request: Request, customer_id: str | None = None):
         return flights_info
 
     except KeyError as e:
-        logger.exception("[UserID: %s] An error occurred: %s. The key doesn't exist in the dictionary.", user_id, e)
-        raise HTTPException(status_code=400, detail=f"An error occurred: {e}. The key doesn't exist in the dictionary.")
+        logger.exception(
+            "[UserID: %s] An error occurred: %s. The key doesn't exist in the dictionary.",
+            user_id,
+            e,
+        )
+        raise HTTPException(
+            status_code=400,
+            detail=f"An error occurred: {e}. The key doesn't exist in the dictionary.",
+        )
     except Exception as e:
         logger.exception("[UserID: %s] An unexpected error occurred: %s", user_id, e)
         raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
 
+
 # Run the app
-if __name__ == '__main__':
+if __name__ == "__main__":
     import uvicorn
-    port = int(os.environ.get('PORT', 8080))
-    uvicorn.run(app, host='0.0.0.0', port=port)
+
+    port = int(os.environ.get("PORT", 8080))
+    uvicorn.run(app, host="0.0.0.0", port=port)

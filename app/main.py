@@ -17,13 +17,13 @@ tracer_provider = register(
 tracer = tracer_provider.get_tracer(__name__)
 OpenAIInstrumentor().instrument(tracer_provider=tracer_provider)
 
-from api.kiwi_output_parser import extract_info  # noqa: E402
-from api.make_api_request import make_api_request  # noqa: E402
-from input_parser import input_parser  # noqa: E402
-from params.destination import create_destination_params  # noqa: E402
-from params.duration import create_duration_params  # noqa: E402
-from params.other import create_other_params  # noqa: E402
-from params.time import create_time_params  # noqa: E402
+from app.api.kiwi_output_parser import extract_info  # noqa: E402
+from app.api.make_api_request import make_api_request  # noqa: E402
+from app.input_parser import input_parser  # noqa: E402
+from app.params.destination import create_destination_params  # noqa: E402
+from app.params.duration import create_duration_params  # noqa: E402
+from app.params.other import create_other_params  # noqa: E402
+from app.params.time import create_time_params  # noqa: E402
 
 # client = cloudlogging.Client()
 # client.setup_logging(log_level=logging.DEBUG)

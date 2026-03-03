@@ -10,8 +10,7 @@ variable "location" {
   default     = "germanywestcentral"
 }
 
-variable "environment" {
+variable "image_tag" {
   type        = string
-  description = "Environment"
-  default     = "production"
+  description = "Image tag with the commit sha"
 }

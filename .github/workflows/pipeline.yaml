@@ -1,10 +1,11 @@
 # Template from: 
 # https://docs.github.com/en/actions/tutorials/publish-packages/publish-docker-images#publishing-images-to-github-packages
-name: Create and publish a Docker image
+name: Terraform and Image Push
 
 on:
   push:
-    branches: ['ghcr-ci']
+    branches: ['master']
+  workflow_dispatch:
 
 env:
   REGISTRY: ghcr.io
@@ -47,3 +48,31 @@ jobs:
           subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
+
+  terraform:
+    name: 'Terraform'
+    env:
+      ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v5
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+
+    - name: Terraform Init
+      run: terraform init
+      working-directory: ./terraform
+
+    - name: Terraform Plan
+      run: terraform plan
+      working-directory: ./terraform
+
+    - name: Terraform Apply
+      run: terraform apply -auto-approve
+      working-directory: ./terraform

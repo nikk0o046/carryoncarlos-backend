@@ -1,0 +1,17 @@
+variable "app_name" {
+  type        = string
+  description = "name of the app"
+  default     = "carryoncarlos"
+}
+
+variable "location" {
+  type        = string
+  description = "Location of Resources"
+  default     = "germanywestcentral"
+}
+
+variable "environment" {
+  type        = string
+  description = "Environment"
+  default     = "production"
+}

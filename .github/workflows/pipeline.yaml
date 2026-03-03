@@ -50,6 +50,7 @@ jobs:
           push-to-registry: true
 
   terraform:
+    needs: build-and-push-image
     name: 'Terraform'
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}

@@ -29,9 +29,19 @@ module "aca-environment" {
 }
 
 module "aca" {
-  source                     = "./modules/aca"
-  name                       = "${var.app_name}aca"
-  resource_group_name        = azurerm_resource_group.rg.name
+  source                       = "./modules/aca"
+  name                         = "${var.app_name}aca"
+  location                     = var.location
+  resource_group_name          = azurerm_resource_group.rg.name
   container_app_environment_id = module.aca-environment.id
-  image_tag = var.image_tag
+  image_tag                    = var.image_tag
+}
+
+module "keyvault" {
+  source              = "./modules/keyvault"
+  name                = "${var.app_name}kv"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.rg.name
+  principal_id        = module.aca.principal_id
+  tenant_id           = data.azurerm_client_config.current.tenant_id
 }

@@ -1,5 +1,14 @@
 variable "name" {
 }
 
-variable "access_policy_id" {
+variable "principal_id" {
+}
+
+variable "location" {
+}
+
+variable "resource_group_name" {
+}
+
+variable "tenant_id" {
 }

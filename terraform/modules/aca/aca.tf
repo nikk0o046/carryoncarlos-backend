@@ -24,6 +24,11 @@ resource "azurerm_container_app" "aca" {
       memory = "0.5Gi"
     }
   }
+
+  identity {
+    type         = "UserAssigned"
+    identity_ids = [azurerm_user_assigned_identity.aca.id]
+  }
 }
 
 resource "azurerm_user_assigned_identity" "aca" {

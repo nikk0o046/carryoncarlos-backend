@@ -12,3 +12,6 @@ variable "image_tag" {
 
 variable "location" {
 }
+
+variable "key_vault_uri" {
+}

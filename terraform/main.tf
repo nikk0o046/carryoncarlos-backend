@@ -35,6 +35,7 @@ module "aca" {
   resource_group_name          = azurerm_resource_group.rg.name
   container_app_environment_id = module.aca-environment.id
   image_tag                    = var.image_tag
+  key_vault_uri                = module.keyvault.vault_uri
 }
 
 module "keyvault" {

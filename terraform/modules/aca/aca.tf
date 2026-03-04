@@ -22,7 +22,62 @@ resource "azurerm_container_app" "aca" {
       image  = "ghcr.io/nikk0o046/carryoncarlos-backend:${var.image_tag}"
       cpu    = 0.25
       memory = "0.5Gi"
+
+      env {
+        name        = "OPENAI_API_KEY"
+        secret_name = "OPENAI-API-KEY"
+      }
+
+      env {
+        name        = "KIWI_API_KEY"
+        secret_name = "KIWI-API-KEY"
+      }
+
+      env {
+        name        = "OTEL_EXPORTER_OTLP_HEADERS"
+        secret_name = "OTEL-EXPORTER-OTLP-HEADERS"
+      }
+
+      env {
+        name        = "PHOENIX_CLIENT_HEADERS"
+        secret_name = "PHOENIX-CLIENT-HEADERS"
+      }
+
+      env {
+        name        = "PHOENIX_COLLECTOR_ENDPOINT"
+        secret_name = "PHOENIX-COLLECTOR-ENDPOINT"
+      }
     }
+  }
+
+  secret {
+    name                = "OPENAI-API-KEY"
+    identity            = azurerm_user_assigned_identity.aca.id
+    key_vault_secret_id = "${var.key_vault_uri}secrets/OPENAI-API-KEY"
+  }
+
+  secret {
+    name                = "KIWI-API-KEY"
+    identity            = azurerm_user_assigned_identity.aca.id
+    key_vault_secret_id = "${var.key_vault_uri}secrets/KIWI-API-KEY"
+  }
+
+  secret {
+    name                = "OTEL-EXPORTER-OTLP-HEADERS"
+    identity            = azurerm_user_assigned_identity.aca.id
+    key_vault_secret_id = "${var.key_vault_uri}secrets/OTEL-EXPORTER-OTLP-HEADERS"
+  }
+
+  secret {
+    name                = "PHOENIX-CLIENT-HEADERS"
+    identity            = azurerm_user_assigned_identity.aca.id
+    key_vault_secret_id = "${var.key_vault_uri}secrets/PHOENIX-CLIENT-HEADERS"
+  }
+
+  secret {
+    name                = "PHOENIX-COLLECTOR-ENDPOINT"
+    identity            = azurerm_user_assigned_identity.aca.id
+    key_vault_secret_id = "${var.key_vault_uri}secrets/PHOENIX-COLLECTOR-ENDPOINT"
   }
 
   identity {

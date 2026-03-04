@@ -8,5 +8,7 @@ variable "container_app_environment_id" {
 }
 
 variable "image_tag" {
+}
 
+variable "location" {
 }

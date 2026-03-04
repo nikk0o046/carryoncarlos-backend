@@ -25,3 +25,9 @@ resource "azurerm_container_app" "aca" {
     }
   }
 }
+
+resource "azurerm_user_assigned_identity" "aca" {
+  name                = "${var.name}-identity"
+  location            = var.location
+  resource_group_name = var.resource_group_name
+}

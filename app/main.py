@@ -6,6 +6,7 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from openinference.instrumentation.openai import OpenAIInstrumentor
 from phoenix.otel import register
+from pydantic import BaseModel
 
 # Tracing must be initialized before instrumented modules or libraries (e.g. OpenAI) are imported
 load_dotenv()
@@ -41,17 +42,23 @@ app.add_middleware(
 )
 
 
+class FlightRequest(BaseModel):
+    user_request: str
+    selectedCityID: str
+    cabinClass: str
+    travelers: int
+
+
 @app.post("/search_flights")
 @tracer.chain
-async def search_flights(request: Request, customer_id: str | None = None):
+async def search_flights(request: FlightRequest, customer_id: str | None = None):
     try:
         user_id = customer_id or "Not Provided"
-        request_body = await request.json()
 
-        user_request = request_body.get("user_request", "Not Provided")
-        selected_city_id = request_body.get("selectedCityID", "Not Provided")
-        cabin_class = request_body.get("cabinClass", "Not Provided")
-        travelers = request_body.get("travelers", "Not Provided")
+        user_request = request.user_request
+        selected_city_id = request.selectedCityID
+        cabin_class = request.cabinClass
+        travelers = request.travelers
 
         logger.info("[UserID: %s] user_request: %s", user_id, user_request)
         logger.debug("[UserID: %s] selectedCityID: %s", user_id, selected_city_id)

@@ -100,6 +100,11 @@ async def search_flights(request: FlightRequest, customer_id: str | None = None)
         raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
 
 
+@app.get("/health_check")
+async def health_check():
+    return {"status": "ok"}
+
+
 # Run the app
 if __name__ == "__main__":
     import uvicorn

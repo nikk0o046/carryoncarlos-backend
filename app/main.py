@@ -1,12 +1,16 @@
+from httpx import AsyncClient
 import logging
 import os
 
 from dotenv import load_dotenv
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from openinference.instrumentation.openai import OpenAIInstrumentor
 from phoenix.otel import register
 from pydantic import BaseModel
+
+from app.constants import KIWI_BASE_URL
+
 
 # Tracing must be initialized before instrumented modules or libraries (e.g. OpenAI) are imported
 load_dotenv()
@@ -26,12 +30,21 @@ from app.params.duration import create_duration_params  # noqa: E402
 from app.params.other import create_other_params  # noqa: E402
 from app.params.time import create_time_params  # noqa: E402
 
+KIWI_API_KEY = os.environ["KIWI_API_KEY"]
+
 # client = cloudlogging.Client()
 # client.setup_logging(log_level=logging.DEBUG)
 logger = logging.getLogger()
 logging.basicConfig(level=logging.INFO)  # for local testing
 logger = logging.getLogger(__name__)  # for local testing
-app = FastAPI(title="Carry-on Carlos API")
+
+
+async def lifespan(app: FastAPI):
+    async with AsyncClient(base_url=KIWI_BASE_URL, headers={"apikey": KIWI_API_KEY}) as kiwi_client:
+        yield {"kiwi_client": kiwi_client}
+
+
+app = FastAPI(title="Carry-on Carlos API", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
@@ -47,6 +60,13 @@ class FlightRequest(BaseModel):
     selected_city_id: str
     cabin_class: str
     travelers: int
+
+
+class LocationQuery(BaseModel):
+    term: str
+    locale: str = "en-US"
+    location_types: str = "city"
+    limit: int = 5
 
 
 @app.post("/search_flights")
@@ -103,6 +123,12 @@ async def search_flights(flight_request: FlightRequest, customer_id: str | None 
 @app.get("/health_check")
 async def health_check():
     return {"status": "ok"}
+
+
+@app.get("/locations/query")
+async def location_query(request: Request, params: LocationQuery = Depends()):
+    response = await request.app.state.kiwi_client.get("/locations/query", params=params.model_dump())
+    return response.json()
 
 
 # Run the app

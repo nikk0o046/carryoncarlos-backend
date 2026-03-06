@@ -5,6 +5,8 @@ import time
 import requests
 from dotenv import load_dotenv
 
+from app.constants import KIWI_BASE_URL
+
 load_dotenv()
 logger = logging.getLogger(__name__)
 
@@ -29,7 +31,7 @@ def make_api_request(params1: dict, params2: dict, params3: dict, params4: dict,
     start_time = time.time()  # start timer to log it later
     logger.debug("[UserID: %s] Making API request...", user_id)
 
-    url = "https://api.tequila.kiwi.com/v2/search"
+    url = f"{KIWI_BASE_URL}/v2/search"
 
     # Combine queries from parts 2, 3, and 4
     # Combine all dictionaries into a single payload dictionary

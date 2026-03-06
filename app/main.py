@@ -44,25 +44,25 @@ app.add_middleware(
 
 class FlightRequest(BaseModel):
     user_request: str
-    selectedCityID: str
-    cabinClass: str
+    selected_city_id: str
+    cabin_class: str
     travelers: int
 
 
 @app.post("/search_flights")
 @tracer.chain
-async def search_flights(request: FlightRequest, customer_id: str | None = None):
+async def search_flights(flight_request: FlightRequest, customer_id: str | None = None):
     try:
         user_id = customer_id or "Not Provided"
 
-        user_request = request.user_request
-        selected_city_id = request.selectedCityID
-        cabin_class = request.cabinClass
-        travelers = request.travelers
+        user_request = flight_request.user_request
+        selected_city_id = flight_request.selected_city_id
+        cabin_class = flight_request.cabin_class
+        travelers = flight_request.travelers
 
         logger.info("[UserID: %s] user_request: %s", user_id, user_request)
-        logger.debug("[UserID: %s] selectedCityID: %s", user_id, selected_city_id)
-        logger.debug("[UserID: %s] cabinClass: %s", user_id, cabin_class)
+        logger.debug("[UserID: %s] selected_city_id: %s", user_id, selected_city_id)
+        logger.debug("[UserID: %s] cabin_class: %s", user_id, cabin_class)
         logger.debug("[UserID: %s] travelers: %s", user_id, travelers)
 
         parsed_request = input_parser(user_request, selected_city_id, user_id)

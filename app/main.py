@@ -1,16 +1,15 @@
-from httpx import AsyncClient
 import logging
 import os
 
 from dotenv import load_dotenv
 from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
+from httpx import AsyncClient
 from openinference.instrumentation.openai import OpenAIInstrumentor
 from phoenix.otel import register
 from pydantic import BaseModel
 
 from app.constants import KIWI_BASE_URL
-
 
 # Tracing must be initialized before instrumented modules or libraries (e.g. OpenAI) are imported
 load_dotenv()
@@ -32,8 +31,6 @@ from app.params.time import create_time_params  # noqa: E402
 
 KIWI_API_KEY = os.environ["KIWI_API_KEY"]
 
-# client = cloudlogging.Client()
-# client.setup_logging(log_level=logging.DEBUG)
 logger = logging.getLogger()
 logging.basicConfig(level=logging.INFO)  # for local testing
 logger = logging.getLogger(__name__)  # for local testing

@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from openai import OpenAI
 from opentelemetry import trace
 
-from app.settings import OPENAI_MODEL
+from app.constants import OPENAI_MODEL
 
 logger = logging.getLogger(__name__)
 tracer = trace.get_tracer(__name__)

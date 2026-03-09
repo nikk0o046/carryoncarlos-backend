@@ -119,7 +119,7 @@ async def search_flights(flight_request: FlightRequest, customer_id: str | None 
 
 @app.get("/health_check")
 async def health_check():
-    return {"status": "ok"}
+    return {"status": "ok", "version": os.environ.get("GIT_SHA", "unknown")}
 
 
 @app.get("/locations/query")

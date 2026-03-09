@@ -31,9 +31,8 @@ from app.params.time import create_time_params  # noqa: E402
 
 KIWI_API_KEY = os.environ["KIWI_API_KEY"]
 
-logger = logging.getLogger()
-logging.basicConfig(level=logging.INFO)  # for local testing
-logger = logging.getLogger(__name__)  # for local testing
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 async def lifespan(app: FastAPI):

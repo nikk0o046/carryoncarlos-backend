@@ -123,7 +123,7 @@ async def health_check():
 
 @app.get("/locations/query")
 async def location_query(request: Request, params: LocationQuery = Depends()):
-    response = await request.app.state.kiwi_client.get("/locations/query", params=params.model_dump())
+    response = await request.state.kiwi_client.get("/locations/query", params=params.model_dump())
     return response.json()
 
 

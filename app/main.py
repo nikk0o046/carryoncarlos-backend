@@ -10,6 +10,8 @@ from phoenix.otel import register
 from pydantic import BaseModel
 
 from app.constants import KIWI_BASE_URL
+from app.models.flight_request import FlightRequest
+from app.models.location_query import LocationQuery
 
 # Tracing must be initialized before instrumented modules or libraries (e.g. OpenAI) are imported
 load_dotenv()
@@ -50,21 +52,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
-class FlightRequest(BaseModel):
-    user_request: str
-    selected_city_id: str
-    cabin_class: str
-    travelers: int
-
-
-class LocationQuery(BaseModel):
-    term: str
-    locale: str = "en-US"
-    location_types: str = "city"
-    limit: int = 5
-
-
 @app.post("/search_flights")
 @tracer.chain
 async def search_flights(flight_request: FlightRequest, customer_id: str | None = None):
@@ -79,7 +66,7 @@ async def search_flights(flight_request: FlightRequest, customer_id: str | None 
         logger.info("[UserID: %s] user_request: %s", user_id, user_request)
         logger.debug("[UserID: %s] selected_city_id: %s", user_id, selected_city_id)
         logger.debug("[UserID: %s] cabin_class: %s", user_id, cabin_class)
-        logger.debug("[UserID: %s] travelers: %s", user_id, travelers)
+        logger.debug("[UserID: %s] travelers: %s", user_id, travelers.model_dump())
 
         parsed_request = input_parser(user_request, selected_city_id, user_id)
 

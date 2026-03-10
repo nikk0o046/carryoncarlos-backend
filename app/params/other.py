@@ -2,12 +2,14 @@ import logging
 
 from opentelemetry import trace
 
+from app.models.flight_request import Travelers
+
 logger = logging.getLogger(__name__)
 tracer = trace.get_tracer(__name__)
 
 
 @tracer.chain
-def create_other_params(selected_city_id: str, cabin_class: str, travelers: dict, user_id: str) -> dict:
+def create_other_params(selected_city_id: str, cabin_class: str, travelers: Travelers, user_id: str) -> dict:
     """
     This function takes the selected city ID, the cabin class, the travelers and the user ID and returns them and
     some default parameters as a dictionary.
@@ -28,9 +30,9 @@ def create_other_params(selected_city_id: str, cabin_class: str, travelers: dict
     cabin_mapping = {"Economy": "M", "Economy Premium": "W", "Business": "C", "First Class": "F"}
     selected_cabin = cabin_mapping.get(cabin_class, "M")  # Default to Economy if not found
 
-    adults = travelers.get("adults", 1)
-    children = travelers.get("children", 0)
-    infants = travelers.get("infants", 0)
+    adults = travelers.adults
+    children = travelers.children
+    infants = travelers.infants
 
     other_params = {
         "adults": str(adults),

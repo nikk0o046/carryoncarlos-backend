@@ -7,7 +7,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from httpx import AsyncClient
 from openinference.instrumentation.openai import OpenAIInstrumentor
 from phoenix.otel import register
-from pydantic import BaseModel
 
 from app.constants import KIWI_BASE_URL
 from app.models.flight_request import FlightRequest

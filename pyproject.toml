@@ -11,6 +11,7 @@ dependencies = [
     "uvicorn",
     "openai",
     "python-dotenv",
+    "pydantic",
     "openinference-semantic-conventions",
     "openinference-instrumentation-openai",
     "opentelemetry-api",

@@ -34,18 +34,13 @@ resource "azurerm_container_app" "aca" {
       }
 
       env {
-        name        = "OTEL_EXPORTER_OTLP_HEADERS"
-        secret_name = "otel-exporter-otlp-headers"
-      }
-
-      env {
-        name        = "PHOENIX_CLIENT_HEADERS"
-        secret_name = "phoenix-client-headers"
-      }
-
-      env {
         name        = "PHOENIX_COLLECTOR_ENDPOINT"
         secret_name = "phoenix-collector-endpoint"
+      }
+
+      env {
+        name        = "PHOENIX_API_KEY"
+        secret_name = "phoenix-api-key"
       }
     }
   }
@@ -63,21 +58,15 @@ resource "azurerm_container_app" "aca" {
   }
 
   secret {
-    name                = "otel-exporter-otlp-headers"
-    identity            = azurerm_user_assigned_identity.aca.id
-    key_vault_secret_id = "${var.key_vault_uri}secrets/OTEL-EXPORTER-OTLP-HEADERS"
-  }
-
-  secret {
-    name                = "phoenix-client-headers"
-    identity            = azurerm_user_assigned_identity.aca.id
-    key_vault_secret_id = "${var.key_vault_uri}secrets/PHOENIX-CLIENT-HEADERS"
-  }
-
-  secret {
     name                = "phoenix-collector-endpoint"
     identity            = azurerm_user_assigned_identity.aca.id
     key_vault_secret_id = "${var.key_vault_uri}secrets/PHOENIX-COLLECTOR-ENDPOINT"
+  }
+
+  secret {
+    name                = "phoenix-api-key"
+    identity            = azurerm_user_assigned_identity.aca.id
+    key_vault_secret_id = "${var.key_vault_uri}secrets/PHOENIX-API-KEY"
   }
 
   identity {

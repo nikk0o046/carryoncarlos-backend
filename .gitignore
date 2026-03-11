@@ -231,6 +231,7 @@ venv-chat/
 
 # vscode stuff
 .vscode/
+.claude/
 
 # Local .terraform directories
 .terraform/

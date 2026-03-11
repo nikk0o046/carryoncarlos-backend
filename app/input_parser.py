@@ -1,18 +1,18 @@
 import logging
 import time
 
-from openai import OpenAI
+from openai import AsyncOpenAI
 from opentelemetry import trace
 
 from app.constants import OPENAI_MODEL
 
 logger = logging.getLogger(__name__)
 tracer = trace.get_tracer(__name__)
-openai_client = OpenAI()
+openai_client = AsyncOpenAI()
 
 
 @tracer.chain
-def input_parser(user_request: str, selected_city_id: str, user_id: str) -> str:
+async def input_parser(user_request: str, selected_city_id: str, user_id: str) -> str:
     """
     This function takes the user request and the selected city ID and user ID and returns the query in a more structured
     and concise format.
@@ -74,7 +74,7 @@ User request: Two-week trip to somewhere in South America. Departure in January.
     ]
 
     # Request the response from the model
-    response = openai_client.chat.completions.create(
+    response = await openai_client.chat.completions.create(
         model=OPENAI_MODEL,
         temperature=0,
         messages=message_list,

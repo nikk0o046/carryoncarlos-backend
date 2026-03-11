@@ -3,18 +3,18 @@ import logging
 import re
 import time
 
-from openai import OpenAI
+from openai import AsyncOpenAI
 from opentelemetry import trace
 
 from app.constants import OPENAI_MODEL
 
 logger = logging.getLogger(__name__)
 tracer = trace.get_tracer(__name__)
-openai_client = OpenAI()
+openai_client = AsyncOpenAI()
 
 
 @tracer.chain
-def create_duration_params(user_request: str, selected_city_id: str, user_id: str) -> dict:
+async def create_duration_params(user_request: str, selected_city_id: str, user_id: str) -> dict:
     """
     This function takes the user request, the selected city ID and the user ID and returns the duration parameters.
 
@@ -118,7 +118,7 @@ We omit stopover_to and max_fly_duration for direct flights.
         {"role": "user", "content": human_template},
     ]
 
-    response = openai_client.chat.completions.create(
+    response = await openai_client.chat.completions.create(
         model=OPENAI_MODEL,
         temperature=0,
         messages=message_list,

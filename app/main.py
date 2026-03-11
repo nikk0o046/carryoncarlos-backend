@@ -1,3 +1,4 @@
+import asyncio
 import logging
 import os
 
@@ -66,18 +67,18 @@ async def search_flights(flight_request: FlightRequest, customer_id: str | None 
         logger.debug("[UserID: %s] cabin_class: %s", user_id, cabin_class)
         logger.debug("[UserID: %s] travelers: %s", user_id, travelers.model_dump())
 
-        parsed_request = input_parser(user_request, selected_city_id, user_id)
+        parsed_request = await input_parser(user_request, selected_city_id, user_id)
 
-        destination_params = create_destination_params(parsed_request, user_id)  # Set destination(s)
-        time_params = create_time_params(parsed_request, user_id)  # Set when
-        duration_params = create_duration_params(
-            parsed_request, selected_city_id, user_id
-        )  # Set stopovers and journey duration
+        destination_params, time_params, duration_params = await asyncio.gather(
+            create_destination_params(parsed_request, user_id),  # Set destination(s)
+            create_time_params(parsed_request, user_id),  # Set when
+            create_duration_params(parsed_request, selected_city_id, user_id),  # Set stopovers and journey duration
+        )
         other_constraints = create_other_params(
             selected_city_id, cabin_class, travelers, user_id
-        )  # Harcoded and user selected variables
+        )  # Hardcoded and user selected variables
 
-        response_data = make_api_request(destination_params, time_params, duration_params, other_constraints, user_id)
+        response_data = await make_api_request(destination_params, time_params, duration_params, other_constraints, user_id)
         if response_data is None:  # If API request failed
             raise HTTPException(status_code=500, detail="API request failed. Please try again later.")
 

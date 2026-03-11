@@ -1,11 +1,11 @@
 import logging
-import re
 import time
 
 from openai import AsyncOpenAI
 from opentelemetry import trace
 
 from app.constants import OPENAI_MODEL
+from app.models.openai_responses import DestinationResponse
 
 logger = logging.getLogger(__name__)
 tracer = trace.get_tracer(__name__)
@@ -33,8 +33,8 @@ async def create_destination_params(user_request: str, user_id: str) -> dict:
     system_template = """You are an advanced AI agent tasked with identifying as many potential destination airports as
 possible based on user preferences. Your response should include:
 
-1. An initial thought process or reasoning for the task.
-2. An exhaustive list of IATA airport codes matching the criteria, formatted as [XXX,YYY,ZZZ].
+1. A "reasoning" field with your initial thought process for the task.
+2. An "airport_codes" field with an exhaustive list of IATA airport codes matching the criteria.
 
 For ambiguous destinations, aim for at least 15 to 20 airport codes. Offering more options increases the chances of
 finding affordable flights for the user. Focus on final destination airports only, excluding connecting airports.
@@ -47,30 +47,20 @@ Disregard any irrelevant information."""
         {"role": "user", "content": human_template},
     ]
 
-    response = await openai_client.chat.completions.create(
+    response = await openai_client.beta.chat.completions.parse(
         model=OPENAI_MODEL,
         temperature=0,
         messages=message_list,
+        response_format=DestinationResponse,
     )
-    response_content = response.choices[0].message.content
+    parsed = response.choices[0].message.parsed
 
-    logger.debug("[UserID: %s] Destination parameters response: %s", user_id, response_content)
+    logger.debug("[UserID: %s] Destination parameters response: %s", user_id, parsed)
 
-    # Regular expression pattern to match the IATA codes
-    pattern = r"\[([A-Za-z,\s]+)\]"
-
-    # Find the matches in the response content
-    matches = re.search(pattern, response_content)
-
-    if matches:
-        # Get the matched string, remove spaces, and split it into a list on the commas
-        destination_list = matches.group(1).replace(" ", "").split(",")
-
-        # Create a destination dictionary from the response
+    if parsed and parsed.airport_codes:
         destination_params = {
-            "fly_to": ",".join(destination_list),
+            "fly_to": ",".join(parsed.airport_codes),
         }
-
     else:
         destination_params = {}
 

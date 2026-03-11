@@ -1,12 +1,11 @@
-import json
 import logging
-import re
 import time
 
 from openai import AsyncOpenAI
 from opentelemetry import trace
 
 from app.constants import OPENAI_MODEL
+from app.models.openai_responses import DurationParamsResponse
 
 logger = logging.getLogger(__name__)
 tracer = trace.get_tracer(__name__)
@@ -30,7 +29,7 @@ async def create_duration_params(user_request: str, selected_city_id: str, user_
     logger.debug("[UserID: %s] Creating duration parameters...", user_id)
 
     # Create the prompt templates
-    system_template = r"""You're an intelligent AI agent, and your job is to create search parameters about the flight
+    system_template = """You're an intelligent AI agent, and your job is to create search parameters about the flight
 duration, stopovers, and stopover duration.
 
 INSTRUCTIONS:
@@ -49,61 +48,28 @@ Less Popular Routes: Optimize for shortest total travel time and feasible connec
 Use these parameters:
 
 max_sector_stopovers: Maximum number of stopovers per sector.
-stopover_to: Maximum length of a stopover (e.g., 4:00 means 4 hours). Aim to keep under 5:00.
+stopover_to: Maximum length of a stopover (e.g., "4:00" means 4 hours). Aim to keep under "5:00".
 max_fly_duration: Maximum itinerary duration, including stopovers. Aim to keep short.
-ANSWER INSTRUCTIONS:
-Provide:
 
-1) Thought: Detail your reasoning briefly.
-2) Markdown code snippet formatted in the following schema, including the leading
-and trailing "\`\`\`json" and "\`\`\`":
-
-```json
-{
-    "key1": value1  // Define relevant values. Only use keys mentioned in the API documentation.
-    "key2": value2
-}
-    ```"""
+Include your reasoning in the "reasoning" field and only set parameters that are relevant."""
 
     # example 1
     user_example1 = """Origin: Madrid
     Info: Origin: Madrid, ES | Destination: Barcelona, ES | Departure: Next month | Duration: Weekend"""
 
-    bot_example1 = """Thought: Considering the short-haul nature of Madrid to Barcelona and the short duration of the
-trip (weekend), direct flights would be ideal.
-Major hubs like Madrid and Barcelona have numerous direct flight options.
-    ```json
-    {
-        "max_sector_stopovers": 0
-    }
-    ```"""
+    bot_example1 = '{"reasoning": "Short-haul Madrid to Barcelona weekend trip. Direct flights ideal from major hubs.", "max_sector_stopovers": 0}'
 
     # example 2
     user_example2 = """Origin: Helsinki
     Info: Origin: Helsinki, FI | Destination: South America | Departure: January | Duration: 2 weeks | Flights: Any"""
 
-    bot_example2 = """Thought: The long-haul nature of Helsinki to South America, combined with the user's flexibility
-for any flights, suggests that we should allow some layovers.
-However, we'll aim to optimize for comfort by limiting lengthy stopovers and excessive travel time.
-    ```json
-    {
-        "max_fly_duration": 20,
-        "max_sector_stopovers": 2,
-        "stopover_to": "5:00"
-    }
-    ```"""
+    bot_example2 = '{"reasoning": "Long-haul Helsinki to South America with flexibility. Allow layovers but limit duration for comfort.", "max_fly_duration": 20, "max_sector_stopovers": 2, "stopover_to": "5:00"}'
 
     # example 3
     user_example3 = """Origin: New York
     Info: "Origin: New York, US | Destination: Sydney, AU | Departure: March | Duration: 1 week | Flights: direct"""
 
-    bot_example3 = """Thought: The user wants direct flights, so we set max_sector_stopovers to 0.
-We omit stopover_to and max_fly_duration for direct flights.
-     ```json
-    {
-        "max_sector_stopovers": 0
-    }
-    ```"""
+    bot_example3 = '{"reasoning": "User wants direct flights. Set max_sector_stopovers to 0.", "max_sector_stopovers": 0}'
 
     human_template = f"Origin: {selected_city_id}\nInfo: {user_request}"
 
@@ -118,21 +84,19 @@ We omit stopover_to and max_fly_duration for direct flights.
         {"role": "user", "content": human_template},
     ]
 
-    response = await openai_client.chat.completions.create(
+    response = await openai_client.beta.chat.completions.parse(
         model=OPENAI_MODEL,
         temperature=0,
         messages=message_list,
+        response_format=DurationParamsResponse,
     )
-    response_content = response.choices[0].message.content
+    parsed = response.choices[0].message.parsed
 
-    logger.debug("[UserID: %s] Duration parameters response: %s", user_id, response_content)
+    logger.debug("[UserID: %s] Duration parameters response: %s", user_id, parsed)
 
-    # Extract the json string using regular expressions
-    json_str = re.search(r"\{.*\}", response_content, re.DOTALL).group()
+    # Exclude None values and the reasoning field from the output
+    duration_params = parsed.model_dump(exclude_none=True, exclude={"reasoning"})
 
-    # Convert the json string to a Python dictionary
-    logger.debug("[UserID: %s] json_str: %s", user_id, json_str)
-    duration_params = json.loads(json_str)
     logger.debug("[UserID: %s] Duration created: %s", user_id, duration_params)
     end_time = time.time()
     elapsed_time = end_time - start_time

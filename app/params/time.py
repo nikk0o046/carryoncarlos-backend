@@ -6,6 +6,7 @@ from openai import AsyncOpenAI
 from opentelemetry import trace
 
 from app.constants import OPENAI_MODEL
+from app.models.openai_responses import TimeParamsResponse
 
 logger = logging.getLogger(__name__)
 tracer = trace.get_tracer(__name__)
@@ -31,7 +32,7 @@ async def create_time_params(user_request: str, user_id: str) -> dict:
     current_date = f"{current_date_unformatted:%d/%m/%Y}"
 
     # create the prompt templates
-    system_template = r"""API DOCUMENTATION:
+    system_template = """API DOCUMENTATION:
 departure_date_from, departure_date_to: Range for outbound flight departure (dd/mm/yyyy). These must be included.
 If not provided, you must make an assumption.
 
@@ -48,16 +49,7 @@ and match nights_in_dst_from and nights_in_dst_to so that the return day will be
 ANSWER INSTRUCTIONS:
 Your task is to create parameters specified above based on user information. The parameters will be forwarded to
 another assistant, who uses them to search flights. Do not come up with any other parameters.
-The output should include both:
-1) Thought: Thinking out loud about the user's needs and the task.
-2) Markdown code snippet formatted in the following schema including the leading and trailing "\`\`\`json" and "\`\`\`":
-
-```json
-{
-    "key1": value1  // Define relevant values. Only use keys mentioned in the API documentation.
-    "key2": value2
-}
-```"""
+Only use keys mentioned in the API documentation."""
 
     human_template = f"Current date: {current_date}\nInfo: {user_request}"
 
@@ -66,26 +58,20 @@ The output should include both:
         {"role": "user", "content": human_template},
     ]
 
-    response = await openai_client.chat.completions.create(
+    response = await openai_client.beta.chat.completions.parse(
         model=OPENAI_MODEL,
         temperature=0,
         messages=message_list,
+        response_format=TimeParamsResponse,
     )
-    response_content = response.choices[0].message.content
+    parsed = response.choices[0].message.parsed
 
-    logger.debug("[UserID: %s] OpenAI response content: %s", user_id, str(response_content))
+    logger.debug("[UserID: %s] OpenAI response content: %s", user_id, parsed)
 
-    # Extract the json string using regular expressions
-    import json
-    import re
+    # Build time_params dict from parsed response, excluding None values
+    time_params = parsed.model_dump(exclude_none=True)
 
-    json_str = re.search(r"\{.*\}", response_content, re.DOTALL).group()
-
-    # Convert the json string to a Python dictionary
-    logger.debug("[UserID: %s] json_str: %s", user_id, json_str)
-    time_params = json.loads(json_str)
-
-    # Edit date_from keys. Kiwi API excects "date_from" instead of "departure_date_from", and the same for "date_to".
+    # Edit date_from keys. Kiwi API expects "date_from" instead of "departure_date_from", and the same for "date_to".
     # "departure_date_from" and "departure_date_to" were used for model training, because it did not confuse them with
     # the length of the trip, like it sometimes did with "date_from" and "date_to".
     if "departure_date_from" in time_params:
@@ -94,7 +80,6 @@ The output should include both:
     if "departure_date_to" in time_params:
         time_params["date_to"] = time_params.pop("departure_date_to")
 
-    # time_params = adjust_dates(time_params, user_id) # Check if dates are in the past. If they are, add a year.
     logger.debug("[UserID: %s] Time parameters created: %s", user_id, time_params)
     end_time = time.time()
     elapsed_time = end_time - start_time

@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from httpx import AsyncClient
-from openinference.instrumentation.openai import OpenAIInstrumentor
 from phoenix.otel import register
 
 from app.constants import KIWI_BASE_URL
@@ -18,9 +17,9 @@ tracer_provider = register(
     protocol="http/protobuf",
     project_name="carryon-carlos",
     batch=True,
+    auto_instrument=True,
 )
 tracer = tracer_provider.get_tracer(__name__)
-OpenAIInstrumentor().instrument(tracer_provider=tracer_provider)
 
 from app.api.kiwi_output_parser import extract_info  # noqa: E402
 from app.api.make_api_request import make_api_request  # noqa: E402

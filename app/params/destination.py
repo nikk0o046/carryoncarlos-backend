@@ -2,7 +2,7 @@ import logging
 import re
 import time
 
-from openai import OpenAI
+from openai import AsyncOpenAI
 from opentelemetry import trace
 
 from app.constants import OPENAI_MODEL
@@ -10,11 +10,11 @@ from app.constants import OPENAI_MODEL
 logger = logging.getLogger(__name__)
 tracer = trace.get_tracer(__name__)
 
-openai_client = OpenAI()
+openai_client = AsyncOpenAI()
 
 
 @tracer.chain
-def create_destination_params(user_request: str, user_id: str) -> dict:
+async def create_destination_params(user_request: str, user_id: str) -> dict:
     """
     This function takes the user request and the selectedcityID and returns the destination parameters.
 
@@ -47,7 +47,7 @@ Disregard any irrelevant information."""
         {"role": "user", "content": human_template},
     ]
 
-    response = openai_client.chat.completions.create(
+    response = await openai_client.chat.completions.create(
         model=OPENAI_MODEL,
         temperature=0,
         messages=message_list,

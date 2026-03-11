@@ -2,7 +2,7 @@ import logging
 import os
 import time
 
-import requests
+from httpx import AsyncClient, HTTPStatusError, RequestError
 from dotenv import load_dotenv
 
 from app.constants import KIWI_BASE_URL
@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 KIWI_API_KEY = os.environ.get("KIWI_API_KEY")
 
 
-def make_api_request(params1: dict, params2: dict, params3: dict, params4: dict, user_id: str) -> dict:
+async def make_api_request(params1: dict, params2: dict, params3: dict, params4: dict, user_id: str) -> dict:
     """
     This function takes the destination, time, duration and other parameters and user ID and returns Kiwi API response.
 
@@ -44,9 +44,13 @@ def make_api_request(params1: dict, params2: dict, params3: dict, params4: dict,
     }
 
     try:
-        response = requests.request("GET", url, headers=headers, params=payload)
-        response.raise_for_status()  # Raises a HTTPError if the status is 4xx, 5xx
-    except requests.exceptions.RequestException as e:
+        async with AsyncClient() as client:
+            response = await client.get(url, headers=headers, params=payload)
+            response.raise_for_status()
+    except HTTPStatusError as e:
+        logger.exception("[UserID: %s] Request failed: %s", user_id, e)
+        return None
+    except RequestError as e:
         logger.exception("[UserID: %s] Request failed: %s", user_id, e)
         return None
 

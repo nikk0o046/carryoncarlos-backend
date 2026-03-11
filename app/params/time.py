@@ -2,18 +2,18 @@ import logging
 import time
 from datetime import datetime, timedelta
 
-from openai import OpenAI
+from openai import AsyncOpenAI
 from opentelemetry import trace
 
 from app.constants import OPENAI_MODEL
 
 logger = logging.getLogger(__name__)
 tracer = trace.get_tracer(__name__)
-openai_client = OpenAI()
+openai_client = AsyncOpenAI()
 
 
 @tracer.chain
-def create_time_params(user_request: str, user_id: str) -> dict:
+async def create_time_params(user_request: str, user_id: str) -> dict:
     """
     This function takes the user request and the user ID and returns the time parameters.
 
@@ -66,7 +66,7 @@ The output should include both:
         {"role": "user", "content": human_template},
     ]
 
-    response = openai_client.chat.completions.create(
+    response = await openai_client.chat.completions.create(
         model=OPENAI_MODEL,
         temperature=0,
         messages=message_list,

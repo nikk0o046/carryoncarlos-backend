@@ -87,6 +87,8 @@ async def search_flights(flight_request: FlightRequest, customer_id: str | None 
             raise HTTPException(status_code=404, detail="No flights found matching your request.")
         return flights_info
 
+    except HTTPException:
+        raise
     except KeyError as e:
         logger.exception(
             "[UserID: %s] An error occurred: %s. The key doesn't exist in the dictionary.",
